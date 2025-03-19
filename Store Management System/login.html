@@ -13,19 +13,20 @@
     </header>
     
     <div class="login-container">
-        <img src="images/defaultguy.jpg" alt="User Icon" class="user-icon">
-        <h2>User Login</h2>
+        <img src="/images/defaultguy.jpg" alt="User Icon" class="user-icon">
+        <h2 data-translate="login_title">User Login</h2>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <label data-translate="username_label" for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label data-translate="password_label" for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit" data-translate="login_button">Login</button>
             <p id="error-message" class="error-message"></p>
         </form>
-        <button id="admin-button" class="admin-btn" style="display: none;">Admin Panel</button>
     </div>
     
     <footer>
-        <div class="language-switch">
+        <div class="language-select">
             <label for="language">Language: </label>
             <select id="language">
                 <option value="en">English</option>
@@ -35,5 +36,6 @@
     </footer>
     
     <script src="login.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

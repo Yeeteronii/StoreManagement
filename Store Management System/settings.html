@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Store Management System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <header>
+    <h1 data-translate="app_title">Store Management System</h1>
+    <div id="user-info"></div>
+    <button id="logout" data-translate="logout_button">Logout</button>
+  </header>
+  <nav id="sidebar"></nav>
+  <main>
+    <h2 data-translate="settings_title">Settings</h2>
+    <label data-translate="language_label">Language:</label>
+    <select id="language-select">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+    </select>
+    <div id="admin-settings" style="display: none;">
+      <h3 data-translate="update_credentials">Update Credentials</h3>
+      <form id="update-credentials-form">
+        <label data-translate="new_password">New Password:</label>
+        <input type="password" id="new-password" required>
+        <button type="submit" data-translate="update_button">Update</button>
+      </form>
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

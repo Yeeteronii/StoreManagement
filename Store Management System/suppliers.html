@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suppliers - Store Management System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="suppliers.css">
+</head>
+<body>
+  <header>
+    <h1 data-translate="app_title">Store Management System</h1>
+    <div id="user-info"></div>
+    <button id="logout" data-translate="logout_button">Logout</button>
+  </header>
+  <nav id="sidebar"></nav>
+  <main>
+    <h2 data-translate="suppliers_title">Suppliers</h2>
+    <button id="add-supplier-btn" data-translate="add_supplier">Add Supplier</button>
+    <table id="supplier-table">
+      <thead>
+        <tr>
+          <th data-translate="supplier_name">Name</th>
+          <th data-translate="contact">Contact</th>
+          <th data-translate="actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script src="script.js"></script>
+  <script src="suppliers.js"></script>
+</body>
+</html>

@@ -28,12 +28,8 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     if (user) {
         // Store user data, including role, in localStorage
         localStorage.setItem('currentUser', JSON.stringify(user));
-        window.location.href = "mainpage.html"; // Redirect to main page
+        window.location.href = "/mainpage.html"; // Redirect to main page
     } else {
         errorMessage.textContent = translations[currentLanguage].invalid_credentials;
     }
 });
-
-document.getElementById('language-select').addEventListener('change', (e) => {
-    updateLanguage(e.target.value); // From script.js
-  });
