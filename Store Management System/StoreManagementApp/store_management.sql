@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2025 at 11:25 PM
+-- Generation Time: Apr 01, 2025 at 05:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,10 +56,8 @@ CREATE TABLE `orders` (
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(64) NOT NULL,
-  `price_before_tax` double NOT NULL,
+  `cost` double NOT NULL,
   `price_to_sell` double NOT NULL,
-  `selling_price` double NOT NULL,
-  `selling_price_after_tax` double NOT NULL,
   `category_id` int(11) NOT NULL,
   `threshold` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
