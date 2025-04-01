@@ -5,7 +5,7 @@ include_once "Models/Model.php";
 class Product {
     public $productId;
     public $productName;
-    public $buyPrice;
+    public $cost;
     public $sellingPrice;
     public $categoryId;
     public $threshold;

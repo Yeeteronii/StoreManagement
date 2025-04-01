@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 05:15 PM
+-- Generation Time: Apr 01, 2025 at 05:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `category_id` int(11) NOT NULL,
-  `category_name` varchar(32) NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `categoryName` varchar(32) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,9 +40,9 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `order_date` date NOT NULL,
+  `orderId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `orderDate` date NOT NULL,
   `quantity` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -54,11 +54,11 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `products` (
-  `product_id` int(11) NOT NULL,
-  `product_name` varchar(64) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `productName` varchar(64) NOT NULL,
   `cost` double NOT NULL,
-  `price_to_sell` double NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `priceToSell` double NOT NULL,
+  `categoryId` int(11) NOT NULL,
   `threshold` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
@@ -71,7 +71,7 @@ CREATE TABLE `products` (
 --
 
 CREATE TABLE `reports` (
-  `report_id` int(11) NOT NULL,
+  `reportId` int(11) NOT NULL,
   `Date` date NOT NULL,
   `earnings` double NOT NULL,
   `profits` double NOT NULL,
@@ -86,10 +86,10 @@ CREATE TABLE `reports` (
 --
 
 CREATE TABLE `shifts` (
-  `shift_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL,
-  `start_time` time NOT NULL,
-  `end_time` time NOT NULL
+  `shiftId` int(11) NOT NULL,
+  `employeeId` int(11) NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,10 +99,10 @@ CREATE TABLE `shifts` (
 --
 
 CREATE TABLE `suppliers` (
-  `supplier_id` int(11) NOT NULL,
-  `supplier_name` varchar(32) NOT NULL,
+  `supplierId` int(11) NOT NULL,
+  `supplierName` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
-  `phone_num` int(11) NOT NULL,
+  `phoneNum` int(11) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -113,9 +113,9 @@ CREATE TABLE `suppliers` (
 --
 
 CREATE TABLE `users` (
-  `users_id` int(11) NOT NULL,
-  `user_name` varchar(64) NOT NULL,
-  `user_password` varchar(32) NOT NULL,
+  `usersId` int(11) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `userPassword` varchar(32) NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -127,46 +127,46 @@ CREATE TABLE `users` (
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`category_id`);
+  ADD PRIMARY KEY (`categoryId`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`),
-  ADD KEY `productFK` (`product_id`);
+  ADD PRIMARY KEY (`orderId`),
+  ADD KEY `productFK` (`productId`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`product_id`),
-  ADD KEY `categoryFK` (`category_id`);
+  ADD PRIMARY KEY (`productId`),
+  ADD KEY `categoryFK` (`categoryId`);
 
 --
 -- Indexes for table `reports`
 --
 ALTER TABLE `reports`
-  ADD PRIMARY KEY (`report_id`);
+  ADD PRIMARY KEY (`reportId`);
 
 --
 -- Indexes for table `shifts`
 --
 ALTER TABLE `shifts`
-  ADD PRIMARY KEY (`shift_id`),
-  ADD KEY `employeeFK` (`employee_id`);
+  ADD PRIMARY KEY (`shiftId`),
+  ADD KEY `employeeFK` (`employeeId`);
 
 --
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  ADD PRIMARY KEY (`supplier_id`);
+  ADD PRIMARY KEY (`supplierId`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`users_id`);
+  ADD PRIMARY KEY (`usersId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -176,43 +176,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shifts`
 --
 ALTER TABLE `shifts`
-  MODIFY `shift_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `usersId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -222,13 +222,13 @@ ALTER TABLE `users`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `productFK` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `productFK` FOREIGN KEY (`productId`) REFERENCES `products` (`productId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `shifts`
 --
 ALTER TABLE `shifts`
-  ADD CONSTRAINT `employeeFK` FOREIGN KEY (`employee_id`) REFERENCES `users` (`users_id`);
+  ADD CONSTRAINT `employeeFK` FOREIGN KEY (`employeeId`) REFERENCES `users` (`usersId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
