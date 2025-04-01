@@ -1,3 +1,5 @@
+<?php
+
 // -------------------------------
 // General Utility Functions
 // -------------------------------
@@ -5,7 +7,7 @@
 // Data Storage
 let currentUser = null;
 const users = [
-  { username: "admin", password: "admin123", role: "admin" },
+  { 'username': 'admin', password: "admin123", role: "admin" },
   { username: "employee1", password: "emp123", role: "employee" }
 ];
 
