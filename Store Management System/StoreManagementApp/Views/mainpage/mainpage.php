@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$path = $_SERVER['SCRIPT_NAME'];
+?>
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Menu - Store Management System</title>
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="<?= dirname($path); ?>/styles/styles.css">
+    <link rel="stylesheet" href="<?= dirname($path); ?>/styles/mainpage.css">
+
+    <?php require_once dirname(__DIR__) . "/scripts.php"; ?>
 </head>
 <body>
-    <header>
-        <h1>Store Management System</h1>
-        <div id="user-info"></div>
-        <button id="logout">Logout</button>
-    </header>
-    <nav id="sidebar">
-        <!-- Sidebar links will be added dynamically -->
-    </nav>
+<div class="container">
+    <?php require_once dirname(__DIR__) . "/nav.php"; ?>
     <main>
-        <h2>Welcome</h2>
-        <p>Select a page from the sidebar.</p>
+        <h2 data-translate="welcome_title">Welcome</h2>
+        <p data-translate="welcome_message">Select a page from the sidebar.</p>
         <div id="admin-section" style="display: none;">
-            <!-- Admin-only content -->
-            <button id="manage-users">Manage Users</button>
+            <button id="manage-users" data-translate="manage_users">Manage Users</button>
         </div>
     </main>
-    <script src="mainpage.js"></script>
+</div>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Employees - Store Management System</title>
+  <title>Reports - Store Management System</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="employees.css">
+  <link rel="stylesheet" href="reports.css">
 </head>
 <body>
   <header>
@@ -15,20 +15,20 @@
   </header>
   <nav id="sidebar"></nav>
   <main>
-    <h2 data-translate="employees_title">Employees</h2>
-    <button id="add-employee-btn" data-translate="add_employee">Add Employee</button>
-    <table id="employee-table">
+    <h2 data-translate="reports_title">Reports</h2>
+    <button id="add-report-btn" data-translate="add_report">Add Report</button>
+    <table id="report-table">
       <thead>
         <tr>
-          <th data-translate="employee_name">Name</th>
-          <th data-translate="role">Role</th>
-          <th data-translate="actions">Actions</th>
+          <th data-translate="date">Date</th>
+          <th data-translate="earnings">Earnings</th>
+          <th data-translate="notes">Notes</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </main>
   <script src="script.js"></script>
-  <script src="employees.js"></script>
+  <script src="../reports.js"></script>
 </body>
 </html>
