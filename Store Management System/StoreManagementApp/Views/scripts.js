@@ -1,5 +1,3 @@
-<?php
-
 // -------------------------------
 // General Utility Functions
 // -------------------------------
@@ -7,7 +5,7 @@
 // Data Storage
 let currentUser = null;
 const users = [
-  { 'username': 'admin', password: "admin123", role: "admin" },
+  { username: "admin", password: "admin123", role: "admin" },
   { username: "employee1", password: "emp123", role: "employee" }
 ];
 
@@ -186,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (page === 'employees' && currentUser.role === 'admin') {
     // Populate employees table (admin only)
     const employees = [
-      { id: 1, name: "User 1", role: "Cashier" }
+      { id: 1, name: "Employee 1", role: "Cashier" }
     ];
     const tbody = document.getElementById('employee-table').querySelector('tbody');
     employees.forEach(e => {
