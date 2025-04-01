@@ -43,4 +43,35 @@ class Product {
         $this->quantity = $param->quantity;
     }
 
+    public static function list() {
+        $list = [];
+        $conn = Model::connect();
+        $sql = "SELECT * FROM `products` WHERE `isActive` = 1`";
+
+        $result = $conn->query($sql);
+        while($row = $result->fetch_object()) {
+            $product = new Product($row);
+            array_push($list, $product);
+        }
+        return $list;
+    }
+
+    public static function view($productId = -1)
+    {
+        $list = [];
+        $sql = "SELECT * FROM `products` WHERE `productId` " . $productId . " LIMIT 1";
+
+        $conn = Model::connect();
+        $result = $conn->query($sql);
+
+        $row = $result->fetch_object();
+        $product = new Product($row);
+        array_push($list, $product);
+
+        return $list;
+    }
+
+
+
+
 }
