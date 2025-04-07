@@ -8,7 +8,7 @@ $path = $_SERVER['SCRIPT_NAME'];
     <link rel="stylesheet" href="<?= dirname($path); ?>/styles/styles.css">
     <link rel="stylesheet" href="<?= dirname($path); ?>/styles/products.css">
 
-    <?php require_once dirname(__DIR__) . "/scripts.php"; ?>
+    <!-- <?php //require_once dirname(__DIR__) . "/scripts.php"; ?> -->
 </head>
 <body>
 <div class="container">
@@ -27,9 +27,10 @@ $path = $_SERVER['SCRIPT_NAME'];
             </thead>
             <tbody>
             <?php
-            foreach ($products as $product) { ?>
+            foreach ($data as $product){
+                ?>
                 <tr>
-                    <td><?= $product['name']; ?></td>
+                    <td><?= $product->productName;?></td>
                     <td><?= $product['category']; ?></td>
                     <td><?= $product['quantity']; ?></td>
                     <td>

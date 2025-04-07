@@ -6,7 +6,7 @@ class Product {
     public $productId;
     public $productName;
     public $cost;
-    public $sellingPrice;
+    public $priceToSell;
     public $categoryId;
     public $threshold;
     public $quantity;
@@ -36,17 +36,16 @@ class Product {
     private function setProperties($param){
         $this->productId = $param->productId;
         $this->productName = $param->productName;
-        $this->buyPrice = $param->buyPrice;
-        $this->sellingPrice = $param->sellingPrice;
+        $this->cost = $param->cost;
+        $this->priceToSell = $param->priceToSell;
         $this->categoryId = $param->categoryId;
         $this->threshold = $param->threshold;
         $this->quantity = $param->quantity;
     }
-
     public static function list() {
         $list = [];
         $conn = Model::connect();
-        $sql = "SELECT * FROM `products` WHERE `isActive` = 1`";
+        $sql = "SELECT p.`productName`, p.`cost`, p.`priceToSell`, c.`categoryName`, p.`quantity` FROM `products` p JOIN `categories` c ON c.`categoryId` = p.`categoryId` WHERE p.`isActive` = 1;";
 
         $result = $conn->query($sql);
         while($row = $result->fetch_object()) {
@@ -71,7 +70,7 @@ class Product {
         return $list;
     }
 
-    
+
 
 
 
