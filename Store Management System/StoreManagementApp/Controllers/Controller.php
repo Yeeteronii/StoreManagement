@@ -12,6 +12,8 @@ class Controller {
     function render($controller, $view, $data = []) {
         $path = $_SERVER['SCRIPT_NAME'];
 
+        cdebug($_SESSION,'session in cotroller');
+
         if ($controller == "User" && $view == "add") {
             ///WARNING INCLUDE DATA FOR SPECIFIED ADD (user in this case)!!!!!!!!!!!!!!!!!!!!!!
             include "Views/add.php";

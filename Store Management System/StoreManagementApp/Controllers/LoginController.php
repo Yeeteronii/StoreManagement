@@ -10,6 +10,8 @@ class LoginController extends Controller {
 		$action = isset($_GET['action']) ? $_GET['action'] : "login";
 		//$id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
+        cdebug($_SESSION,'session in login controllr');
+
         if ($action == "login") {
             include "Views/login/login.php";
         }
