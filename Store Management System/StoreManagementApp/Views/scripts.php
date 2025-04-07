@@ -4,6 +4,8 @@
 // General Utility Functions
 // -------------------------------
 
+/*
+
 // Data Storage
 let currentUser = null;
 const users = [
@@ -205,3 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Additional page-specific logic for 'reports', 'settings', etc., can be added similarly
 });
+
+
+
+*/
