@@ -4,7 +4,7 @@ include_once "Util/cdebug.php";
 
 
 session_start();
-$controller = (isset($_GET['controller'])) ? $_GET['controller'] : "login";
+$controller = (isset($_GET['controller'])) ? $_GET['controller'] : "product";
 
 // cdebug($controller,'test');
 // exit;

@@ -53,7 +53,7 @@ class Category {
     public static function view($categoryId = -1)
     {
         $list = [];
-        $sql = "SELECT * FROM `category` WHERE `categoryId` = " . $categoryId . " LIMIT 1";
+        $sql = "SELECT * FROM `categories` WHERE `categoryId` = " . $categoryId . " LIMIT 1";
 
         $conn = Model::connect();
         $result = $conn->query($sql);

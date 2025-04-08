@@ -20,7 +20,7 @@ function isAdmin($role) {
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?= htmlspecialchars($path); ?>/products">Products</a>
+                <a class="nav-link" href="<?= htmlspecialchars($path); ?>/product">Products</a>
             </li>
 
             <li class="nav-item">
@@ -54,7 +54,7 @@ function isAdmin($role) {
             <?php endif; ?>
         </ul>
 
-        <?php if ($currentUser): ?>
+<!--        --><?php //if ($currentUser): ?>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <span class="nav-link">Logged in as: <?= htmlspecialchars(isset($currentUser['username']) ? $currentUser['username'] : 'Guest'); ?></span>
@@ -63,12 +63,12 @@ function isAdmin($role) {
                     <a class="nav-link" href="<?= htmlspecialchars($path); ?>/logout">Logout</a>
                 </li>
             </ul>
-        <?php else: ?>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/login">Login</a>
-                </li>
-            </ul>
-        <?php endif; ?>
+<!--        --><?php //else: ?>
+<!--            <ul class="navbar-nav ml-auto">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="--><?php //= htmlspecialchars($path); ?><!--/login">Login</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        --><?php //endif; ?>
     </div>
 </nav>

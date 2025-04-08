@@ -51,7 +51,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Table structure for table `Product`
 --
 
 CREATE TABLE `products` (
@@ -138,7 +138,7 @@ ALTER TABLE `orders`
   ADD KEY `productFK` (`productId`);
 
 --
--- Indexes for table `products`
+-- Indexes for table `Product`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`productId`),
@@ -186,7 +186,7 @@ ALTER TABLE `orders`
   MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `products`
   MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
