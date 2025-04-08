@@ -6,7 +6,7 @@
     
         public $userId;
         public $username;
-        public $userPassword;
+        public $password;
     
         function __construct($param = null){
             if(is_object($param)){
@@ -31,7 +31,7 @@
         private function setProperties($param) {
             $this->userId = $param->userId;
             $this->username = $param->username;
-            $this->userPassword = $param->userPassword;
+            $this->password = $param->password;
     
         }
 
@@ -40,35 +40,78 @@
 
 
 
-//Change based on chosen encryption method
-//and maybe also using 2fa but that shit is too har T.T
-//whats the point of tokens
-public static function verifyLogin() {
-        $conn = Model::connect();
+    //Change based on chosen encryption method
+    //and maybe also using 2fa but that shit is too har T.T
+    //whats the point of tokens
+    public static function verifyLogin() {
+        $conn = Model::connect_users();
         $sql = "SELECT *
             FROM `users`
             WHERE username = ?
-            AND userPassword = ?";
+            AND password = ?
+            LIMIT 1";
 
         $stmt = $conn->prepare($sql);
-        $encryptedPassword = sha1($_POST['userPassword']); 
-        $stmt->bind_param("ss", ($_POST['username']), $encryptedPassword);
+        $stmt->bind_param("ss", ($_POST['username']), $_POST['password']);
         $stmt->execute();
 
 
         $result = $stmt->get_result();
         $row = $result->fetch_object();
 
-
+        // return outcome and user
+        // use: $data['return']
         if (!empty($row)) {
-            $_SESSION['loggedIn'] = true;
+            //$_SESSION['loggedIn'] = true;
             //$_SESSION['token'] = Model::generateRandomString(36);
-            return true;
+            $data['return'] = true;
+            $data['user'] = $row;
+            return $data;
         } else {
-            return false;
+            $data['return'] = false;
+            return $data;
         }
 
+        // if (!empty($row)) {
+        //         //$_SESSION['loggedIn'] = true;
+        //         //$_SESSION['token'] = Model::generateRandomString(36);
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
     }
+
+
+    //OLD VERFIYLOGIN
+    // public static function verifyLogin() {
+    //         $conn = Model::connect_users();
+    //         $sql = "SELECT *
+    //             FROM `users`
+    //             WHERE username = ?
+    //             AND password = ?";
+
+    //         $stmt = $conn->prepare($sql);
+    //         $encryptedPassword = sha1($_POST['password']); 
+    //         $stmt->bind_param("ss", ($_POST['username']), $encryptedPassword);
+    //         $stmt->execute();
+
+
+    //         $result = $stmt->get_result();
+    //         $row = $result->fetch_object();
+
+
+    //         if (!empty($row)) {
+    //             $_SESSION['loggedIn'] = true;
+    //             //$_SESSION['token'] = Model::generateRandomString(36);
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+
+    //     }
+
+
+    // }
 
 
 }
