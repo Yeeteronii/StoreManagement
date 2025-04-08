@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 04:27 PM
+-- Generation Time: Apr 08, 2025 at 06:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `storerights`
+-- Database: `storemanagement`
 --
 
 -- --------------------------------------------------------
@@ -71,6 +71,19 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (31, 'Setting', 'update'),
 (32, 'Setting', 'language'),
 (33, 'Setting', 'theme');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `categoryId` int(11) NOT NULL,
+  `categoryName` varchar(32) NOT NULL,
+  `categoryTax` double NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -154,6 +167,79 @@ INSERT INTO `groups_actions` (`id`, `group_id`, `action_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `orderId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `orderDate` date NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `productId` int(11) NOT NULL,
+  `productName` varchar(64) NOT NULL,
+  `cost` double NOT NULL,
+  `priceToSell` double NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `threshold` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `reportId` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `earnings` double NOT NULL,
+  `profits` double NOT NULL,
+  `decription` varchar(128) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shifts`
+--
+
+CREATE TABLE `shifts` (
+  `shiftId` int(11) NOT NULL,
+  `employeeId` int(11) NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `supplierId` int(11) NOT NULL,
+  `supplierName` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `phoneNum` int(11) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -183,6 +269,14 @@ CREATE TABLE `users_groups` (
   `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `users_groups`
+--
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 1),
+(2, 2, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -206,6 +300,12 @@ ALTER TABLE `actions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`categoryId`);
+
+--
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
@@ -218,6 +318,39 @@ ALTER TABLE `groups_actions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `action_id` (`action_id`),
   ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orderId`),
+  ADD KEY `productFK` (`productId`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`productId`),
+  ADD KEY `categoryFK` (`categoryId`);
+
+--
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`reportId`);
+
+--
+-- Indexes for table `shifts`
+--
+ALTER TABLE `shifts`
+  ADD PRIMARY KEY (`shiftId`),
+  ADD KEY `employeeFK` (`employeeId`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`supplierId`);
 
 --
 -- Indexes for table `users`
@@ -250,6 +383,12 @@ ALTER TABLE `actions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
@@ -260,6 +399,36 @@ ALTER TABLE `groups`
 --
 ALTER TABLE `groups_actions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shifts`
+--
+ALTER TABLE `shifts`
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -289,6 +458,24 @@ ALTER TABLE `user_actions`
 ALTER TABLE `groups_actions`
   ADD CONSTRAINT `groups_actions_ibfk_1` FOREIGN KEY (`action_id`) REFERENCES `actions` (`id`),
   ADD CONSTRAINT `groups_actions_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `productFK` FOREIGN KEY (`productId`) REFERENCES `products` (`productId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `categoryFK` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`categoryId`);
+
+--
+-- Constraints for table `shifts`
+--
+ALTER TABLE `shifts`
+  ADD CONSTRAINT `employeeFK` FOREIGN KEY (`employeeId`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `users_groups`
