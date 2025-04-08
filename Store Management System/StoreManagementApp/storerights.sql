@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2025 at 11:54 PM
+-- Generation Time: Apr 08, 2025 at 04:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -103,6 +103,54 @@ CREATE TABLE `groups_actions` (
   `action_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `groups_actions`
+--
+
+INSERT INTO `groups_actions` (`id`, `group_id`, `action_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12),
+(13, 1, 13),
+(14, 1, 14),
+(15, 1, 15),
+(16, 1, 16),
+(17, 1, 17),
+(18, 1, 18),
+(19, 1, 19),
+(20, 1, 20),
+(21, 1, 21),
+(22, 1, 22),
+(23, 1, 23),
+(24, 1, 24),
+(25, 1, 25),
+(26, 1, 26),
+(27, 1, 27),
+(28, 1, 28),
+(29, 1, 29),
+(30, 1, 30),
+(31, 1, 31),
+(32, 1, 32),
+(33, 1, 33),
+(34, 2, 1),
+(35, 2, 3),
+(36, 2, 4),
+(37, 2, 5),
+(38, 2, 11),
+(39, 2, 30),
+(40, 2, 31),
+(41, 2, 32),
+(42, 2, 33);
+
 -- --------------------------------------------------------
 
 --
@@ -114,6 +162,14 @@ CREATE TABLE `users` (
   `username` varchar(32) NOT NULL,
   `password` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'admin', '12345'),
+(2, 'employee', '67890');
 
 -- --------------------------------------------------------
 
@@ -203,7 +259,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `groups_actions`
 --
 ALTER TABLE `groups_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`
