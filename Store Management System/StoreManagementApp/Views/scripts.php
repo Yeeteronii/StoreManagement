@@ -1,3 +1,10 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 <?php
 
 // -------------------------------
@@ -84,7 +91,7 @@ function renderSidebar() {
   const sidebar = document.getElementById('sidebar');
   const links = currentUser.role === 'admin' ? [
     { href: 'mainpage.html', text: 'welcome_title' },
-    { href: 'products.html', text: 'products_title' },
+    { href: 'Product.html', text: 'products_title' },
     { href: 'schedule.html', text: 'schedule_title' },
     { href: 'orders.html', text: 'orders_title' },
     { href: 'suppliers.html', text: 'suppliers_title' },
@@ -93,7 +100,7 @@ function renderSidebar() {
     { href: 'settings.html', text: 'settings_title' }
   ] : [
     { href: 'mainpage.html', text: 'welcome_title' },
-    { href: 'products.html', text: 'products_title' },
+    { href: 'Product.html', text: 'products_title' },
     { href: 'schedule.html', text: 'schedule_title' },
     { href: 'settings.html', text: 'settings_title' }
   ];
@@ -126,14 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle page-specific functionality
   const page = document.body.dataset.page;
 
-  if (page === 'products') {
+  if (page === 'Product') {
     // Populate product table
-    const products = [
+    const Product = [
       { id: 1, name: "Milk", category: "Dairy", quantity: 10 },
       { id: 2, name: "Chips", category: "Snacks", quantity: 3 }
     ];
     const tbody = document.getElementById('product-table').querySelector('tbody');
-    products.forEach(p => {
+    Product.forEach(p => {
       const tr = document.createElement('tr');
       tr.className = p.quantity < 5 ? 'low-stock' : '';
       tr.innerHTML = `

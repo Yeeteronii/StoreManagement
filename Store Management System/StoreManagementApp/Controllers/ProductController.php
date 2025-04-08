@@ -11,7 +11,9 @@ class ProductController  extends Controller {
 
         if ($action == 'list') {
             $data = Product::list();
-            this->render("Product", "products", $data);
+            $this->render("Product", "products", $data);
+        } else if ($action == 'view') {
+
         }
     }
 }

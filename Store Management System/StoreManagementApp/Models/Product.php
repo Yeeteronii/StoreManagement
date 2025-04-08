@@ -7,7 +7,7 @@ class Product {
     public $productName;
     public $cost;
     public $priceToSell;
-    public $categoryId;
+    public $categoryName;
     public $threshold;
     public $quantity;
 
@@ -19,7 +19,7 @@ class Product {
         }
         elseif(is_int($param)) {
             $conn = Model::connect();
-            $sql = "SELECT * FROM `products` WHERE `productId` = ?";
+            $sql = "SELECT * FROM `Product` WHERE `productId` = ?";
 
             $stmt = $conn->prepare($sql);
 
@@ -34,12 +34,12 @@ class Product {
     }
 
     private function setProperties($param){
-        $this->productId = $param->productId;
+        $this->productId = $param->productId ?? null;
         $this->productName = $param->productName;
         $this->cost = $param->cost;
         $this->priceToSell = $param->priceToSell;
-        $this->categoryId = $param->categoryId;
-        $this->threshold = $param->threshold;
+        $this->categoryName = $param->categoryName ?? null;
+        $this->threshold = $param->threshold ?? null;
         $this->quantity = $param->quantity;
     }
     public static function list() {
@@ -58,7 +58,7 @@ class Product {
     public static function view($productId = -1)
     {
         $list = [];
-        $sql = "SELECT * FROM `products` WHERE `productId`  = " . $productId . " LIMIT 1";
+        $sql = "SELECT * FROM `Product` WHERE `productId`  = " . $productId . " LIMIT 1";
 
         $conn = Model::connect();
         $result = $conn->query($sql);
