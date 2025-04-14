@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 06:34 PM
+-- Generation Time: Apr 14, 2025 at 07:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `storemanagement`
+-- Database: `store_management`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `actions` (
-  `id` int(11) NOT NULL,
-  `controller` varchar(32) NOT NULL,
-  `action` varchar(32) NOT NULL
+  `id` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `controller` varchar(32) NOT NULL COMMENT 'Example: Users',
+  `action` varchar(32) NOT NULL COMMENT 'Example: list'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -79,10 +79,10 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 --
 
 CREATE TABLE `categories` (
-  `categoryId` int(11) NOT NULL,
-  `categoryName` varchar(32) NOT NULL,
-  `categoryTax` double NOT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `categoryId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `categoryName` varchar(32) NOT NULL COMMENT 'Example: Candy',
+  `categoryTax` double NOT NULL COMMENT 'Example: 0.5',
+  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled)\r\n1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -92,8 +92,8 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `groups` (
-  `id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL
+  `id` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `name` varchar(32) NOT NULL COMMENT 'Example: admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -111,9 +111,9 @@ INSERT INTO `groups` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `groups_actions` (
-  `id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `action_id` int(11) NOT NULL
+  `id` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `group_id` int(11) NOT NULL COMMENT 'Example: 1',
+  `action_id` int(11) NOT NULL COMMENT 'Example: 2 (list)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -171,11 +171,11 @@ INSERT INTO `groups_actions` (`id`, `group_id`, `action_id`) VALUES
 --
 
 CREATE TABLE `orders` (
-  `orderId` int(11) NOT NULL,
-  `productId` int(11) NOT NULL,
-  `orderDate` date NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `orderId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `productId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `orderDate` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
+  `quantity` int(11) NOT NULL COMMENT 'Example: 10',
+  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -185,14 +185,14 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `products` (
-  `productId` int(11) NOT NULL,
-  `productName` varchar(64) NOT NULL,
-  `cost` double NOT NULL,
-  `priceToSell` double NOT NULL,
-  `categoryId` int(11) NOT NULL,
-  `threshold` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `productId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `productName` varchar(64) NOT NULL COMMENT 'Example: Hershey''s Cookies and Cream, 55g',
+  `cost` double NOT NULL COMMENT 'Example: 30.00$ (how much he bought it for)',
+  `priceToSell` double NOT NULL COMMENT 'Example: 50.00$ (Sell price)\r\n',
+  `categoryId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `threshold` int(11) NOT NULL COMMENT 'Example: 15 (desired stock)',
+  `quantity` int(11) NOT NULL COMMENT 'Example: 20 (amount currently)',
+  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -202,12 +202,12 @@ CREATE TABLE `products` (
 --
 
 CREATE TABLE `reports` (
-  `reportId` int(11) NOT NULL,
-  `Date` date NOT NULL,
-  `earnings` double NOT NULL,
-  `profits` double NOT NULL,
-  `decription` varchar(128) NOT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `reportId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `Date` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
+  `earnings` double NOT NULL COMMENT 'Example: 25.00$',
+  `profits` double NOT NULL COMMENT 'Example: 15.00$',
+  `decription` varchar(128) NOT NULL COMMENT 'Example: Beer was not well, Candy was selling good, neutral on everything else',
+  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -217,10 +217,11 @@ CREATE TABLE `reports` (
 --
 
 CREATE TABLE `shifts` (
-  `shiftId` int(11) NOT NULL,
-  `employeeId` int(11) NOT NULL,
-  `startTime` time NOT NULL,
-  `endTime` time NOT NULL
+  `shiftId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `userId` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `day` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
+  `startTime` time NOT NULL COMMENT 'Example: 10:00:00',
+  `endTime` time NOT NULL COMMENT 'Example: 18:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -230,11 +231,11 @@ CREATE TABLE `shifts` (
 --
 
 CREATE TABLE `suppliers` (
-  `supplierId` int(11) NOT NULL,
-  `supplierName` varchar(32) NOT NULL,
-  `email` varchar(32) NOT NULL,
-  `phoneNum` int(11) NOT NULL,
-  `isActive` tinyint(1) NOT NULL DEFAULT 1
+  `supplierId` int(11) NOT NULL COMMENT 'Example: 1111111111',
+  `supplierName` varchar(32) NOT NULL COMMENT 'Example: Suns of Calydon',
+  `email` varchar(32) NOT NULL COMMENT 'Example: parthpatel@gmail.com',
+  `phoneNum` int(11) NOT NULL COMMENT 'Example: 222-111-8907',
+  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -244,9 +245,9 @@ CREATE TABLE `suppliers` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(32) NOT NULL,
-  `password` varchar(128) NOT NULL
+  `id` int(11) NOT NULL COMMENT 'Example: 1',
+  `username` varchar(32) NOT NULL COMMENT 'Example: parthpatel',
+  `password` varchar(128) NOT NULL COMMENT 'Example: NicholasRoyMicrowave'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -264,9 +265,9 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 --
 
 CREATE TABLE `users_groups` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL
+  `id` int(11) NOT NULL COMMENT 'Example: 11111111111',
+  `user_id` int(11) NOT NULL COMMENT 'Example: 1 (parthpatel)',
+  `group_id` int(11) NOT NULL COMMENT 'Example: 1 (admin)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -276,18 +277,6 @@ CREATE TABLE `users_groups` (
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 2, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_actions`
---
-
-CREATE TABLE `user_actions` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `action_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -344,7 +333,7 @@ ALTER TABLE `reports`
 --
 ALTER TABLE `shifts`
   ADD PRIMARY KEY (`shiftId`),
-  ADD KEY `employeeFK` (`employeeId`);
+  ADD KEY `employeeFK` (`userId`);
 
 --
 -- Indexes for table `suppliers`
@@ -367,12 +356,6 @@ ALTER TABLE `users_groups`
   ADD KEY `USERS` (`user_id`);
 
 --
--- Indexes for table `user_actions`
---
-ALTER TABLE `user_actions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -380,73 +363,67 @@ ALTER TABLE `user_actions`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `groups_actions`
 --
 ALTER TABLE `groups_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
 
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
 
 --
 -- AUTO_INCREMENT for table `shifts`
 --
 ALTER TABLE `shifts`
-  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1111111111';
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `user_actions`
---
-ALTER TABLE `user_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -475,7 +452,7 @@ ALTER TABLE `products`
 -- Constraints for table `shifts`
 --
 ALTER TABLE `shifts`
-  ADD CONSTRAINT `employeeFK` FOREIGN KEY (`employeeId`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `userFK` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `users_groups`
