@@ -2,6 +2,8 @@
 
 include_once "Util/cdebug.php";
 
+//??????????
+//cdebug($_GET['action'], "true action in index");
 
 session_start();
 $controller = (isset($_GET['controller'])) ? $_GET['controller'] : "product";

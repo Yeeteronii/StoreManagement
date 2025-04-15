@@ -12,8 +12,10 @@ class LoginController extends Controller {
 
         cdebug($_SESSION,'session in login controllr');
         cdebug($_POST,'post in login controller');
-        cdebug(User::verifyLogin(),'verfiylogin in login control');
+        cdebug(User::verifyLoginForm(),'verfiylogin in login control');
         cdebug(dirname($path));
+        cdebug($action,"action");
+        //cdebug($_GET['action'], "true action in logincontr");
         //exit;
 
         if ($action === "login") {
@@ -22,6 +24,8 @@ class LoginController extends Controller {
             } else {
                 $this->render("Login", "login");
             }
+        } else {
+            //logout functionality
         }
 
         // if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
@@ -44,9 +48,9 @@ class LoginController extends Controller {
 
 
     function processLogin() {
-        $loginData = User::verfifyLogin();
+        $loginData = User::verfifyLoginForm();
         if ($loginData['return'] == true) {
-            $_SESSION['user'] = $loginData['user']->id;
+            $_SESSION['userId'] = $loginData['user']->id;
             $_SESSION['token'] = bin2hex(random_bytes(16)); // Generate a random session token
             header("Location: " . dirname($path) . "/home");
             cdebug($_SESSION,'SUCCESSS');

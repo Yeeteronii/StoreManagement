@@ -3,6 +3,7 @@
 //exit;
 
 include_once 'Models/Model.php';
+include_once "Models/User.php";
 
 class Controller {
     
@@ -10,37 +11,9 @@ class Controller {
 	}
 
     function render($controller, $view, $data = []) {
-<<<<<<< HEAD
         extract($data);
 
         include "Views/$controller/$view.php";
-=======
-//        $path = $_SERVER['SCRIPT_NAME'];
-//
-//        cdebug($_SESSION,'session in cotroller');
-//
-//        if ($controller == "User" && $view == "add") {
-//            ///WARNING INCLUDE DATA FOR SPECIFIED ADD (user in this case)!!!!!!!!!!!!!!!!!!!!!!
-//            include "Views/add.php";
-//        }
-//        elseif(isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-//            extract($data);
-//            include "Views/$controller/$view.php";
-//
-//        }
-//        elseif (!empty($_POST) && User::verifyLogin()){
-//            $_SESSION['loggedIn'] = true;
-//            $newUrl = dirname($path) . "/home";
-//            header("Location: " .$newUrl);
-//
-//        } else {
-//            include "Views/login.php";
-//        }
-
-        extract($data);
-        include "Views/$controller/$view.php";
-        
->>>>>>> 92ab6c0ecc8a0d8269ae5d24106a138dd70b4aa4
     }
 
 }

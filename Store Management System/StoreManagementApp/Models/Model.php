@@ -2,7 +2,7 @@
 
 class Model{
 	
-	public static function connect_management(){
+	public static function connect(){
 		$server = "localhost";
 		$user = "root";
 		$pass = "";
@@ -17,20 +17,20 @@ class Model{
 		return $conn;
 	}
 
-	public static function connect_users(){
-		$server = "localhost";
-		$user = "root";
-		$pass = "";
-		$db = "storerights";
+	// public static function connect_users(){
+	// 	$server = "localhost";
+	// 	$user = "root";
+	// 	$pass = "";
+	// 	$db = "storerights";
 
-		$conn = new mysqli($server, $user, $pass, $db);
+	// 	$conn = new mysqli($server, $user, $pass, $db);
 
-		if($conn->connect_error){
-			die("Connection error! I can't deal with this anymore<br>" . $conn->connect_error);
-		}
+	// 	if($conn->connect_error){
+	// 		die("Connection error! I can't deal with this anymore<br>" . $conn->connect_error);
+	// 	}
 
-		return $conn;
-	}
+	// 	return $conn;
+	// }
 }
 
 ?>

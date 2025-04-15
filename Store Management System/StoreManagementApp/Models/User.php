@@ -43,8 +43,8 @@
     //Change based on chosen encryption method
     //and maybe also using 2fa but that shit is too har T.T
     //whats the point of tokens
-    public static function verifyLogin() {
-        $conn = Model::connect_users();
+    public static function verifyLoginForm() {
+        $conn = Model::connect();
         $sql = "SELECT *
             FROM `users`
             WHERE username = ?
@@ -80,6 +80,19 @@
         //         return false;
         //     }
     }
+
+
+    public static function checkIfLoggedIn() {
+        //cdebug(dirname($_SERVER['SCRIPT_NAME']) . "/login");
+        //exit;
+        cdebug($_GET['action'], "action in checked logged in");
+        if(!empty($_SESSION['userId'])) {
+            return true;
+        } else {
+            header("Location: " . dirname($_SERVER['SCRIPT_NAME']) . "/login");
+        }
+    }
+
 
 
     //OLD VERFIYLOGIN
