@@ -58,7 +58,12 @@ class Product {
     public static function view($productId = -1)
     {
         $list = [];
-        $sql = "SELECT * FROM `Product` WHERE `productId`  = " . $productId . " LIMIT 1";
+        $sql = "SELECT * FROM `products` WHERE `productId`  = " . $productId . " LIMIT 1";
+
+        $sql = "SELECT p.*, c.`categoryName`
+                FROM `products` p
+                JOIN `categories` c ON c.`categoryId` = p.`categoryId`
+                WHERE p.`productId`  = " . $productId . " LIMIT 1";
 
         $conn = Model::connect();
         $result = $conn->query($sql);

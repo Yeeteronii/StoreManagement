@@ -14,6 +14,7 @@ $path = $_SERVER['SCRIPT_NAME'];
 <div class="login-container">
     <img src="<?= dirname($path); ?>/images/defaultguy.jpg" alt="User Icon" class="user-icon">
     <h2 data-translate="login_title">User Login</h2>
+
     <form id="loginForm" method="POST" action="">
         <label data-translate="username_label" for="username">Username:</label>
         <input type="text" id="username" required>

@@ -55,7 +55,6 @@
         $stmt->bind_param("ss", ($_POST['username']), $_POST['password']);
         $stmt->execute();
 
-
         $result = $stmt->get_result();
         $row = $result->fetch_object();
 
