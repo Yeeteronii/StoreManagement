@@ -28,20 +28,20 @@ function isAdmin($role) {
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?= htmlspecialchars($path); ?>/orders">Orders</a>
+                <a class="nav-link" href="<?= htmlspecialchars($path); ?>/order">Orders</a>
             </li>
 
             <?php if (isAdmin($role)): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/suppliers">Suppliers</a>
+                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/supplier">Suppliers</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/employees">Employees</a>
+                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/employee">Employees</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/reports">Reports</a>
+                    <a class="nav-link" href="<?= htmlspecialchars($path); ?>/report">Reports</a>
                 </li>
 
                 <li class="nav-item">

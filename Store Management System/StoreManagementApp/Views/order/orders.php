@@ -18,16 +18,16 @@ $path = $_SERVER['SCRIPT_NAME'];
         <table class="table table-striped" id="order-table">
             <thead>
             <tr>
-                <th data-translate="product_name">Product Name</th>
+                <th data-translate="productName">Product Name</th>
                 <th data-translate="quantity">Quantity to Order</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            foreach ($orders as $order) { ?>
+            foreach ($data as $order) { ?>
                 <tr>
-                    <td><?= $order['product_name']; ?></td>
-                    <td><?= $order['quantity']; ?></td>
+                    <td><?= $order->productName; ?></td>
+                    <td><?= $order->quantity; ?></td>
                 </tr>
             <?php } ?>
             </tbody>
