@@ -1,5 +1,6 @@
 <?php
 $path = $_SERVER['SCRIPT_NAME'];
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
 ?>
 
 <html>
@@ -16,12 +17,14 @@ $path = $_SERVER['SCRIPT_NAME'];
     <main>
         <h2 data-translate="products_title">Products</h2>
 
-        <button id="add-product-btn" data-translate="add_product">Add Product</button>
+        <button id="add-product-btn"  data-translate="add_product">Add Product</button>
+        <a href="<?php echo $basePath;?>/category/list"><input data-translate type="button" value="Categories"></a>
         <br>
         <br>
         <table class="table table-striped" id="product-table">
             <thead>
             <tr class="table-primary">
+<!--                <th data-translate="productId">Id</th>-->
                 <th data-translate="product_name">Name</th>
                 <th data-translate="category">Category</th>
                 <th data-translate="quantity">Quantity</th>
@@ -30,19 +33,24 @@ $path = $_SERVER['SCRIPT_NAME'];
             </thead>
             <tbody>
             <?php
+
             foreach ($data as $product){
+                cdebug($product->productId);
                 ?>
                 <tr>
+<!--                    <td>--><?php //= $product->productId;?><!--</td>-->
                     <td><?= $product->productName;?></td>
                     <td><?= $product->categoryName; ?></td>
                     <td><?= $product->quantity; ?></td>
                     <td>
-                        <a href="<?= dirname($path) . "/product/view/" . $product->productId; ?>">View</a>
-                        <a href="<?= dirname($path) . "/product/edit/" . $product->productId ?>">Edit</a>
-                        <a href="<?= dirname($path) . "/product/delete/" . $product->productId ?>">Delete</a>
+<!--                        <a href="--><?php //= dirname($path) . "/product/view/" . $product->productId; ?><!--">View</a>-->
+                        <a href="<?= $basePath . "/product/view/" . $product->productId; ?>">View</a>
+                        <a href="<?= $basePath . "/product/edit/" . $product->productId ?>">Edit</a>
+                        <a href="<?= $basePath . "/product/delete/" . $product->productId ?>">Delete</a>
                     </td>
                 </tr>
             <?php } ?>
+
             </tbody>
         </table>
     </main>

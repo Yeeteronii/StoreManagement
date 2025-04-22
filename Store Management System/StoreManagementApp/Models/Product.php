@@ -45,7 +45,7 @@ class Product {
     public static function list() {
         $list = [];
         $conn = Model::connect();
-        $sql = "SELECT p.`productName`, p.`cost`, p.`priceToSell`, c.`categoryName`, p.`quantity` FROM `products` p JOIN `categories` c ON c.`categoryId` = p.`categoryId` WHERE p.`isActive` = 1;";
+        $sql = "SELECT p.`productId`, p.`productName`, p.`cost`, p.`priceToSell`, c.`categoryName`, p.`quantity` FROM `products` p JOIN `categories` c ON c.`categoryId` = p.`categoryId` WHERE p.`isActive` = 1;";
 
         $result = $conn->query($sql);
         while($row = $result->fetch_object()) {

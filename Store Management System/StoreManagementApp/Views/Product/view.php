@@ -1,5 +1,6 @@
 <?php
 $path = $_SERVER['SCRIPT_NAME'];
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
 ?>
 <html>
 <head>
@@ -29,8 +30,8 @@ $path = $_SERVER['SCRIPT_NAME'];
     <br><label>Quantity</label><input name="quantity" value="<?php echo $data[0]->quantity;?>" disabled>
 
 
-    <br><a href="<?php echo dirname($path);?>/product/list"><input type="button" value="Go to Products list"></a>
-<!--    <a href="--><?php //echo dirname($path);?><!--/customer/update/--><?php //echo $data[0]->customerNumber;?><!--"><input type="button" value="Modify"></a>-->
+    <br><a href="<?php echo $basePath;?>/product/list"><input type="button" value="Go to Products list"></a>
+    <a href="<?php echo $basePath;?>/product/edit/<?php echo $data[0]->productId;?>"><input type="button" value="Modify"></a>
     <br><br>
 
 </div>

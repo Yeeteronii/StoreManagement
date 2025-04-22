@@ -39,7 +39,7 @@ class Category {
     public static function list() {
         $conn = Model::connect();
         $list = [];
-        $sql = "SELECT * FROM `category` WHERE `isActive` = ?";
+        $sql = "SELECT * FROM `categories` WHERE `isActive` = 1";
 
         $result = $conn->query($sql);
         while($row = $result->fetch_object()) {

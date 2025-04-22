@@ -18,10 +18,16 @@ class ProductController extends Controller {
             } else if ($action == 'view') {
                 $data = Product::view($id);
                 $this->render("Product", "view", $data);
+            } else if ($action == 'add') {
+
+            } else if ($action == 'edit') {
+
+            } else if ($action == 'delete') {
+
             }
 //        } else {
             //FWD TO ACCESS DENIED BC FWD TO LOGIN IS HANDLED IN CHECKLOGIN FUCNTION
-            exit; //temp
+//            exit; //temp
 //        }
             
     }
