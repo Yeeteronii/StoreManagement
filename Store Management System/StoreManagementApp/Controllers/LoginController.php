@@ -13,72 +13,44 @@ class LoginController extends Controller {
         cdebug($_SESSION,'session in login controllr');
         cdebug($_POST,'post in login controller');
         cdebug(User::verifyLoginForm(),'verfiylogin in login control');
-        cdebug(dirname($path));
+        cdebug(dirname($path),'dirname($path)');
         cdebug($action,"action");
         //cdebug($_GET['action'], "true action in logincontr");
         //exit;
 
         if ($action === "login") {
             if (!empty($_POST['username']) && !empty($_POST['password'])) {  //(!empty($_POST['username']) && !empty($_POST['password'])) 
-                $this->processLogin();
+                if($this->processLogin()) {
+                    header("Location: " . dirname($path) . "/product");
+                } else {
+                    $this->render("Login", "login");
+                }
+                cdebug('post WORKING!!!!!!');
+                //exit;
             } else {
                 $this->render("Login", "login");
+                cdebug('post not setting');
+                //exit;
             }
         } else {
             //logout functionality
         }
 
-        // if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] == true) {
-        //     cdebug($_SESSION,'logged IN SUCCESSFUL');
-        //     include "Views/$controller/$view.php";
-        //     $newUrl = dirname($path);
-        //     header("Location: " . $newUrl);
-        // }
-        // elseif (!empty($_POST) && User::verifyLogin()){
-        //     $_SESSION['loggedIn'] = true;
-        //     $newUrl = dirname($path) . "/home";
-        //     header("Location: " .$newUrl);
-    
-        // }
-        // elseif ($action == "login") {
-        //     include "Views/login/login.php";
-        // }
 
     }
 
 
     function processLogin() {
-        $loginData = User::verfifyLoginForm();
+        $loginData = User::verifyLoginForm();
         if ($loginData['return'] == true) {
             $_SESSION['userId'] = $loginData['user']->id;
             $_SESSION['token'] = bin2hex(random_bytes(16)); // Generate a random session token
-            header("Location: " . dirname($path) . "/home");
-            cdebug($_SESSION,'SUCCESSS');
+            return true;
         } else {
-            header("Location: " . dirname($path) . "/login");
+            return false;
         }
     }
 
-    // THAO code
-    // private function processLogin() {
-    //     $conn = Model::connect();
-    //     $sql = "SELECT * FROM `users` WHERE `username` = ? AND `isActive` = 1";
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bind_param("s", $_POST['username']);
-    //     $stmt->execute();
-
-    //     $result = $stmt->get_result();
-    //     $user = $result->fetch_object();
-
-    //     if ($user && sha1($_POST['password']) === $user->password) {
-    //         session_start();
-    //         $_SESSION['user_id'] = $user->id;
-    //         $_SESSION['token'] = bin2hex(random_bytes(16)); // Generate a random session token
-    //         header("Location: " . dirname($_SERVER['SCRIPT_NAME']) . "/home");
-    //     } else {
-    //         header("Location: " . dirname($_SERVER['SCRIPT_NAME']) . "/login");
-    //     }
-    // }
 
     
     

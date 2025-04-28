@@ -17,9 +17,9 @@ $path = $_SERVER['SCRIPT_NAME'];
 
     <form id="loginForm" method="POST" action="">
         <label data-translate="username_label" for="username">Username:</label>
-        <input type="text" id="username" required>
-        <label data-translate="password_label" for="password">Password:</label>
-        <input type="password" id="password" required>
+        <input type="text" id="username"  name="username" required>
+        <label data-translate="password_label" name="password" for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
         <button type="submit" data-translate="login_button">Login</button>
         <p id="error-message" class="error-message"></p>
     </form>
