@@ -19,7 +19,7 @@ class Product {
         }
         elseif(is_int($param)) {
             $conn = Model::connect();
-            $sql = "SELECT * FROM `Product` WHERE `productId` = ?";
+            $sql = "SELECT * FROM `products` WHERE `productId` = ?";
 
             $stmt = $conn->prepare($sql);
 
@@ -89,8 +89,15 @@ class Product {
         return $list;
     }
 
+    public function delete() {
+        $conn = Model::connect();
+        $sql = "UPDATE `products` SET `isActive` = 0 WHERE `productId` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $this->productId);
+        $stmt->execute();
+    }
 
-
-
+    
+    
 
 }

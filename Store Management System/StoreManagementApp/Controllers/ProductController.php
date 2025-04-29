@@ -50,7 +50,10 @@ class ProductController extends Controller {
             } else if ($action == 'edit') {
 
             } else if ($action == 'delete') {
-
+                $p = new Product($id);
+                $p->delete($id);
+                $newUrl = dirname($path) . "/product/list";
+                header("Location: $newUrl");
             }
 //        } else {
             //FWD TO ACCESS DENIED BC FWD TO LOGIN IS HANDLED IN CHECKLOGIN FUCNTION

@@ -10,6 +10,10 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
     .quantity{
         width: 50px;
     }
+    .icons{
+        width: 24px;
+        height: 24px;
+    }
 </style>
 <head>
     <title>Products - Store Management System</title>
@@ -51,8 +55,10 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
             <input type="text" id="search-input" placeholder="Search products...">
             <button id="add-product-btn" data-translate="add_product">Add Product</button>
             <a href="<?php echo $basePath; ?>/category/list"><input data-translate type="button" value="Categories"></a>
+            <a href="<?php echo $basePath; ?>/category/deleteProducts"><input data-translate type="button" value="Delete Products"></a> <!-- Deleted multiple products -->
             <br>
             <br>
+            <form method="POST" action=""></form>
             <table class="table table-striped" id="product-table">
                 <thead>
                     <tr class="table-primary">
@@ -72,7 +78,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
                     ?>
                         <tr>
                             <!--<td><?= $product->productId; ?></td>-->
-                            <td><input type="checkbox" class="select-product" value=""></td>
+                            <td><input type="checkbox" name="productIds[]" class="select-product" value="<?= $product->productId; ?>"></td>
                             <td><?= $product->productName; ?></td>
                             <td><?= $product->categoryName; ?></td>
                             <td><input class="quantity" type="number" value="<?=$product->quantity;?>" min=0></td>
@@ -88,6 +94,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
 
                 </tbody>
             </table>
+
         </main>
     </div>
 </body>
