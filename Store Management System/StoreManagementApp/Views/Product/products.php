@@ -16,6 +16,28 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
     <link rel="stylesheet" href="<?= dirname($path); ?>/styles/products.css">
 
     <?php require_once dirname(__DIR__) . "/scripts.php"; ?>
+    <!-- Search bar script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#search-input').on('input', function(){
+                var searchText = $(this).val();
+                if (searchText.trim() !== "") {
+                    $.ajax({
+                        url: '<?php echo $basePath; ?>/product/list', // Replace with your actual search URL
+                        type: 'POST',
+                        data: {searchText: searchText},
+                        success: function(data){
+                            $('#product-table tbody').html(data);
+                        }
+                    });
+                } else {
+                    // Reload the page to display the full list of products
+                    location.reload();
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -24,6 +46,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
         <main>
             <h2 data-translate="products_title">Products</h2>
 
+            <input type="text" id="search-input" placeholder="Search products...">
             <button id="add-product-btn" data-translate="add_product">Add Product</button>
             <a href="<?php echo $basePath; ?>/category/list"><input data-translate type="button" value="Categories"></a>
             <br>

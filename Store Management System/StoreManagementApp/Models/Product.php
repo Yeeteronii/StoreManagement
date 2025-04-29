@@ -55,6 +55,20 @@ class Product {
         return $list;
     }
 
+    public static function listFiltered($searchText) {
+        $list = self::list();
+        $filteredList = [];
+        $searchTextLower = strtolower($searchText);
+
+        foreach ($list as $key => $product) {
+            if (strpos(strtolower($product->productName), $searchTextLower) !== false) {
+                array_push($filteredList, $product);
+            }
+        }
+        return $filteredList;
+    }
+
+
     public static function view($productId = -1)
     {
         $list = [];
