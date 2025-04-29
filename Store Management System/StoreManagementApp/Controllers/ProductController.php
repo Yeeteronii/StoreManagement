@@ -12,7 +12,7 @@ class ProductController extends Controller {
 
         cdebug($action, "setting action in prodcontr");
         cdebug($_POST, "_POST");
-        cdebug("WARNING: note that when input into the searchbar, then remove the text from the searchbar, it triggers a reload. Gang, is this intended behaviour? Also dont mind the cdebugs in the table, that is fixable");
+        // cdebug("WARNING: note that when input into the searchbar, then remove the text from the searchbar, it triggers a reload. Gang, is this intended behaviour? Also dont mind the cdebugs in the table, that is fixable");
 
 //        if (User::checkIfLoggedIn()) {
             if ($action == 'list') {

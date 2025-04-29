@@ -6,8 +6,9 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
 
 <html>
 <style>
-    .icons{
-        size: 24px;
+    
+    .quantity{
+        width: 50px;
     }
 </style>
 <head>
@@ -56,6 +57,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
                 <thead>
                     <tr class="table-primary">
                         <!--                <th data-translate="productId">Id</th>-->
+                        <th data-translate="selectBox"></th>
                         <th data-translate="product_name">Name</th>
                         <th data-translate="category">Category</th>
                         <th data-translate="quantity">Quantity</th>
@@ -69,11 +71,11 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
                         // cdebug($product->productId);
                     ?>
                         <tr>
-                            <!--                    <td>--><?php //= $product->productId;
-                                                            ?><!--</td>-->
+                            <!--<td><?= $product->productId; ?></td>-->
+                            <td><input type="checkbox" class="select-product" value=""></td>
                             <td><?= $product->productName; ?></td>
                             <td><?= $product->categoryName; ?></td>
-                            <td><?= $product->quantity; ?></td>
+                            <td><input class="quantity" type="number" value="<?=$product->quantity;?>" min=0></td>
                             <td>
                                 <!--<a href="--><?php //= dirname($path) . "/product/view/" . $product->productId;  ?><!--">View</a>-->
 
