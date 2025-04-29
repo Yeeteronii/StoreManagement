@@ -20,6 +20,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            $('#search-input').focus();
             $('#search-input').on('input', function(){
                 var searchText = $(this).val();
                 if (searchText.trim() !== "") {
