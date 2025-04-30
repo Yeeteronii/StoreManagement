@@ -54,6 +54,19 @@ class ProductController extends Controller {
                 $p->delete($id);
                 $newUrl = dirname($path) . "/product/list";
                 header("Location: $newUrl");
+            } else if( $action == "deleteMultiple"){
+                
+                if (isset($_POST['productIds']) && is_array($_POST['productIds'])) {
+                    foreach ($_POST['productIds'] as $productId) {
+                        $product = new Product((int)$productId);
+                        $product->delete();
+                    }
+                }
+                $newUrl = dirname($path) . "/product/list";
+                header("Location: $newUrl");
+                exit;
+            } else {
+                // Handle unknown action or show an error page
             }
 //        } else {
             //FWD TO ACCESS DENIED BC FWD TO LOGIN IS HANDLED IN CHECKLOGIN FUCNTION
