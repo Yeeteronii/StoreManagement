@@ -52,11 +52,4 @@ class Order extends Model{
         }
         return $list;
     }
-
-
-
-
-
-
-
 }

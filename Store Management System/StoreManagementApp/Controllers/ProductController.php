@@ -46,6 +46,7 @@ class ProductController extends Controller {
                 $data = Product::view($id);
                 $this->render("Product", "view", $data);
             } else if ($action == 'add') {
+                
 
             } else if ($action == 'edit') {
 
@@ -55,7 +56,7 @@ class ProductController extends Controller {
                 $newUrl = dirname($path) . "/product/list";
                 header("Location: $newUrl");
             } else if( $action == "deleteMultiple"){
-                
+
                 if (isset($_POST['productIds']) && is_array($_POST['productIds'])) {
                     foreach ($_POST['productIds'] as $productId) {
                         $product = new Product((int)$productId);
@@ -65,6 +66,11 @@ class ProductController extends Controller {
                 $newUrl = dirname($path) . "/product/list";
                 header("Location: $newUrl");
                 exit;
+            } else if($action == "order"){
+                $p = new Product($id);
+                $p->order($id);
+                $newUrl = dirname($path) . "/product/list";
+                header("Location: $newUrl");
             } else {
                 // Handle unknown action or show an error page
             }

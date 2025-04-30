@@ -16,7 +16,10 @@ class CategoryController extends Controller
             $data = Category::list();
             $this->render("Category", "categories", $data);
         } else if ($action == 'add') {
-
+            
+        } else if ($action == 'view') {
+            $data = Category::view($id);
+            $this->render("Category", "view", $data);
         } else if ($action == 'edit') {
 
         } else if ($action == 'delete') {

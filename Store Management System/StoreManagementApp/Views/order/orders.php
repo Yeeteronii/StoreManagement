@@ -3,6 +3,11 @@ $path = $_SERVER['SCRIPT_NAME'];
 ?>
 
 <html>
+    <style>
+        .quantity {
+        width: 50px;
+    }
+    </style>
 <head>
     <title>Orders - Store Management System</title>
     <link rel="stylesheet" href="<?= dirname($path); ?>/styles/styles.css">
@@ -27,7 +32,8 @@ $path = $_SERVER['SCRIPT_NAME'];
             foreach ($data as $order) { ?>
                 <tr>
                     <td><?= $order->productName; ?></td>
-                    <td><?= $order->quantity; ?></td>
+                    <td><input class="quantity" type="number" value="<?= $order->quantity; ?>" min=0></td>
+                    <td></td>
                 </tr>
             <?php } ?>
             </tbody>

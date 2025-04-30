@@ -96,6 +96,7 @@ $basePath = dirname($_SERVER['SCRIPT_NAME']);
                                     <a href="<?= $basePath . "/product/view/" . $product->productId; ?>"><img class="icons" src="<?= $basePath . "/images/view.png" ?>"></a>
                                     <a href="<?= $basePath . "/product/edit/" . $product->productId; ?>"><img class="icons" src="<?= $basePath . "/images/edit.png" ?>"></a>
                                     <a href="<?= $basePath . "/product/delete/" . $product->productId ?>"><img class="icons" src="<?= $basePath . "/images/delete.png" ?>"></a>
+                                    <a href="<?= $basePath . "/product/order/" . $product->productId ?>"><img class="icons" src="<?= $basePath . "/images/order.png" ?>"></a>
                                 </td>
                             </tr>
                         <?php } ?>

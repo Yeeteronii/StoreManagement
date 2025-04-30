@@ -2,7 +2,8 @@
 
 include_once "Models/Model.php";
 
-class Product {
+class Product
+{
     public $productId;
     public $productName;
     public $cost;
@@ -13,11 +14,10 @@ class Product {
 
     function __construct($param = null)
     {
-        if(is_object($param)){
+        if (is_object($param)) {
 
             $this->setProperties($param);
-        }
-        elseif(is_int($param)) {
+        } elseif (is_int($param)) {
             $conn = Model::connect();
             $sql = "SELECT * FROM `products` WHERE `productId` = ?";
 
@@ -33,7 +33,8 @@ class Product {
         }
     }
 
-    private function setProperties($param){
+    private function setProperties($param)
+    {
         $this->productId = $param->productId ?? null;
         $this->productName = $param->productName;
         $this->cost = $param->cost;
@@ -42,20 +43,22 @@ class Product {
         $this->threshold = $param->threshold ?? null;
         $this->quantity = $param->quantity;
     }
-    public static function list() {
+    public static function list()
+    {
         $list = [];
         $conn = Model::connect();
         $sql = "SELECT p.`productId`, p.`productName`, p.`cost`, p.`priceToSell`, c.`categoryName`, p.`quantity` FROM `products` p JOIN `categories` c ON c.`categoryId` = p.`categoryId` WHERE p.`isActive` = 1;";
 
         $result = $conn->query($sql);
-        while($row = $result->fetch_object()) {
+        while ($row = $result->fetch_object()) {
             $product = new Product($row);
             array_push($list, $product);
         }
         return $list;
     }
 
-    public static function listFiltered($searchText) {
+    public static function listFiltered($searchText)
+    {
         $list = self::list();
         $filteredList = [];
         $searchTextLower = strtolower($searchText);
@@ -89,7 +92,8 @@ class Product {
         return $list;
     }
 
-    public function delete() {
+    public function delete()
+    {
         $conn = Model::connect();
         $sql = "UPDATE `products` SET `isActive` = 0 WHERE `productId` = ?";
         $stmt = $conn->prepare($sql);
@@ -97,7 +101,12 @@ class Product {
         $stmt->execute();
     }
 
-    
-    
-
+    public function order()
+    {
+        $conn = Model::connect();
+        $sql = "INSERT INTO `orders` (`productId`, `quantity`) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $this->productId, $this->quantity);
+        $stmt->execute();
+    }
 }
