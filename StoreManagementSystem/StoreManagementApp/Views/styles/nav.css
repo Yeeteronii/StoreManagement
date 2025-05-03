@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f1f8;
+}
+
+.topbar {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    color: #a00;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: transparent;
+    border: 1px solid #a00;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #a00;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.sidebar-header {
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    font-size: 26px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 0;
+    height: calc(100% - 60px);
+    background-color: #dfd6f0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: width 0.3s;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.open {
+    width: 220px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0 20px;
+}
+
+.nav-links li {
+    margin-bottom: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover {
+    background-color: #c8b8e6;
+}
+
+.main-content {
+    margin-top: 60px;
+    margin-left: 0;
+    padding: 40px 60px;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.open ~ .main-content {
+    margin-left: 220px;
+}

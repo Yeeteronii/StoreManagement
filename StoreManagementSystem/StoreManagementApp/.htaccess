@@ -1,0 +1,19 @@
+RewriteEngine On
+
+RewriteRule "^/?$" "index.php?controller=user&action=login" [QSA,L]
+RewriteRule "^admin/?$" "index.php?controller=user&action=login" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/?$" "index.php?controller=$1&action=list" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/([a-zA-Z]+)/?$" "index.php?controller=$1&action=$2" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/([0-9]+)/?$" "index.php?controller=$1&id=$2" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/([a-zA-Z]+)/([0-9]+)/?$" "index.php?controller=$1&action=$2&id=$3" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/?$" "index.php?controller=$1&object=$2&action=$3" [QSA,L]
+
+RewriteRule "^([a-zA-Z]+)/([a-zA-Z]+)/([a-zA-Z]+)/([0-9]+)/?$" "index.php?controller=$1&object=$2&action=$3&id=$4" [QSA,L]
+
+RewriteRule ^product/search/([^/]+)/?$ index.php?controller=product&action=search&id=$1 [QSA,L]
+
