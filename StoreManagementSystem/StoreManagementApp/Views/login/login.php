@@ -1,22 +1,32 @@
 <?php $path = $_SERVER['SCRIPT_NAME']; ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Login</title>
-    <style>
-        label { display: inline-block; width: 100px; }
-    </style>
+    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/login.css">
 </head>
 <body>
-<form method="POST">
+<header>
+    <div class="store-name" style="color: red; font-style: italic;">Depanneur du Souvenir</div>
+</header>
+
+<div class="login-container">
+    <img src="/StoreManagement/StoreManagementSystem/StoreManagementApp/images/defaultguy.jpg" alt="User Icon" class="user-icon">
+
     <h2>Login</h2>
-    <label>Username:</label>
-    <input type="text" name="username"><br>
+    <form method="POST" action="<?= $path ?>">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
 
-    <label>Password:</label>
-    <input type="password" name="password"><br><br>
-
-    <input type="submit" value="Login">
-    <br><br>
-</form>
+<div class="language-switch">
+    <select>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+    </select>
+</div>
 </body>
 </html>

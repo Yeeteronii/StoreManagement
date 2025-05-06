@@ -1,10 +1,10 @@
 <?php
 if (!isset($_SESSION['token'])) {
-    header("Location: ../login/login");
+    header("Location: /login/login");
     exit;
 }
 $role = $_SESSION['role'];
-$products = $data['products'] ?? [];
+$orders = $data['orders'] ?? [];
 $searchTerm = $data['search'] ?? '';
 $category = $data['category'] ?? '';
 $categories = $data['categories'] ?? [];
@@ -18,8 +18,8 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Product View</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/products.css">
+    <title>Order View</title>
+    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/orders.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -30,10 +30,10 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Products Table</h2>
+        <h2>Order Table</h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../product/list">
+        <form method="GET" action="../order/list">
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
@@ -47,30 +47,29 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     </option>
                 <?php endforeach; ?>
             </select>
-            <?php if ($role === 'admin'): ?>
-                <a href="../product/add">
+                <a href="../order/add">
                     <button type="button" class="icon-btn">
                         <img src="../images/add.png">
                     </button>
                 </a>
-            <?php endif; ?>
         </form>
-        <form id="deleteForm" method="POST" action="../product/deleteMultiple">
+        <form id="deleteForm" method="POST" action="../order/deleteMultiple">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="../images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
 
-    <table id="productTable">
+    <table id="orderTable">
         <tr>
-            <th><input type="checkbox" id="selectAll"></th>
+            <th>
+                <input type="checkbox" id="selectAll">
+            </th>
             <?php
             $headers = [
                 'productName' => 'Product Name',
                 'categoryName' => 'Category',
-                'cost' => 'Cost',
-                'priceToSell' => 'Sell Price',
+                'orderDate' => 'Order Date',
                 'quantity' => 'Quantity'
             ];
             foreach ($headers as $field => $label): ?>
@@ -92,36 +91,21 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
         </tr>
-        <?php foreach ($products as $product): ?>
-            <?php
-            $rowClass = '';
-            if ($product->quantity == 0) $rowClass = 'row-red';
-            elseif ($product->quantity < $product->threshold) $rowClass = 'row-yellow';
-            ?>
-            <tr class="<?= $rowClass ?>">
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $product->productId ?>"></td>
-                <td><?= htmlspecialchars($product->productName) ?></td>
-                <td><?= htmlspecialchars($product->categoryName) ?></td>
-                <td>$<?= number_format($product->cost, 2) ?></td>
-                <td>$<?= number_format($product->priceToSell, 2) ?></td>
-                <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
+        <?php foreach ($orders as $order): ?>
+            <tr class="">
+                <td><input type="checkbox" class="delete-checkbox" value="<?= $order->orderId ?>"></td>
+                <td><?= htmlspecialchars($order->productName) ?></td>
+                <td><?= htmlspecialchars($order->categoryName) ?></td>
+                <td><?= date('d/m/Y', strtotime($order->orderDate))?></td>
                 <td>
-                    <a href="../product/update/<?= $product->productId ?>">
-                        <img src="../images/edit.png" alt="Edit" style="width:20px; height:20px;"></a>
-
-                        <a href="../product/addToOrder/<?= $product->productId ?>">
-                            <?php if (!empty($product->isInOrder)): ?>
-                                <img src="../images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
-                            <?php else: ?>
-                                <img src="../images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
-                            <?php endif; ?></a>
+                    <?= $order->quantity ?>
+                    <a href="../order/updateQuantity/<?= $order->orderId ?>?change=up" style="margin-left: 5px;">&#8679;</a>
+                    <a href="../order/updateQuantity/<?= $order->orderId ?>?change=down" style="margin-left: 2px;">&#8681;</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
-
     <script>
         document.getElementById('selectAll').addEventListener('change', function() {
             const checked = this.checked;
@@ -141,15 +125,5 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
         });
     </script>
 </div>
-<?php if ($role === 'admin'): ?>
-    <div style="position: fixed; bottom: 20px; right: 20px;">
-        <a href="../category/list">
-            <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8b8e6; border-radius: 5px;">
-                View Categories
-            </button>
-        </a>
-    </div>
-<?php endif; ?>
-
 </body>
 </html>

@@ -1,7 +1,7 @@
 RewriteEngine On
 
-RewriteRule "^/?$" "index.php?controller=user&action=login" [QSA,L]
-RewriteRule "^admin/?$" "index.php?controller=user&action=login" [QSA,L]
+RewriteRule "^/?$" "index.php?controller=login&action=login" [QSA,L]
+RewriteRule "^admin/?$" "index.php?controller=login&action=login" [QSA,L]
 
 RewriteRule "^([a-zA-Z]+)/?$" "index.php?controller=$1&action=list" [QSA,L]
 
