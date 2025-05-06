@@ -86,6 +86,17 @@ class User extends Model {
         }
         return 'employee';
     }
+    public static function getUsername($userId) {
+        $conn = self::connect();
+        $sql = "SELECT username FROM users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_object();
+        return $row ? $row->username : null;
+    }
+    
 
     private function setProperties($obj) {
         if ($obj) {

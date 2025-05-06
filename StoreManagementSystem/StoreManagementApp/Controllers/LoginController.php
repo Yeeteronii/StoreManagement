@@ -5,16 +5,13 @@ include_once "Models/User.php";
 require_once __DIR__ . '/../lib/RobThree/Auth/TwoFactorAuth.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Algorithm.php';
 
-// QR code providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/IQRCodeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/BaseHTTPQRCodeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/ImageChartsQrCodeProvider.php';
 
-// RNG providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Rng/IRNGProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Rng/CSRNGProvider.php';
 
-// Time providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Time/ITimeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Time/LocalMachineTimeProvider.php';
 
@@ -59,23 +56,23 @@ class LoginController extends Controller {
                         $qrCodeUrl = $tfa->getQRCodeImageAsDataUri($data->username, $secret);
                         $_SESSION['pending_user_id'] = $data->id;
                         $_SESSION['pending_secret'] = $secret;
-                        $this->render("login", "setup2fa", ['qrCodeUrl' => $qrCodeUrl]);
+                        $this->render("login", "setup", ['qrCodeUrl' => $qrCodeUrl]);
                     } else {
                         $_SESSION['pending_user_id'] = $data->id;
-                        $this->render("login", "verify2fa");
+                        $this->render("login", "verify");
                     }
                 }
             } else {
                 $this->render("login", "login");
             }
         }
-        elseif ($action == "verify2fa") {
+        elseif ($action == "verify") {
             $code = $_POST['code'];
             $userId = $_SESSION['pending_user_id'];
             $secret = User::getTwoFASecret($userId);
 
-            if (preg_match('/^\d{6}$/', $code) && $tfa->verifyCode($secret, $code)) {
-                User::clearTwoFASecret($userId);
+            if (preg_match('/^\d{6}$/', $code) && $tfa->verifyCode($secret, $code, 1) ) {
+                // User::clearTwoFASecret($userId);
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['token'] = bin2hex(random_bytes(16));
                 $_SESSION['role'] = User::getRole($userId);
@@ -84,9 +81,32 @@ class LoginController extends Controller {
                 exit;
             } else {
                 $_SESSION['login_error'] = "Invalid 2FA code.";
-                $this->render("login", "verify2fa");
+                $this->render("login", "verify");
             }
         }
+        elseif ($action == "resend") {
+            $userId = $_SESSION['pending_user_id'] ?? null;
+            if ($userId) {
+                $secret = $tfa->createSecret();
+                User::setTwoFASecret($userId, $secret);
+                $_SESSION['pending_secret'] = $secret;
+                $qrCodeUrl = $tfa->getQRCodeImageAsDataUri(User::getUsername($userId), $secret);
+                $this->render("login", "setup", ['qrCodeUrl' => $qrCodeUrl]);
+            } else {
+                header("Location: " . dirname($path) . "/login/setup");
+                exit;
+            }
+        }
+       elseif ($action == "reset") {
+            $userId = $_SESSION['pending_user_id'] ?? null; 
+                if ($userId) {
+                    User::clearTwoFASecret($userId);
+                    unset($_SESSION['pending_user_id']);
+                    unset($_SESSION['pending_secret']);
+                }
+                header("Location: " . dirname($path) . "/login/login");
+                exit;
+            }            
         elseif ($action == "logout") {
             session_unset();
             session_destroy();
