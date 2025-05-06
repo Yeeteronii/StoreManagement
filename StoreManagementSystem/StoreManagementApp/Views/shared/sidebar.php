@@ -20,7 +20,7 @@
 <div class="sidebar" id="sidebar">
     <ul class="nav-links">
         <li><a href="../product/list">Products</a></li>
-        <li><a href="../schedule/view">Schedule</a></li>
+        <li><a href="../shift/list">Schedule</a></li>
         <li><a href="../order/list">Orders</a></li>
         <li><a href="../supplier/view">Suppliers</a></li>
         <li><a href="../employee/view">Employees</a></li>
@@ -32,7 +32,7 @@
 <div class="sidebar" id="sidebar">
     <ul class="nav-links">
         <li><a href="../product/list">Products</a></li>
-        <li><a href="../schedule/view">Schedule</a></li>
+        <li><a href="../shift/view">Schedule</a></li>
         <li><a href="../setting/view">Settings</a></li>
     </ul>
 </div>

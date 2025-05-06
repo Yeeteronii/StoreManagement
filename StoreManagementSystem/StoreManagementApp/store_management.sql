@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2025 at 04:11 PM
+-- Generation Time: May 06, 2025 at 05:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,10 +48,10 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (8, 'Category', 'update'),
 (9, 'Category', 'delete'),
 (10, 'Category', 'list'),
-(11, 'Schedule', 'list'),
-(12, 'Schedule', 'add'),
-(13, 'Schedule', 'delete'),
-(14, 'Schedule', 'update'),
+(11, 'Shift', 'list'),
+(12, 'Shift', 'add'),
+(13, 'Shift', 'delete'),
+(14, 'Shift', 'update'),
 (15, 'Report', 'list'),
 (16, 'Report', 'add'),
 (17, 'Report', 'delete'),
