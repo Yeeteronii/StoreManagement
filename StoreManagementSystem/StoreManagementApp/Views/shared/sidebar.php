@@ -19,6 +19,7 @@
 <?php if ($_SESSION['role'] === 'admin'): ?>
 <div class="sidebar" id="sidebar">
     <ul class="nav-links">
+<<<<<<< HEAD
         <li><a href="../product/list"><?=PRODUCT?></a></li>
         <li><a href="../schedule/view"><?=SCHEDULE?></a></li>
         <li><a href="../order/list"><?=ORDERS?></a></li>
@@ -26,14 +27,29 @@
         <li><a href="../employee/view"><?=EMPLOYEES?></a></li>
         <li><a href="../report/view"><?=REPORTS?></a></li>
         <li><a href="../setting/view"><?=SETTINGS?></a></li>
+=======
+        <li><a href="../product/list">Products</a></li>
+        <li><a href="../shift/list">Schedule</a></li>
+        <li><a href="../order/list">Orders</a></li>
+        <li><a href="../supplier/view">Suppliers</a></li>
+        <li><a href="../employee/view">Employees</a></li>
+        <li><a href="../report/view">Reports</a></li>
+        <li><a href="../setting/view">Settings</a></li>
+>>>>>>> b1abf8cc81ba79a9b12b718b2c2b0f7ef63b2180
     </ul>
 </div>
 <?php else : ?>
 <div class="sidebar" id="sidebar">
     <ul class="nav-links">
+<<<<<<< HEAD
         <li><a href="../product/list"><?=PRODUCT?></a></li>
         <li><a href="../schedule/view"><?=SCHEDULE?></a></li>
         <li><a href="../setting/view"><?=SETTINGS?></a></li>
+=======
+        <li><a href="../product/list">Products</a></li>
+        <li><a href="../shift/view">Schedule</a></li>
+        <li><a href="../setting/view">Settings</a></li>
+>>>>>>> b1abf8cc81ba79a9b12b718b2c2b0f7ef63b2180
     </ul>
 </div>
 <?php endif; ?>
