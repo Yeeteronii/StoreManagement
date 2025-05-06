@@ -1,6 +1,9 @@
 <?php $path = $_SERVER['SCRIPT_NAME']; ?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -8,7 +11,7 @@
 </head>
 <body>
 <header>
-    <div class="store-name" style="color: red; font-style: italic;">Depanneur du Souvenir</div>
+    <div class="store-name" style="color: red; font-style: charm; font-size: 30px">Dépanneur du Souvenir</div>
 </header>
 
 <div class="login-container">
