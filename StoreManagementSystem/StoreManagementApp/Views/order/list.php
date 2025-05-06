@@ -47,11 +47,6 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     </option>
                 <?php endforeach; ?>
             </select>
-                <a href="../order/add">
-                    <button type="button" class="icon-btn">
-                        <img src="../images/add.png">
-                    </button>
-                </a>
         </form>
         <form id="deleteForm" method="POST" action="../order/deleteMultiple">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">

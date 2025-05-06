@@ -16,7 +16,7 @@ class Order extends Model
             $this->setProperties($param);
         } elseif (is_int($param)) {
             $conn = Model::connect();
-            $stmt = $conn->prepare("SELECT p.productName, c.categoryName, o.orderDate, o.quantity
+            $stmt = $conn->prepare("SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity
 FROM orders o
 JOIN products p ON o.productId = p.productId
 JOIN categories c ON p.categoryId = c.categoryId");
@@ -29,6 +29,7 @@ JOIN categories c ON p.categoryId = c.categoryId");
 
     private function setProperties($row)
     {
+        $this->orderId = $row->orderId;
         $this->orderDate = $row->orderDate;
         $this->quantity = $row->quantity;
         $this->categoryName = $row->categoryName;
@@ -38,14 +39,14 @@ JOIN categories c ON p.categoryId = c.categoryId");
     public static function list()
     {
         $list = [];
-        $sql = "SELECT p.productName, c.categoryName, o.orderDate, o.quantity 
+        $sql = "SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity 
                     FROM orders o 
                     JOIN products p ON o.productId = p.productId 
                     JOIN categories c ON p.categoryId = c.categoryId";
         $conn = Model::connect();
         $result = $conn->query($sql);
         while ($row = $result->fetch_object()) {
-            $list[] = new Product($row);
+            $list[] = new Order($row);
         }
         return $list;
     }
@@ -88,7 +89,7 @@ JOIN categories c ON p.categoryId = c.categoryId");
 
         $conn = Model::connect();
 
-        $sql = "SELECT p.productName, c.categoryName, o.orderDate, o.quantity
+        $sql = "SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity
 FROM orders o
 JOIN products p ON o.productId = p.productId
 JOIN categories c ON p.categoryId = c.categoryId";
@@ -132,15 +133,23 @@ JOIN categories c ON p.categoryId = c.categoryId";
         $stmt = $conn->prepare("DELETE FROM orders WHERE orderId = ?");
         $stmt->bind_param("i", $this->orderId);
         $stmt->execute();
+        $stmt->close();
     }
 
     public static function deleteMultiple($ids)
     {
+        if (empty($ids)) return;
+    
         $conn = Model::connect();
         $in = implode(',', array_fill(0, count($ids), '?'));
         $types = str_repeat('i', count($ids));
-        $stmt = $conn->prepare("DELETE FROM order WHERE orderId IN ($in)");
+        $stmt = $conn->prepare("DELETE FROM orders WHERE orderId IN ($in)");
+        if (!$stmt) {
+            throw new Exception("Prepare failed: " . $conn->error);
+        }
         $stmt->bind_param($types, ...$ids);
         $stmt->execute();
+        $stmt->close();
     }
+    
 }

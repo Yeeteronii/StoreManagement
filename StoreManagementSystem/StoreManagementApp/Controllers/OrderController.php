@@ -38,9 +38,9 @@ class OrderController extends Controller
             header("Location:" . dirname($path) . "/order/list");
             exit;
         } elseif ($action === "deleteMultiple") {
-            $ids = $_POST['delete_ids'] ?? [];
+            $ids = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : [];
             if (!empty($ids)) {
-                Product::deleteMultiple(array_map('intval', $ids));
+            Order::deleteMultiple(array_map('intval', $ids));
             }
             header("Location:" . dirname($path) . "/order/list");
             exit;

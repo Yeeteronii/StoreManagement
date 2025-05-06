@@ -5,16 +5,13 @@ include_once "Models/User.php";
 require_once __DIR__ . '/../lib/RobThree/Auth/TwoFactorAuth.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Algorithm.php';
 
-// QR code providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/IQRCodeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/BaseHTTPQRCodeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Qr/ImageChartsQrCodeProvider.php';
 
-// RNG providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Rng/IRNGProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Rng/CSRNGProvider.php';
 
-// Time providers
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Time/ITimeProvider.php';
 require_once __DIR__ . '/../lib/RobThree/Auth/Providers/Time/LocalMachineTimeProvider.php';
 

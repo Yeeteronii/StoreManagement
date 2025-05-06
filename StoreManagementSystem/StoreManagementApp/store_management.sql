@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 07:26 PM
+-- Generation Time: May 06, 2025 at 04:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,16 +38,16 @@ CREATE TABLE `actions` (
 --
 
 INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
-(1, 'product', 'list'),
-(2, 'product', 'add'),
-(3, 'product', 'delete'),
-(4, 'product', 'update'),
-(5, 'product', 'order'),
-(6, 'product', 'category'),
-(7, 'category', 'add'),
-(8, 'category', 'update'),
-(9, 'category', 'delete'),
-(10, 'category', 'list'),
+(1, 'Product', 'list'),
+(2, 'Product', 'add'),
+(3, 'Product', 'delete'),
+(4, 'Product', 'update'),
+(5, 'Product', 'order'),
+(6, 'Product', 'category'),
+(7, 'Category', 'add'),
+(8, 'Category', 'update'),
+(9, 'Category', 'delete'),
+(10, 'Category', 'list'),
 (11, 'Schedule', 'list'),
 (12, 'Schedule', 'add'),
 (13, 'Schedule', 'delete'),
@@ -174,8 +174,7 @@ CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL COMMENT 'Example: 11111111111',
   `productId` int(11) NOT NULL COMMENT 'Example: 11111111111',
   `orderDate` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
-  `quantity` int(11) NOT NULL COMMENT 'Example: 10',
-  `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)'
+  `quantity` int(11) NOT NULL COMMENT 'Example: 10'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -247,16 +246,18 @@ CREATE TABLE `suppliers` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL COMMENT 'Example: 1',
   `username` varchar(32) NOT NULL COMMENT 'Example: parthpatel',
-  `password` varchar(128) NOT NULL COMMENT 'Example: NicholasRoyMicrowave'
+  `password` varchar(128) NOT NULL COMMENT 'Example: NicholasRoyMicrowave',
+  `twofa_secret` varchar(64) DEFAULT NULL,
+  `twofa_enabled` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'admin', '12345'),
-(2, 'employee', '67890');
+INSERT INTO `users` (`id`, `username`, `password`, `twofa_secret`, `twofa_enabled`) VALUES
+(1, 'admin', '12345', NULL, 0),
+(2, 'employee', '67890', NULL, 0);
 
 -- --------------------------------------------------------
 
