@@ -7,12 +7,14 @@ class Product extends Model
     public $productName;
     public $categoryId;
     public $categoryName;
+    public $categoryTax;
     public $cost;
     public $priceToSell;
     public $threshold;
     public $quantity;
     public $isActive;
     public $isInOrder;
+    public $taxPrice;
 
     function __construct($param = null)
     {
@@ -39,9 +41,11 @@ class Product extends Model
         $this->priceToSell = $row->priceToSell;
         $this->categoryId = $row->categoryId;
         $this->categoryName = $row->categoryName;
+        $this->categoryTax = $row->categoryTax;
         $this->threshold = $row->threshold;
         $this->quantity = $row->quantity;
         $this->isActive = $row->isActive;
+        $this->taxPrice = $row->taxPrice;
     }
 
     public static function listFilteredSorted($keyword, $category, $sort, $dir)
@@ -52,11 +56,10 @@ class Product extends Model
 
         $conn = Model::connect();
         $sql = "SELECT p.productId, p.productName, p.cost, p.priceToSell, 
-                       p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName
+                       p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName, c.categoryTax, p.priceToSell * (1 + c.categoryTax / 100.0) AS taxPrice
                 FROM products p
                 JOIN categories c ON c.categoryId = p.categoryId
                 WHERE p.isActive = 1";
-
         $params = [];
         $types = '';
 
@@ -114,7 +117,6 @@ class Product extends Model
         $row = $result->fetch_object();
         $categoryTax = $row ? $row->categoryTax : 0.0;
         $stmtTax->close();
-        $priceToSell = $data['cost'] + ($data['cost'] * $categoryTax);
 
 
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
@@ -123,7 +125,7 @@ class Product extends Model
         $stmt->bind_param("sddiii",
             $data['productName'],
             $data['cost'],
-            $priceToSell,
+            $data['priceToSell'],
             $data['categoryId'],
             $data['threshold'],
             $data['quantity']

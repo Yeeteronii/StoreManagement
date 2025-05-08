@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2025 at 04:11 PM
+-- Generation Time: May 09, 2025 at 01:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,10 +48,10 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (8, 'Category', 'update'),
 (9, 'Category', 'delete'),
 (10, 'Category', 'list'),
-(11, 'Schedule', 'list'),
-(12, 'Schedule', 'add'),
-(13, 'Schedule', 'delete'),
-(14, 'Schedule', 'update'),
+(11, 'Shift', 'list'),
+(12, 'Shift', 'add'),
+(13, 'Shift', 'delete'),
+(14, 'Shift', 'update'),
 (15, 'Report', 'list'),
 (16, 'Report', 'add'),
 (17, 'Report', 'delete'),
@@ -70,7 +70,11 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (30, 'Setting', 'list'),
 (31, 'Setting', 'update'),
 (32, 'Setting', 'language'),
-(33, 'Setting', 'theme');
+(33, 'Setting', 'theme'),
+(34, 'Product', 'viewDeleted'),
+(35, 'Product', 'restore'),
+(36, 'Category', 'viewDeleted'),
+(37, 'Category', 'restore');
 
 -- --------------------------------------------------------
 
@@ -84,6 +88,17 @@ CREATE TABLE `categories` (
   `categoryTax` double NOT NULL COMMENT 'Example: 0.5',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled)\r\n1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryTax`, `isActive`) VALUES
+(1, 'Veggies', 1.2, 1),
+(2, 'Fruits', 0.05, 1),
+(3, 'Drinks', 6.52, 1),
+(4, 'Chocolate', 2.52, 0),
+(5, 'Candy', 0.14, 1);
 
 -- --------------------------------------------------------
 
@@ -162,7 +177,13 @@ INSERT INTO `groups_actions` (`id`, `group_id`, `action_id`) VALUES
 (39, 2, 30),
 (40, 2, 31),
 (41, 2, 32),
-(42, 2, 33);
+(42, 2, 33),
+(43, 1, 34),
+(44, 2, 34),
+(45, 1, 35),
+(46, 2, 35),
+(47, 1, 36),
+(48, 1, 37);
 
 -- --------------------------------------------------------
 
@@ -193,6 +214,13 @@ CREATE TABLE `products` (
   `quantity` int(11) NOT NULL COMMENT 'Example: 20 (amount currently)',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`productId`, `productName`, `cost`, `priceToSell`, `categoryId`, `threshold`, `quantity`, `isActive`) VALUES
+(12, 'Skittles', 3.99, 5.99, 5, 20, 40, 1);
 
 -- --------------------------------------------------------
 
@@ -256,8 +284,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `twofa_secret`, `twofa_enabled`) VALUES
-(1, 'admin', '12345', NULL, 0),
-(2, 'employee', '67890', NULL, 0);
+(1, 'admin', '12345', 'XGXMP7SP54TNPZNFZWB4NJJZAG5X3AOF', 1),
+(2, 'employee', '67890', 'CJNFTPAC42RZD3J2UHTXW6SL2YCP3CC6', 1);
 
 -- --------------------------------------------------------
 
@@ -364,13 +392,13 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -382,19 +410,19 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `groups_actions`
 --
 ALTER TABLE `groups_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `reports`

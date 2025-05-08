@@ -53,7 +53,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
         </form>
     <?php elseif ($_SESSION['role'] === 'admin'): ?>
         <?php if ($source === 'category'): ?>
-            <form method="POST" action="../category/shared/update/<?= $category->categoryId ?>">
+            <form method="POST" action="../shared/update/<?= $category->categoryId ?>">
                 <label for="categoryName">Name</label>
                 <input type="text" id="categoryName" name="categoryName" value="<?= htmlspecialchars($category->categoryName) ?>" required>
                 <div class="field-desc">The name of your category</div>

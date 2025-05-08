@@ -80,6 +80,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                 'categoryName' => 'Category',
                 'cost' => 'Cost',
                 'priceToSell' => 'Sell Price',
+                'taxPrice' => 'Tax Price',
                 'quantity' => 'Quantity'
             ];
             foreach ($headers as $field => $label): ?>
@@ -115,6 +116,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                 <td><?= htmlspecialchars($product->categoryName) ?></td>
                 <td>$<?= number_format($product->cost, 2) ?></td>
                 <td>$<?= number_format($product->priceToSell, 2) ?></td>
+                <td>$<?= number_format(($product->taxPrice * $product->categoryTax) + $product->taxPrice, 2) ?></td>
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
                     <a href="<?= $dirname ?>/product/update/<?= $product->productId ?>">
