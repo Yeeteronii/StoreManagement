@@ -1,10 +1,4 @@
 <?php
-//cdebug(1);
-//exit;
-
-include_once 'Models/Model.php';
-include_once "Models/User.php";
-
 class Controller {
     
     function route(){

@@ -4,6 +4,8 @@ if (!isset($_SESSION['token'])) {
     exit;
 }
 $role = $_SESSION['role'];
+$path = $_SERVER['SCRIPT_NAME'];
+$dirname = dirname($path);
 ?>
 
 <!DOCTYPE html>
@@ -13,22 +15,26 @@ $role = $_SESSION['role'];
 </style>
 <head>
     <title>Store Management System</title>
-    <link rel="stylesheet" href="../Views/styles/nav.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/nav.css">
 </head>
-<body>
 
-<div class="topbar">
-    <div class="logo">Dépanneur du Souvenir</div>
-    <div class="user-info">
-        <span><?=LOGGEDIN?> <?= htmlspecialchars($role) ?></span>
-        <a class="logout-button" href="../login/login"><?=LOGOUT?></a>
-    </div>
-</div>
+    <body>
 
-<div class="main-content">
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("open");
-        }
-    </script>
+        <div class="topbar">
+            <div class="logo">Dépanneur du Souvenir</div>
+            <div class="user-info">
+                <span><?=LOGGEDIN?> <?= htmlspecialchars($role) ?></span>
+                <a class="logout-button" href="../login/login"><?=LOGOUT?></a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <script>
+                function toggleSidebar() {
+                    const sidebar = document.getElementById("sidebar");
+                    sidebar.classList.toggle("open");
+                }
+            </script>
+        </div>
+    </body>
+</html>

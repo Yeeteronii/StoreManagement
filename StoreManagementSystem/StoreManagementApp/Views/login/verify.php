@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Verify 2FA</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/login.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/login.css">
 </head>
 <body>
     <h2>Enter your Google Authenticator code</h2>

@@ -3,7 +3,8 @@ if (!isset($_SESSION['token'])) {
     header("Location: ../login/login");
     exit;
 }
-$role = $_SESSION['role'];
+$path = $_SERVER['SCRIPT_NAME'];
+$dirname = dirname($path);
 $products = $data['products'] ?? [];
 $searchTerm = $data['search'] ?? '';
 $category = $data['category'] ?? '';
@@ -11,15 +12,18 @@ $categories = $data['categories'] ?? [];
 $sort = $_GET['sort'] ?? 'productName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
+$canAdd = $data['canAdd'] ?? false;
+$canUpdate = $data['canUpdate'] ?? false;
+$canDelete = $data['canDelete'] ?? false;
+$canOrder = $data['canOrder'] ?? false;
 ?>
-<?php include_once "Views/shared/sidebar.php"; ?>
-<?php include_once "Views/shared/topbar.php"; ?>
-
+<?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
+<?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Product View</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/products.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/products.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -47,7 +51,7 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     </option>
                 <?php endforeach; ?>
             </select>
-            <?php if ($role === 'admin'): ?>
+            <?php if ($canAdd): ?>
                 <a href="../product/add">
                     <button type="button" class="icon-btn">
                         <img src="../images/add.png">
@@ -55,7 +59,7 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 </a>
             <?php endif; ?>
         </form>
-        <form id="deleteForm" method="POST" action="../product/deleteMultiple">
+        <form id="deleteForm" method="POST" action="../product/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="../images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
@@ -78,12 +82,12 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?action=list&search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
                                     <img src="../images/sort_arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?action=list&search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
                                     <img src="../images/sort_arrow_down.png" class="sort-icon">
                                 </button>
@@ -109,14 +113,14 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
                     <a href="../product/update/<?= $product->productId ?>">
-                        <img src="../images/edit.png" alt="Edit" style="width:20px; height:20px;"></a>
+                        <img src="../images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
 
-                        <a href="../product/addToOrder/<?= $product->productId ?>">
-                            <?php if (!empty($product->isInOrder)): ?>
-                                <img src="../images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
-                            <?php else: ?>
-                                <img src="../images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
-                            <?php endif; ?></a>
+                    <a href="../product/addToOrder/<?= $product->productId ?>">
+                        <?php if (!empty($product->isInOrder)): ?>
+                            <img src="../images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
+                        <?php else: ?>
+                            <img src="../images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
+                        <?php endif; ?></a>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -141,7 +145,7 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
         });
     </script>
 </div>
-<?php if ($role === 'admin'): ?>
+<?php if ($canAdd): ?>
     <div style="position: fixed; bottom: 20px; right: 20px;">
         <a href="../category/list">
             <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8b8e6; border-radius: 5px;">

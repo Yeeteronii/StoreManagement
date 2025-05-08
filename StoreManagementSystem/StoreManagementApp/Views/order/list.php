@@ -3,6 +3,8 @@ if (!isset($_SESSION['token'])) {
     header("Location: /login/login");
     exit;
 }
+$path = $_SERVER['SCRIPT_NAME'];
+$dirname = dirname($path);
 $role = $_SESSION['role'];
 $orders = $data['orders'] ?? [];
 $searchTerm = $data['search'] ?? '';
@@ -12,14 +14,14 @@ $sort = $_GET['sort'] ?? 'productName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 ?>
-<?php include_once "Views/shared/sidebar.php"; ?>
-<?php include_once "Views/shared/topbar.php"; ?>
+<?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
+<?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Order View</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/orders.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/orders.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -33,11 +35,11 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
         <h2>Order Table</h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../order/list">
+        <form method="GET" action=" ">
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="../images/search.png">
+                <img src="<?php echo dirname($path); ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
                 <option value="">All Categories</option>
@@ -47,15 +49,10 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     </option>
                 <?php endforeach; ?>
             </select>
-                <a href="../order/add">
-                    <button type="button" class="icon-btn">
-                        <img src="../images/add.png">
-                    </button>
-                </a>
         </form>
-        <form id="deleteForm" method="POST" action="../order/deleteMultiple">
+        <form id="deleteForm" method="POST" action="../order/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="../images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?php echo dirname($path); ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
@@ -77,12 +74,12 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?action=list&search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
                                     <img src="../images/sort_arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?action=list&search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
                                     <img src="../images/sort_arrow_down.png" class="sort-icon">
                                 </button>

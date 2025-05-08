@@ -72,7 +72,6 @@ class LoginController extends Controller {
             $secret = User::getTwoFASecret($userId);
 
             if (preg_match('/^\d{6}$/', $code) && $tfa->verifyCode($secret, $code, 1) ) {
-                // User::clearTwoFASecret($userId);
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['token'] = bin2hex(random_bytes(16));
                 $_SESSION['role'] = User::getRole($userId);

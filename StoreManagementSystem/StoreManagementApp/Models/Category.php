@@ -93,20 +93,8 @@ class Category {
         $stmt->close();
     }
 
-    public function delete()
-    {
-        $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE categories SET isActive = 0 WHERE categoryId = ?");
-        $stmtProd = $conn->prepare("UPDATE products SET isActive = 0 WHERE categoryId = ?");
-        $stmt->bind_param("i", $this->categoryId);
-        $stmtProd->bind_param("i", $this->categoryId);
-        $stmt->execute();
-        $stmtProd->execute();
-        $stmt->close();
-        $stmtProd->close();
-    }
 
-    public static function deleteMultiple($ids)
+    public static function delete($ids)
     {
         $conn = Model::connect();
         $in = implode(',', array_fill(0, count($ids), '?'));

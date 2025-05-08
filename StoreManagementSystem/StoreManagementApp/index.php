@@ -1,4 +1,6 @@
 <?php
+$lang = "languages/";
+require_once $lang . "en.php";
 $path = $_SERVER['SCRIPT_NAME'];
 session_start();
 

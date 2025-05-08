@@ -50,7 +50,7 @@ class Product extends Model
         if (!in_array($sort, $allowedSorts)) $sort = 'productName';
         $dir = ($dir === 'DESC') ? 'DESC' : 'ASC';
 
-        $conn = self::connect();
+        $conn = Model::connect();
         $sql = "SELECT p.productId, p.productName, p.cost, p.priceToSell, 
                        p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName
                 FROM products p
@@ -92,7 +92,7 @@ class Product extends Model
 
     public static function getAllCategories()
     {
-        $conn = self::connect();
+        $conn = Model::connect();
         $sql = "SELECT categoryName FROM categories WHERE isActive = 1";
         $result = $conn->query($sql);
         $categories = [];
@@ -104,7 +104,7 @@ class Product extends Model
 
     public static function add($data)
     {
-        $conn = self::connect();
+        $conn = Model::connect();
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
                 VALUES (?, ?, ?, ?, ?, ?, 1)";
         $stmt = $conn->prepare($sql);
@@ -116,7 +116,7 @@ class Product extends Model
 
     public function update($data)
     {
-        $conn = self::connect();
+        $conn = Model::connect();
         $sql = "UPDATE products 
                 SET productName = ?, cost = ?, priceToSell = ?, categoryId = ?, threshold = ?, quantity = ? 
                 WHERE productId = ?";
@@ -127,16 +127,7 @@ class Product extends Model
         $stmt->close();
     }
 
-    public function delete()
-    {
-        $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE products SET isActive = 0 WHERE productId = ?");
-        $stmt->bind_param("i", $this->productId);
-        $stmt->execute();
-        $stmt->close();
-    }
-
-    public static function deleteMultiple($ids)
+    public static function delete($ids)
     {
         $conn = Model::connect();
         $in = implode(',', array_fill(0, count($ids), '?'));
@@ -148,7 +139,7 @@ class Product extends Model
     }
     public static function addToOrder($productId)
     {
-        $conn = self::connect();
+        $conn = Model::connect();
         $stmt = $conn->prepare("INSERT INTO orders (productId, orderDate) VALUES (?, CURDATE())");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
@@ -157,7 +148,7 @@ class Product extends Model
 
     public static function isInOrder($productId)
     {
-        $conn = self::connect();
+        $conn = Model::connect();
         $stmt = $conn->prepare("SELECT 1 FROM orders WHERE productId = ?");
         $stmt->bind_param("i", $productId);
         $stmt->execute();

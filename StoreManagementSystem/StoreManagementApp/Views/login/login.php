@@ -1,10 +1,11 @@
-<?php $path = $_SERVER['SCRIPT_NAME']; ?>
+<?php $path = $_SERVER['SCRIPT_NAME'];
+$dirname = dirname($path);?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/login.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/login.css">
 </head>
 <body>
 <header>

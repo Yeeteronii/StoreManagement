@@ -1,7 +1,7 @@
 <?php
-
 include_once "Controllers/Controller.php";
 include_once "Models/Category.php";
+include_once "Models/User.php";
 
 class CategoryController extends Controller
 {
@@ -9,55 +9,67 @@ class CategoryController extends Controller
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
-        }
-
-        $path = $_SERVER['SCRIPT_NAME'];
-        $action = $_GET['action'] ?? "list";
-        $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
-
-        if ($_SESSION['role'] !== 'admin') {
-                header("Location:" . dirname($path) . "/login/login");
+        } else {
+            if (!isset($_SESSION['token'])) {
+                header("Location: ../login/login");
                 exit;
             } else {
-                if ($action === "list") {
-                    $sort = isset($_GET['sort']) ? $_GET['sort'] : 'categoryName';
-                    $dir = (isset($_GET['dir']) ? $_GET['dir'] : 'asc') === 'desc' ? 'DESC' : 'ASC';
-                    $categories = Category::listFilteredSorted($sort, $dir);
+                $userId = $_SESSION['user_id'];
+                $path = $_SERVER['SCRIPT_NAME'];
+                $action = $_GET['action'] ?? "list";
+                $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
-                    $this->render("category", "list", [
-                        'categories' => $categories
-                    ]);
-                } elseif ($action === "add") {
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        Category::add($_POST);
-                        header("Location:" . dirname($path) . "/category/list");
-                        exit;
-                    } else {
-                        $this->render("shared", "add");
-                    }
-                } elseif ($action === "update") {
-                    $category = new Category($id);
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $category->update($_POST);
-                        header("Location:" . dirname($path) . "/category/list");
-                        exit;
-                    } else {
-                        $this->render("shared", "update", ['category' => $category]);
-                    }
-                } elseif ($action === "delete") {
-                    $category = new Category($id);
-                    $category->delete();
-                    header("Location:" . dirname($path) . "/category/list");
+                if (!User::checkRight($userId, 'Category', $action)) {
+                    $newURL = dirname($path) . "/product/list";
+                    header("Location:" . $newURL);
                     exit;
-                } elseif ($action === "deleteMultiple") {
-                    $ids = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : [];
-                    if (!empty($ids)) {
-                        Category::deleteMultiple(array_map('intval', $ids));
+                } else {
+                    if ($action === "list") {
+                        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'categoryName';
+                        $dir = (isset($_GET['dir']) ? $_GET['dir'] : 'asc') === 'desc' ? 'DESC' : 'ASC';
+                        $categories = Category::listFilteredSorted($sort, $dir);
+                        $canAdd = User::checkRight($_SESSION['user_id'], 'Category', 'add');
+                        $canUpdate = User::checkRight($_SESSION['user_id'], 'Category', 'update');
+                        $canDelete = User::checkRight($_SESSION['user_id'], 'Category', 'delete');
+                        $canOrder = User::checkRight($_SESSION['user_id'], 'Category', 'order');
+
+                        $this->render("category", "list", [
+                            'categories' => $categories,
+                            'canAdd' => $canAdd,
+                            'canUpdate' => $canUpdate,
+                            'canDelete' => $canDelete,
+                            'canOrder' => $canOrder
+                        ]);
+                    } elseif ($action === "add") {
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            Category::add($_POST);
+                            $newURL = dirname($path) . "/category/list";
+                            header("Location:" . $newURL);
+                            exit;
+                        } else {
+                            $this->render("shared", "add");
+                        }
+                    } elseif ($action === "update") {
+                        $category = new Category($id);
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            $category->update($_POST);
+                            $newURL = dirname($path) . "/category/list";
+                            header("Location:" . $newURL);
+                            exit;
+                        } else {
+                            $this->render("shared", "update", ['category' => $category]);
+                        }
+                    } elseif ($action === "delete") {
+                        $ids = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : [];
+                        if (!empty($ids)) {
+                            Category::delete(array_map('intval', $ids));
+                        }
+                        $newURL = dirname($path) . "/category/list";
+                        header("Location:" . $newURL);
+                        exit;
                     }
-                    header("Location:" . dirname($path) . "/category/list");
-                    exit;
                 }
             }
         }
     }
-
+}

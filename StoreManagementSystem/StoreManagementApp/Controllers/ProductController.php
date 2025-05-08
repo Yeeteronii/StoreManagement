@@ -1,6 +1,7 @@
 <?php
 include_once "Controllers/Controller.php";
 include_once "Models/Product.php";
+include_once "Models/User.php";
 
 class ProductController extends Controller
 {
@@ -8,78 +9,84 @@ class ProductController extends Controller
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
-        }
-
-        $path = $_SERVER['SCRIPT_NAME'];
-        $action = $_GET['action'] ?? "list";
-        $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
-
-        if (!isset($_SESSION['token'])) {
-            header("Location: /login/login");
-            exit;
-        }
-
-        if ($action === "list") {
-            $keyword = trim($_GET['search'] ?? '');
-            $category = trim($_GET['category'] ?? '');
-            $sort = $_GET['sort'] ?? 'productName';
-            $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
-
-            $categories = Product::getAllCategories();
-            $products = Product::listFilteredSorted($keyword, $category, $sort, $dir);
-
-            $this->render("product", "list", [
-                'products' => $products,
-                'search' => $keyword,
-                'category' => $category,
-                'categories' => $categories
-            ]);
-
-        } elseif ($action === "add") {
-            if ($_SESSION['role'] !== 'admin') {
-                header("Location:" . dirname($path) . "/login/login");
-                exit;
-            }
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                Product::add($_POST);
-                header("Location:" . dirname($path) . "/product/list");
+        } else {
+            if (!isset($_SESSION['token'])) {
+                header("Location: /login/login");
                 exit;
             } else {
-                $this->render("shared", "add");
-            }
+                $userId = $_SESSION['user_id'];
+                $path = $_SERVER['SCRIPT_NAME'];
+                $action = $_GET['action'] ?? "list";
+                $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
-        } elseif ($action === "update") {
-            $product = new Product($id);
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $product->update($_POST);
-                header("Location:" . dirname($path) . "/product/list");
-                exit;
-            } else {
-                $this->render("shared", "update", ['product' => $product]);
-            }
+                if ($action === "list") {
+                    $keyword = trim($_GET['search'] ?? '');
+                    $category = trim($_GET['category'] ?? '');
+                    $sort = $_GET['sort'] ?? 'productName';
+                    $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-        } elseif ($action === "delete") {
-            $product = new Product($id);
-            $product->delete();
-            header("Location:" . dirname($path) . "/product/list");
-            exit;
+                    $categories = Product::getAllCategories();
+                    $products = Product::listFilteredSorted($keyword, $category, $sort, $dir);
 
-        } elseif ($action === "deleteMultiple") {
-            $ids = $_POST['delete_ids'] ?? [];
-            if (!empty($ids)) {
-                Product::deleteMultiple(array_map('intval', $ids));
-            }
-            header("Location:" . dirname($path) . "/product/list");
-            exit;
+                    $canAdd = User::checkRight($_SESSION['user_id'], 'Product', 'add');
+                    $canUpdate = User::checkRight($_SESSION['user_id'], 'Product', 'update');
+                    $canDelete = User::checkRight($_SESSION['user_id'], 'Product', 'delete');
+                    $canOrder = User::checkRight($_SESSION['user_id'], 'Product', 'order');
 
-        } elseif ($action === "addToOrder") {
-            $product = new Product($id);
-            if ($product) {
-                Product::addToOrder($product->productId);
+                    $this->render("product", "list", [
+                        'products' => $products,
+                        'search' => $keyword,
+                        'category' => $category,
+                        'categories' => $categories,
+                        'canAdd' => $canAdd,
+                        'canUpdate' => $canUpdate,
+                        'canDelete' => $canDelete,
+                        'canOrder' => $canOrder
+                    ]);
+                } elseif ($action === "add") {
+                    if (!User::checkRight($userId, 'Product', 'add')) {
+                        $newURL = dirname($path) . "/product/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    }
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        Product::add($_POST);
+                        $newURL = dirname($path) . "/product/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    } else {
+                        $this->render("shared", "add");
+                    }
+                } elseif ($action === "update") {
+                    $product = new Product($id);
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $product->update($_POST);
+                        $newURL = dirname($path) . "/product/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    } else {
+                        $this->render("shared", "update", ['product' => $product]);
+                    }
+
+                } elseif ($action === "delete") {
+                    $ids = $_POST['delete_ids'] ?? [];
+                    if (!empty($ids)) {
+                        Product::delete(array_map('intval', $ids));
+                    }
+                    $newURL = dirname($path) . "/product/list";
+                    header("Location:" . $newURL);
+                    exit;
+
+                } elseif ($action === "addToOrder") {
+                    $product = new Product($id);
+                    if ($product) {
+                        Product::addToOrder($product->productId);
+                    }
+                    $newURL = dirname($path) . "/product/list";
+                    header("Location:" . $newURL);
+                    exit;
+                }
             }
-            header("Location:" . dirname($path) . "/product/list");
-            exit;
         }
     }
 }

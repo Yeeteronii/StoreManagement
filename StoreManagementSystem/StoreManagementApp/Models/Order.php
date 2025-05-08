@@ -126,17 +126,7 @@ JOIN categories c ON p.categoryId = c.categoryId";
         $stmt->close();
         return $list;
     }
-
-    public function delete()
-    {
-        $conn = Model::connect();
-        $stmt = $conn->prepare("DELETE FROM orders WHERE orderId = ?");
-        $stmt->bind_param("i", $this->orderId);
-        $stmt->execute();
-        $stmt->close();
-    }
-
-    public static function deleteMultiple($ids)
+    public static function delete($ids)
     {
         if (empty($ids)) return;
     

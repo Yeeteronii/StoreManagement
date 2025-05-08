@@ -3,20 +3,25 @@ if (!isset($_SESSION['token'])) {
     header("Location: ../login/login");
     exit;
 }
-$role = $_SESSION['role'];
+$path = ($_SERVER['SCRIPT_NAME']);
+$dirname = dirname($path);
 $categories = $data['categories'] ?? [];
 $sort = $_GET['sort'] ?? 'categoryName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
+$canAdd = $data['canAdd'] ?? false;
+$canUpdate = $data['canUpdate'] ?? false;
+$canDelete = $data['canDelete'] ?? false;
+$canOrder = $data['canOrder'] ?? false;
 ?>
-<?php include_once "Views/shared/sidebar.php"; ?>
-<?php include_once "Views/shared/topbar.php"; ?>
+<?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
+<?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Category View</title>
-    <link rel="stylesheet" href="../Views/styles/categories.css">
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/categories.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -29,19 +34,25 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
     <div class="header">
         <h2>Category Table</h2>
     </div>
+
     <div class="controls">
-        <form method="GET" action="../category/list">
-                <a href="../category/add">
-                    <button type="button" class="icon-btn">
-                        <img src="../images/add.png">
-                    </button>
-                </a>
-        </form>
-        <form id="deleteForm" method="POST" action="../category/deleteMultiple">
-            <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="../images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
-            </button>
-        </form>
+        <?php if ($canAdd): ?>
+            <a href="<?php echo dirname($path); ?>/category/add">
+                <button type="button" class="icon-btn">
+                    <img src="<?php echo dirname($path); ?>/images/add.png">
+                </button>
+            </a>
+        <?php endif; ?>
+
+
+        <?php if ($canDelete): ?>
+            <form id="deleteForm" method="POST" action="../category/delete">
+                <button type="submit" class="icon-btn" style="margin-top: 2px;">
+                    <img src="<?php echo dirname($path); ?>/images/delete.png" alt="Delete"
+                         style="width: 20px; height: 20px;">
+                </button>
+            </form>
+        <?php endif; ?>
     </div>
 
     <table id="categoryTable">
@@ -59,14 +70,15 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?action=list&sort=<?= $field ?>&dir=asc">
+                            <a href="?sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="../images/sort_arrow_up.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?action=list&sort=<?= $field ?>&dir=desc">
+                            <a href="?sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="../images/sort_arrow_down.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_down.png"
+                                         class="sort-icon">
                                 </button>
                             </a>
                         </div>
@@ -75,27 +87,33 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
             <?php endforeach; ?>
             <th>Actions</th>
         </tr>
+
         <?php foreach ($categories as $category): ?>
             <tr class="">
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $category->categoryId ?>"></td>
+                <td>
+                    <?php if ($canDelete): ?>
+                        <input type="checkbox" class="delete-checkbox" value="<?= $category->categoryId ?>">
+                    <?php endif; ?></td>
                 <td><?= htmlspecialchars($category->categoryName) ?></td>
                 <td>$<?= number_format($category->categoryTax, 2) ?></td>
                 <td>
-                    <a href="../category/update/<?= $category->categoryId ?>">
-                        <img src="../images/edit.png" alt="Edit" style="width:20px; height:20px;">
-                    </a>
+                    <?php if ($canUpdate): ?>
+                        <a href="<?php echo dirname($path); ?>/category/update/<?= $category->categoryId ?>">
+                            <img src="<?php echo dirname($path); ?>/images/update.png" alt="Edit"
+                                 style="width:20px; height:20px;">
+                        </a>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
 
     <script>
-        document.getElementById('selectAll').addEventListener('change', function() {
+        document.getElementById('selectAll').addEventListener('change', function () {
             const checked = this.checked;
             document.querySelectorAll('.delete-checkbox').forEach(cb => cb.checked = checked);
         });
-
-        document.getElementById('deleteForm').addEventListener('submit', function(e) {
+        document.getElementById('deleteForm').addEventListener('submit', function (e) {
             const form = this;
             form.querySelectorAll('input[name="delete_ids[]"]').forEach(el => el.remove());
             document.querySelectorAll('.delete-checkbox:checked').forEach(cb => {
@@ -107,6 +125,7 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
             });
         });
     </script>
+
 </div>
 </body>
 </html>

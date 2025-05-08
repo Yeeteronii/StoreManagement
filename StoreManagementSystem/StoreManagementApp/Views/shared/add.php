@@ -29,23 +29,23 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 
             <label for="cost">Cost</label>
             <input type="number" step="0.01" name="cost" id="cost" required>
-            <div class="field-desc">Field details.</div>
+            <div class="field-desc">How much then item costs.</div>
 
             <label for="priceToSell">Sell Price</label>
             <input type="number" step="0.01" name="priceToSell" id="priceToSell" required>
-            <div class="field-desc">Field details.</div>
+            <div class="field-desc">Price needed to sell the item.</div>
 
             <label for="categoryId">Category ID</label>
             <input type="number" name="categoryId" id="categoryId" required>
-            <div class="field-desc">Field details.</div>
+            <div class="field-desc">Category that this item belongs to .</div>
 
             <label for="threshold">Threshold</label>
             <input type="number" name="threshold" id="threshold" required>
-            <div class="field-desc">Field details.</div>
+            <div class="field-desc">Amount needed to be considered in stock.</div>
 
             <label for="quantity">Quantity</label>
             <input type="number" name="quantity" id="quantity" required>
-            <div class="field-desc">Field details.</div>
+            <div class="field-desc">How much product is currently available.</div>
 
             <button type="submit">Add Product</button>
         </form>
