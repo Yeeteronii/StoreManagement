@@ -37,6 +37,7 @@ class OrderController extends Controller
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Order', 'delete');
                         $canOrder = User::checkRight($_SESSION['user_id'], 'Order', 'order');
 
+<<<<<<< Updated upstream
                         $this->render("order", "list", [
                             'orders' => $orders,
                             'search' => $keyword,
@@ -69,6 +70,23 @@ class OrderController extends Controller
                         exit;
                     }
                 }
+=======
+            $this->render("order", "list", [
+                'orders' => $orders,
+                'search' => $keyword,
+                'category' => $category,
+                'categories' => $categories
+            ]);
+        } elseif ($action === "delete") {
+            $order = new Order($id);
+            $order->delete();
+            header("Location:" . dirname($path) . "/order/list");
+            exit;
+        } elseif ($action === "deleteMultiple") {
+            $ids = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : [];
+            if (!empty($ids)) {
+            Order::deleteMultiple(array_map('intval', $ids));
+>>>>>>> Stashed changes
             }
         }
     }

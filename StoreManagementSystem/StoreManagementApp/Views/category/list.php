@@ -32,7 +32,7 @@ $canOrder = $data['canOrder'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Category Table</h2>
+        <h2><?=CATEGORYTABLE?></h2>
     </div>
 
     <div class="controls">
@@ -62,8 +62,8 @@ $canOrder = $data['canOrder'] ?? false;
             </th>
             <?php
             $headers = [
-                'categoryName' => 'Category Name',
-                'categoryTax' => 'Category Tax'
+                'categoryName' => CATEGORYNAME,
+                'categoryTax' => CATEGORYTAX
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -95,7 +95,7 @@ $canOrder = $data['canOrder'] ?? false;
                         <input type="checkbox" class="delete-checkbox" value="<?= $category->categoryId ?>">
                     <?php endif; ?></td>
                 <td><?= htmlspecialchars($category->categoryName) ?></td>
-                <td>$<?= number_format($category->categoryTax, 2) ?></td>
+                <td><!--$--><?= number_format($category->categoryTax, 2) ?></td>
                 <td>
                     <?php if ($canUpdate): ?>
                         <a href="<?php echo dirname($path); ?>/category/update/<?= $category->categoryId ?>">

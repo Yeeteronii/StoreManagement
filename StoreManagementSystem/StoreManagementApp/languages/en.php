@@ -36,14 +36,20 @@ define("CATEGORY", "Category");
 define("COST", "COST");
 define("SELLPRICE", "Sell Price");
 define("QUANTITY", "Quantity");
-define("ACTIONS", "Actions");
 
 define("CATEGORYFLITER", "All Categories");
 define("VIEWCATEGORY", "View Categories");
 
 
-//Category
+// Category
+define("CATEGORYNAME", "Category Name");
+define("CATEGORYTABLE", "Category Table");
+define("CATEGORYTAX", "Category Tax");
 
+// Order
+define("ORDERTABLE", "Order Table");
+define("ORDERDATE", "Order Date");
 
-define("SEARCH", "Search products");
+define("ACTIONS", "Actions");
+define("SEARCH", "Search products...");
 ?>

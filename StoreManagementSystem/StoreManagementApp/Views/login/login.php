@@ -2,6 +2,9 @@
 $dirname = dirname($path);?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -9,9 +12,7 @@ $dirname = dirname($path);?>
 </head>
 <body>
 <header>
-    <div class="store-name" style="color: red; font-style: italic;">Depanneur du Souvenir</div>
-</header>
-
+<div class="store-name" style="color: red; font-family: 'Charm'; font-size: 35px; margin-left: 10px">Dépanneur du Souvenir</div></header>
 <div class="login-container">
     <img src="/StoreManagement/StoreManagementSystem/StoreManagementApp/images/defaultguy.jpg" alt="User Icon" class="user-icon">
 

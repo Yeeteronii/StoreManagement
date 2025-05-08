@@ -32,17 +32,22 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Order Table</h2>
+        <h2><?=ORDERTABLE?></h2>
     </div>
     <div class="controls">
+<<<<<<< Updated upstream
         <form method="GET" action=" ">
             <input type="text" name="search" placeholder="Search product..."
+=======
+        <form method="GET" action="../order/list">
+            <input type="text" name="search" placeholder="<?=SEARCH?>"
+>>>>>>> Stashed changes
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?php echo dirname($path); ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
-                <option value="">All Categories</option>
+                <option value=""><?=VIEWCATEGORY?></option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= htmlspecialchars($cat) ?>" <?= $category === $cat ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat) ?>
@@ -64,10 +69,10 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
             </th>
             <?php
             $headers = [
-                'productName' => 'Product Name',
-                'categoryName' => 'Category',
-                'orderDate' => 'Order Date',
-                'quantity' => 'Quantity'
+                'productName' => PRODUCTNAME,
+                'categoryName' => CATEGORY,
+                'orderDate' => ORDERDATE,
+                'quantity' => QUANTITY
             ];
             foreach ($headers as $field => $label): ?>
                 <th>

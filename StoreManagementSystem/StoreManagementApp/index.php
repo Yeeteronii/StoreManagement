@@ -1,6 +1,11 @@
 <?php
 $lang = "languages/";
+<<<<<<< Updated upstream
 require_once $lang . "en.php";
+=======
+include_once $lang . "fr.php";
+
+>>>>>>> Stashed changes
 $path = $_SERVER['SCRIPT_NAME'];
 session_start();
 
