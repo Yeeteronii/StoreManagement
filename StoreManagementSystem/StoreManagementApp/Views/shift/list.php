@@ -1,100 +1,131 @@
 <?php
-$path = $_SERVER['SCRIPT_NAME'];
+
+// ================================
+// DO NOT DELETE THIS FILE
+// ================================
+
+
+$path = dirname($_SERVER['SCRIPT_NAME']);
+//$path = dirname(__DIR__);
 include_once "Util/cdebug.php";
-cdebug('test');
+cdebug($path,'path');
+cdebug(dirname(__DIR__),'DIR');
 
-$daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-cdebug(array_search('Tuesday', $daysOfWeek));
-
-// Helper function to convert time to an hour index (e.g., "1:00 AM" => 1, "2:00 PM" => 14)
-function timeToIndex($time) {
-    $hour = date("H", strtotime($time)); // Get the hour in 24-hour format
-    return (int)$hour;
-}
-
-// Function to render the table with shifts
-function renderSchedule($shifts) {
-    $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    
-    // Initialize a 2D array for the schedule: [day][timeSlot]
-    $schedule = array_fill(0, 7, array_fill(0, 24, null)); // 7 days, 24 hours
-    
-    // Loop through shifts and populate the schedule array
-    foreach ($shifts as $shift) {
-        $dayIndex = array_search($shift->day, $daysOfWeek); // Find the corresponding day index
-        $startIndex = timeToIndex($shift->startTime); // Convert start time to index (hour)
-        $endIndex = timeToIndex($shift->endTime); // Convert end time to index (hour)
-        
-        // Mark the cells for the shift
-        for ($i = $startIndex; $i < $endIndex; $i++) {
-            $schedule[$dayIndex][$i] = $shift;
-        }
-    }
-
-    // Start rendering the table
-    echo '<table>';
-    echo '<thead><tr><th>Time</th>';
-    
-    foreach ($daysOfWeek as $day) {
-        echo "<th>$day</th>";
-    }
-    echo '</tr></thead>';
-    
-    echo '<tbody>';
-    for ($i = 0; $i < 24; $i++) {
-        echo "<tr><td>" . date("g:i A", strtotime("$i:00")) . "<br><br>" . "</td>";
-        for ($j = 0; $j < 7; $j++) {
-            $shift = $schedule[$j][$i];
-            if ($shift) {
-                // Display the shift with a background color (you can customize this further)
-                echo "<td style='background-color: #76c7c0;'>{$shift->userId}</td>";
-            } else {
-                echo "<td class='empty'></td>";
-            }
-        }
-        echo '</tr>';
-    }
-    echo '</tbody>';
-    echo '</table>';
-}
-
-
-
+//include_once dirname(__DIR__) . "/shared/topbar.php";
+//include_once dirname(__DIR__) . "/shared/sidebar.php";
 ?>
+<?php
+//include_once dirname(__DIR__) . "/shared/topbar.php";
+//include_once dirname(__DIR__) . "/shared/sidebar.php";
+?> 
 
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Schedule - Store Management System</title>
-
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-        }
-        td.empty {
-            background-color: #fafafa;
-        }
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="<?=$path?>/Views/shift/assets/css/style.css">
+  <title>Schedule View</title>
 </head>
 <body>
 
-<?php include_once "Views/shared/sidebar.php"; ?>
-<?php include_once "Views/shared/topbar.php"; ?>
 
 
-<h2>Weekly Schedule</h2>
+<div class="main-content">
+    <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+        <div class="cd-schedule__timeline">
+        <ul>
+            <li><span>09:00</span></li>
+            <li><span>09:30</span></li>
+            <li><span>10:00</span></li>
+            <li><span>10:30</span></li>
+            <li><span>11:00</span></li>
+            <li><span>11:30</span></li>
+            <li><span>12:00</span></li>
+            <li><span>12:30</span></li>
+            <li><span>13:00</span></li>
+            <li><span>13:30</span></li>
+            <li><span>14:00</span></li>
+            <li><span>14:30</span></li>
+            <li><span>15:00</span></li>
+            <li><span>15:30</span></li>
+            <li><span>16:00</span></li>
+            <li><span>16:30</span></li>
+            <li><span>17:00</span></li>
+            <li><span>17:30</span></li>
+            <li><span>18:00</span></li>
+        </ul>
+        </div> <!-- .cd-schedule__timeline -->
+        <div class="cd-schedule__events">
+        <ul>
+            <li class="cd-schedule__group">
+            <div class="cd-schedule__top-info"><span>Monday</span></div>
+    
+            <ul>
+                <li class="cd-schedule__event">
+                <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                    <em class="cd-schedule__name">Abs Circuit</em>
+                </a>
+                </li>
+    
+                <li class="cd-schedule__event">
+                <a data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                    <em class="cd-schedule__name">Rowing Workout</em>
+                </a>
+                </li>
+    
+                <li class="cd-schedule__event">
+                <a data-start="14:00" data-end="15:15"  data-content="event-yoga-1" data-event="event-3" href="#0">
+                    <em class="cd-schedule__name">Yoga Level 1</em>
+                </a>
+                </li>
+            </ul>
+            </li>
+    
+            
+        </ul>
+        </div>
+    
+        <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+            <span class="cd-schedule-modal__date"></span>
+            <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+    
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+    
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info"></div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+    
+        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+        </div>
+    
+        <div class="cd-schedule__cover-layer"></div>
+    </div> <!-- .cd-schedule -->
+</div> <!-- .main-content -->
 
-<?php renderSchedule($data); ?>
+    <!-- <script src="<?=$path?>/Views/shift/assets/js/util.js"></script> 
+    <script src="<?=$path?>/Views/shift/assets/js/main.js"></script> -->
+
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Your JavaScript code here
+        var path = "<?=$path?>"; // Access PHP variables inside the listener
+        var utilScript = document.createElement('script');
+        utilScript.src = path + '/Views/shift/assets/js/util.js';
+        document.body.appendChild(utilScript);
+
+        var mainScript = document.createElement('script');
+        mainScript.src = path + '/Views/shift/assets/js/main.js';
+        document.body.appendChild(mainScript);
+    });
+    </script>
 
 
 
