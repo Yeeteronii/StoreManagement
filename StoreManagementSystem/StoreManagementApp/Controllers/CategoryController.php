@@ -60,7 +60,8 @@ class CategoryController extends Controller
                     } elseif ($action === "update") {
                         $category = new Category($id);
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $category->update($_POST);
+                            $newTax = isset($_POST['categoryTax']) ? floatval($_POST['categoryTax']) : 0.0;
+                            $category->update($newTax);
                             $newURL = dirname($path) . "/category/list";
                             header("Location:" . $newURL);
                             exit;

@@ -90,8 +90,8 @@ class Category {
     public function update($newQuantity)
     {
         $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE orders SET quantity = ? WHERE orderId = ?");
-        $stmt->bind_param("ii", $newQuantity, $this->orderId);
+        $stmt = $conn->prepare("UPDATE categories SET categoryTax = ? WHERE categoryId = ?");
+        $stmt->bind_param("di", $newQuantity, $this->categoryId);
         $stmt->execute();
         $stmt->close();
     }
