@@ -22,7 +22,7 @@ $dirname = dirname($path);
         <div class="sidebar" id="sidebar">
             <ul class="nav-links">
                 <li><a href="../product/list"><?=PRODUCT?></a></li>
-                <li><a href="../schedule/view"><?=SCHEDULE?></a></li>
+                <li><a href="../shift/list"><?=SCHEDULE?></a></li>
                 <li><a href="../order/list"><?=ORDERS?></a></li>
                 <li><a href="../supplier/view"><?=SUPPLIERS?></a></li>
                 <li><a href="../employee/view"><?=EMPLOYEES?></a></li>
@@ -34,7 +34,7 @@ $dirname = dirname($path);
         <div class="sidebar" id="sidebar">
             <ul class="nav-links">
                 <li><a href="../product/list"><?=PRODUCT?></a></li>
-                <li><a href="../schedule/view"><?=SCHEDULE?></a></li>
+                <li><a href="../shift/list"><?=SCHEDULE?></a></li>
                 <li><a href="../setting/view"><?=SETTINGS?></a></li>
             </ul>
         </div>

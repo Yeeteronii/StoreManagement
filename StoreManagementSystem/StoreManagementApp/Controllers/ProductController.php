@@ -28,6 +28,7 @@ class ProductController extends Controller
                     $categories = Product::getAllCategories();
                     $products = Product::listFilteredSorted($keyword, $category, $sort, $dir);
 
+
                     $canAdd = User::checkRight($_SESSION['user_id'], 'Product', 'add');
                     $canUpdate = User::checkRight($_SESSION['user_id'], 'Product', 'update');
                     $canDelete = User::checkRight($_SESSION['user_id'], 'Product', 'delete');
@@ -61,7 +62,10 @@ class ProductController extends Controller
                         header("Location:" . $newURL);
                         exit;
                     } else {
-                        $this->render("shared", "add");
+                        $categories = Product::getAllCategories();
+                        $this->render("shared", "add", [
+                            'categories' => $categories
+                        ]);
                     }
                 } elseif ($action === "update") {
                     $product = new Product($id);

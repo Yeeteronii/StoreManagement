@@ -31,14 +31,11 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <input type="number" step="0.01" name="cost" id="cost" required>
             <div class="field-desc">How much then item costs.</div>
 
-            <label for="priceToSell">Sell Price</label>
-            <input type="number" step="0.01" name="priceToSell" id="priceToSell" required>
-            <div class="field-desc">Price needed to sell the item.</div>
-
             <label for="categoryId">Category ID</label>
-            <input type="number" name="categoryId" id="categoryId" required>
-            <div class="field-desc">Category that this item belongs to .</div>
-
+            <input type="number" name="categoryId" id="categoryId" required oninput="updateCategoryName()">
+            <div class="field-desc">
+                Category name: <span id="categoryNameDisplay" style="font-weight: bold;">Unknown category</span>
+            </div>
             <label for="threshold">Threshold</label>
             <input type="number" name="threshold" id="threshold" required>
             <div class="field-desc">Amount needed to be considered in stock.</div>
@@ -48,7 +45,30 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <div class="field-desc">How much product is currently available.</div>
 
             <button type="submit">Add Product</button>
+
+            <script>
+                const categoryMap = {
+                    <?php foreach ($categories as $category): ?>
+                    <?= $category->categoryId ?>: "<?= htmlspecialchars($category->categoryName) ?>",
+                    <?php endforeach; ?>
+                };
+
+                function updateCategoryName() {
+                    const input = document.getElementById('categoryId');
+                    const nameDisplay = document.getElementById('categoryNameDisplay');
+                    const id = input.value.trim();
+
+                    if (categoryMap.hasOwnProperty(id)) {
+                        nameDisplay.textContent = categoryMap[id];
+                    } else if (id === '') {
+                        nameDisplay.textContent = "Unknown category";
+                    } else {
+                        nameDisplay.textContent = "Invalid category";
+                    }
+                }
+            </script>
         </form>
+
     <?php elseif ($source === 'category' && $role === 'admin'): ?>
         <form method="POST" action="../category/shared/add">
             <label for="categoryName">Name</label>

@@ -41,25 +41,30 @@ class Category {
         return $list;
     }
 
-    public static function listFilteredSorted($sort, $dir)
+    public static function listFilteredSorted($keyword, $sort, $dir)
     {
         $allowedSorts = ['categoryName', 'categoryTax'];
         if (!in_array($sort, $allowedSorts)) $sort = 'categoryName';
         $dir = ($dir === 'DESC') ? 'DESC' : 'ASC';
 
         $conn = Model::connect();
-
-        $sql = "SELECT * FROM categories WHERE isActive = 1 ORDER BY $sort $dir";
+        $sql = "SELECT * FROM categories WHERE isActive = 1";
 
         $params = [];
         $types = '';
 
-        $stmt = $conn->prepare($sql);
+        if (!empty($keyword)) {
+            $sql .= " AND categoryName LIKE ?";
+            $params[] = '%' . $keyword . '%';
+            $types .= 's';
+        }
 
+        $sql .= " ORDER BY $sort $dir";
+
+        $stmt = $conn->prepare($sql);
         if (!empty($params)) {
             $stmt->bind_param($types, ...$params);
         }
-
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -70,7 +75,6 @@ class Category {
         $stmt->close();
         return $list;
     }
-
     
 
     public static function add($data)
@@ -83,12 +87,11 @@ class Category {
         $stmt->close();
     }
 
-    public function update($data)
+    public function update($newQuantity)
     {
         $conn = Model::connect();
-        $sql = "UPDATE categories SET categoryName = ?, categoryTax = ? WHERE categoryId = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdi", $data['productName'], $data['categoryTax'], $this->categoryId);
+        $stmt = $conn->prepare("UPDATE orders SET quantity = ? WHERE orderId = ?");
+        $stmt->bind_param("ii", $newQuantity, $this->orderId);
         $stmt->execute();
         $stmt->close();
     }
@@ -107,5 +110,28 @@ class Category {
         $stmtProd->execute();
         $stmt->close();
         $stmtProd->close();
+    }
+
+    public static function viewDeleted()
+    {
+        $conn = Model::connect();
+        $sql = "SELECT * FROM categories WHERE isActive = 0";
+        $result = $conn->query($sql);
+
+        $list = [];
+        while ($row = $result->fetch_object()) {
+            $category = new Category($row);
+            $list[] = $category;
+        }
+        return $list;
+    }
+
+    public static function restore($id)
+    {
+        $conn = Model::connect();
+        $stmt = $conn->prepare("UPDATE categories SET isActive = 1 WHERE categoryId = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
     }
 }

@@ -93,11 +93,11 @@ class Product extends Model
     public static function getAllCategories()
     {
         $conn = Model::connect();
-        $sql = "SELECT categoryName FROM categories WHERE isActive = 1";
+        $sql = "SELECT categoryId, categoryName FROM categories WHERE isActive = 1";
         $result = $conn->query($sql);
         $categories = [];
         while ($row = $result->fetch_object()) {
-            $categories[] = $row->categoryName;
+            $categories[] = $row;
         }
         return $categories;
     }
@@ -105,11 +105,29 @@ class Product extends Model
     public static function add($data)
     {
         $conn = Model::connect();
+
+
+        $stmtTax = $conn->prepare("SELECT categoryTax FROM categories WHERE categoryId = ?");
+        $stmtTax->bind_param("i", $data['categoryId']);
+        $stmtTax->execute();
+        $result = $stmtTax->get_result();
+        $row = $result->fetch_object();
+        $categoryTax = $row ? $row->categoryTax : 0.0;
+        $stmtTax->close();
+        $priceToSell = $data['cost'] + ($data['cost'] * $categoryTax);
+
+
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
-                VALUES (?, ?, ?, ?, ?, ?, 1)";
+            VALUES (?, ?, ?, ?, ?, ?, 1)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddiii", $data['productName'], $data['cost'], $data['priceToSell'],
-            $data['categoryId'], $data['threshold'], $data['quantity']);
+        $stmt->bind_param("sddiii",
+            $data['productName'],
+            $data['cost'],
+            $priceToSell,
+            $data['categoryId'],
+            $data['threshold'],
+            $data['quantity']
+        );
         $stmt->execute();
         $stmt->close();
     }

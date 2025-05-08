@@ -25,20 +25,28 @@ class CategoryController extends Controller
                     exit;
                 } else {
                     if ($action === "list") {
+                        $keyword = trim($_GET['search'] ?? '');
                         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'categoryName';
                         $dir = (isset($_GET['dir']) ? $_GET['dir'] : 'asc') === 'desc' ? 'DESC' : 'ASC';
-                        $categories = Category::listFilteredSorted($sort, $dir);
+
+
+                        $categories = Category::listFilteredSorted($keyword, $sort, $dir);
                         $canAdd = User::checkRight($_SESSION['user_id'], 'Category', 'add');
                         $canUpdate = User::checkRight($_SESSION['user_id'], 'Category', 'update');
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Category', 'delete');
                         $canOrder = User::checkRight($_SESSION['user_id'], 'Category', 'order');
+                        $canViewDeleted = User::checkRight($_SESSION['user_id'], 'Category', 'viewDeleted');
+                        $canRestore = User::checkRight($_SESSION['user_id'], 'Category', 'restore');
+
 
                         $this->render("category", "list", [
                             'categories' => $categories,
                             'canAdd' => $canAdd,
                             'canUpdate' => $canUpdate,
                             'canDelete' => $canDelete,
-                            'canOrder' => $canOrder
+                            'canOrder' => $canOrder,
+                            'canViewDeleted' => $canViewDeleted,
+                            'canRestore' => $canRestore,
                         ]);
                     } elseif ($action === "add") {
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,6 +73,19 @@ class CategoryController extends Controller
                             Category::delete(array_map('intval', $ids));
                         }
                         $newURL = dirname($path) . "/category/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    } elseif ($action === "viewDeleted") {
+                        $category = Category::viewDeleted();
+
+                        $this->render("category", "viewDeleted", [
+                            'categories' => $category
+                        ]);
+                    } elseif ($action === "restore") {
+                        if ($id > 0) {
+                            Category::restore($id);
+                        }
+                        $newURL = dirname($path) . "/category/viewDeleted";
                         header("Location:" . $newURL);
                         exit;
                     }
