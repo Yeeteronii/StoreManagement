@@ -32,6 +32,9 @@ class ProductController extends Controller
                     $canUpdate = User::checkRight($_SESSION['user_id'], 'Product', 'update');
                     $canDelete = User::checkRight($_SESSION['user_id'], 'Product', 'delete');
                     $canOrder = User::checkRight($_SESSION['user_id'], 'Product', 'order');
+                    $canCategory = User::checkRight($_SESSION['user_id'], 'Product', 'Category');
+                    $canViewDeleted = User::checkRight($_SESSION['user_id'], 'Product', 'viewDeleted');
+                    $canRestore = User::checkRight($_SESSION['user_id'], 'Product', 'restore');
 
                     $this->render("product", "list", [
                         'products' => $products,
@@ -41,7 +44,10 @@ class ProductController extends Controller
                         'canAdd' => $canAdd,
                         'canUpdate' => $canUpdate,
                         'canDelete' => $canDelete,
-                        'canOrder' => $canOrder
+                        'canOrder' => $canOrder,
+                        'canCategory' => $canCategory,
+                        'canViewDeleted' => $canViewDeleted,
+                        'canRestore' => $canRestore
                     ]);
                 } elseif ($action === "add") {
                     if (!User::checkRight($userId, 'Product', 'add')) {
@@ -85,7 +91,29 @@ class ProductController extends Controller
                     $newURL = dirname($path) . "/product/list";
                     header("Location:" . $newURL);
                     exit;
+                } elseif ($action === "category") {
+                    if (!User::checkRight($userId, 'Product', 'category')) {
+                        $newURL = dirname($path) . "/product/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    } else {
+                        $this->render("category", "list");
+                    }
+                } elseif ($action === "viewDeleted") {
+                    $products = Product::viewDeleted();
+
+                    $this->render("product", "viewDeleted", [
+                        'products' => $products
+                    ]);
+                } elseif ($action === "restore") {
+                    if ($id > 0) {
+                        Product::restore($id);
+                    }
+                    $newURL = dirname($path) . "/product/viewDeleted";
+                    header("Location:" . $newURL);
+                    exit;
                 }
+
             }
         }
     }

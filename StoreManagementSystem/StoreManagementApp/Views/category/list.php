@@ -32,14 +32,14 @@ $canOrder = $data['canOrder'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2><?=CATEGORYTABLE?></h2>
+        <h2>Category Table</h2>
     </div>
 
     <div class="controls">
         <?php if ($canAdd): ?>
-            <a href="<?php echo dirname($path); ?>/category/add">
+            <a href="<<?= $dirname ?>/category/add">
                 <button type="button" class="icon-btn">
-                    <img src="<?php echo dirname($path); ?>/images/add.png">
+                    <img src="<?= $dirname ?>/images/add.png">
                 </button>
             </a>
         <?php endif; ?>
@@ -48,7 +48,7 @@ $canOrder = $data['canOrder'] ?? false;
         <?php if ($canDelete): ?>
             <form id="deleteForm" method="POST" action="../category/delete">
                 <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                    <img src="<?php echo dirname($path); ?>/images/delete.png" alt="Delete"
+                    <img src="<?= $dirname ?>/images/delete.png" alt="Delete"
                          style="width: 20px; height: 20px;">
                 </button>
             </form>
@@ -62,8 +62,8 @@ $canOrder = $data['canOrder'] ?? false;
             </th>
             <?php
             $headers = [
-                'categoryName' => CATEGORYNAME,
-                'categoryTax' => CATEGORYTAX
+                'categoryName' => 'Category Name',
+                'categoryTax' => 'Category Tax'
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -72,12 +72,12 @@ $canOrder = $data['canOrder'] ?? false;
                         <div class="sort-arrows">
                             <a href="?sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/sort_arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_down.png"
+                                    <img src="<?= $dirname ?>/images/sort_arrow_down.png"
                                          class="sort-icon">
                                 </button>
                             </a>
@@ -95,11 +95,11 @@ $canOrder = $data['canOrder'] ?? false;
                         <input type="checkbox" class="delete-checkbox" value="<?= $category->categoryId ?>">
                     <?php endif; ?></td>
                 <td><?= htmlspecialchars($category->categoryName) ?></td>
-                <td><!--$--><?= number_format($category->categoryTax, 2) ?></td>
+                <td>$<?= number_format($category->categoryTax, 2) ?></td>
                 <td>
                     <?php if ($canUpdate): ?>
-                        <a href="<?php echo dirname($path); ?>/category/update/<?= $category->categoryId ?>">
-                            <img src="<?php echo dirname($path); ?>/images/update.png" alt="Edit"
+                        <a href="<?= $dirname ?>/category/update/<?= $category->categoryId ?>">
+                            <img src="<?= $dirname ?>/images/update.png" alt="Edit"
                                  style="width:20px; height:20px;">
                         </a>
                     <?php endif; ?>

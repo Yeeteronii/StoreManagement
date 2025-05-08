@@ -63,23 +63,23 @@ JOIN categories c ON p.categoryId = c.categoryId");
         return $categories;
     }
 
-    public function incrementQuantity()
+    public function update($direction)
     {
         $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE orders SET quantity = quantity + 1 WHERE orderId = ?");
+
+        if ($direction === 'up') {
+            $stmt = $conn->prepare("UPDATE orders SET quantity = quantity + 1 WHERE orderId = ?");
+        } elseif ($direction === 'down') {
+            $stmt = $conn->prepare("UPDATE orders SET quantity = GREATEST(quantity - 1, 0) WHERE orderId = ?");
+        } else {
+            throw new Exception("Invalid direction for updateQuantity");
+        }
+
         $stmt->bind_param("i", $this->orderId);
         $stmt->execute();
         $stmt->close();
     }
 
-    public function decrementQuantity()
-    {
-        $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE orders SET quantity = GREATEST(quantity - 1, 0) WHERE OrderId = ?");
-        $stmt->bind_param("i", $this->orderId);
-        $stmt->execute();
-        $stmt->close();
-    }
 
     public static function listFilteredSorted($keyword, $category, $sort, $dir)
     {
@@ -126,10 +126,11 @@ JOIN categories c ON p.categoryId = c.categoryId";
         $stmt->close();
         return $list;
     }
+
     public static function delete($ids)
     {
         if (empty($ids)) return;
-    
+
         $conn = Model::connect();
         $in = implode(',', array_fill(0, count($ids), '?'));
         $types = str_repeat('i', count($ids));
@@ -141,5 +142,5 @@ JOIN categories c ON p.categoryId = c.categoryId";
         $stmt->execute();
         $stmt->close();
     }
-    
+
 }

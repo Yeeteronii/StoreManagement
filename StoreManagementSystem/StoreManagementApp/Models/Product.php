@@ -157,4 +157,31 @@ class Product extends Model
         $stmt->close();
         return $isInOrder;
     }
+
+    public static function viewDeleted()
+    {
+        $conn = Model::connect();
+        $sql = "SELECT p.productId, p.productName, p.cost, p.priceToSell, 
+                   p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName
+            FROM products p
+            JOIN categories c ON c.categoryId = p.categoryId
+            WHERE p.isActive = 0";
+        $result = $conn->query($sql);
+
+        $list = [];
+        while ($row = $result->fetch_object()) {
+            $product = new Product($row);
+            $list[] = $product;
+        }
+        return $list;
+    }
+
+    public static function restore($id)
+    {
+        $conn = Model::connect();
+        $stmt = $conn->prepare("UPDATE products SET isActive = 1 WHERE productId = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
 }

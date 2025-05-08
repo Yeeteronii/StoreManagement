@@ -1,3 +1,6 @@
+<?php $path = $_SERVER['SCRIPT_NAME'];
+$dirname = dirname($path);?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

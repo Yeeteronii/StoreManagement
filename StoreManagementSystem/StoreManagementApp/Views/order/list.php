@@ -13,6 +13,10 @@ $categories = $data['categories'] ?? [];
 $sort = $_GET['sort'] ?? 'productName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
+$canAdd = $data['canAdd'] ?? false;
+$canUpdate = $data['canUpdate'] ?? false;
+$canDelete = $data['canDelete'] ?? false;
+$canOrder = $data['canOrder'] ?? false;
 ?>
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
@@ -32,22 +36,17 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 <body>
 <div class="main-content">
     <div class="header">
-        <h2><?=ORDERTABLE?></h2>
+        <h2>Order Table</h2>
     </div>
     <div class="controls">
-<<<<<<< Updated upstream
         <form method="GET" action=" ">
             <input type="text" name="search" placeholder="Search product..."
-=======
-        <form method="GET" action="../order/list">
-            <input type="text" name="search" placeholder="<?=SEARCH?>"
->>>>>>> Stashed changes
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?php echo dirname($path); ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
-                <option value=""><?=VIEWCATEGORY?></option>
+                <option value="">All Categories</option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= htmlspecialchars($cat) ?>" <?= $category === $cat ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat) ?>
@@ -55,11 +54,13 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 <?php endforeach; ?>
             </select>
         </form>
+        <?php if ($canDelete): ?>
         <form id="deleteForm" method="POST" action="../order/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?php echo dirname($path); ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
+        <?php endif; ?>
     </div>
 
     <table id="orderTable">
@@ -69,10 +70,10 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
             </th>
             <?php
             $headers = [
-                'productName' => PRODUCTNAME,
-                'categoryName' => CATEGORY,
-                'orderDate' => ORDERDATE,
-                'quantity' => QUANTITY
+                'productName' => 'Product Name',
+                'categoryName' => 'Category',
+                'orderDate' => 'Order Date',
+                'quantity' => 'Quantity'
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -102,8 +103,10 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 <td><?= date('d/m/Y', strtotime($order->orderDate))?></td>
                 <td>
                     <?= $order->quantity ?>
-                    <a href="../order/updateQuantity/<?= $order->orderId ?>?change=up" style="margin-left: 5px;">&#8679;</a>
-                    <a href="../order/updateQuantity/<?= $order->orderId ?>?change=down" style="margin-left: 2px;">&#8681;</a>
+                    <?php if ($canUpdate): ?>
+                    <a href="../order/update/<?= $order->orderId ?>?change=up" style="margin-left: 5px;">&#8679;</a>
+                    <a href="../order/update/<?= $order->orderId ?>?change=down" style="margin-left: 2px;">&#8681;</a>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

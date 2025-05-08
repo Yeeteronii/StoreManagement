@@ -16,6 +16,8 @@ $canAdd = $data['canAdd'] ?? false;
 $canUpdate = $data['canUpdate'] ?? false;
 $canDelete = $data['canDelete'] ?? false;
 $canOrder = $data['canOrder'] ?? false;
+$canCategory = $data['canCategory'] ?? false;
+$canViewDeleted = $data['canViewDeleted'] ?? false;
 ?>
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
@@ -34,17 +36,17 @@ $canOrder = $data['canOrder'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2><?=PRODUCTTABLE?></h2>
+        <h2>Products Table</h2>
     </div>
     <div class="controls">
         <form method="GET" action="../product/list">
-            <input type="text" name="search" placeholder="<?=SEARCH?>"
+            <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="../images/search.png">
+                <img src="<?php echo dirname($path); ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
-                <option value=""><?=CATEGORYFLITER?></option>
+                <option value="">All Categories</option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= htmlspecialchars($cat) ?>" <?= $category === $cat ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat) ?>
@@ -54,14 +56,14 @@ $canOrder = $data['canOrder'] ?? false;
             <?php if ($canAdd): ?>
                 <a href="../product/add">
                     <button type="button" class="icon-btn">
-                        <img src="../images/add.png" style="margin-top: 8px;">
+                        <img src="<?php echo dirname($path); ?>/images/add.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
         <form id="deleteForm" method="POST" action="../product/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="../images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?php echo dirname($path); ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
@@ -70,13 +72,12 @@ $canOrder = $data['canOrder'] ?? false;
         <tr>
             <th><input type="checkbox" id="selectAll"></th>
             <?php
-            
             $headers = [
-                'productName' => PRODUCTNAME,
-                'categoryName' => CATEGORY,
-                'cost' => COST,
-                'priceToSell' => SELLPRICE,
-                'quantity' => QUANTITY
+                'productName' => 'Product Name',
+                'categoryName' => 'Category',
+                'cost' => 'Cost',
+                'priceToSell' => 'Sell Price',
+                'quantity' => 'Quantity'
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -85,19 +86,19 @@ $canOrder = $data['canOrder'] ?? false;
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="../images/sort_arrow_up.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="../images/sort_arrow_down.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/sort_arrow_down.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th><?=ACTIONS?></th>
+            <th>Actions</th>
         </tr>
         <?php foreach ($products as $product): ?>
             <?php
@@ -114,13 +115,13 @@ $canOrder = $data['canOrder'] ?? false;
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
                     <a href="../product/update/<?= $product->productId ?>">
-                        <img src="../images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
+                        <img src="<?php echo dirname($path); ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
 
                     <a href="../product/addToOrder/<?= $product->productId ?>">
                         <?php if (!empty($product->isInOrder)): ?>
-                            <img src="../images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
+                            <img src="<?php echo dirname($path); ?>/images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
                         <?php else: ?>
-                            <img src="../images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
+                            <img src="<?php echo dirname($path); ?>/images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
                         <?php endif; ?></a>
                 </td>
             </tr>
@@ -146,11 +147,21 @@ $canOrder = $data['canOrder'] ?? false;
         });
     </script>
 </div>
-<?php if ($canAdd): ?>
+<?php if ($canViewDeleted): ?>
+<div style="position: fixed; bottom: 80px; right: 20px;">
+    <a href="../product/viewDeleted">
+        <button type="button" class="icon-btn" style="padding: 10px; background-color: #f7caca; border-radius: 5px;">
+            View Deleted
+        </button>
+    </a>
+</div>
+<?php endif; ?>
+
+<?php if ($canCategory): ?>
     <div style="position: fixed; bottom: 20px; right: 20px;">
         <a href="../category/list">
             <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8b8e6; border-radius: 5px;">
-            <?=VIEWCATEGORY?>
+                View Categories
             </button>
         </a>
     </div>

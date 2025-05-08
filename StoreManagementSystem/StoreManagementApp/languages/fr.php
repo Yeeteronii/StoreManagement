@@ -30,28 +30,18 @@ define("SETTINGS", "Paramètres");
 
 // Products
 
-define("PRODUCTTABLE", "Table des Produits");
-define("PRODUCTNAME", "Nom du Produit");
+define("PRODUCTTABLE", "Table des produits");
+define("PRODUCTNAME", "Nom du produit");
 define("CATEGORY", "Catégorie");
 define("COST", "Coût");
-define("SELLPRICE", "Prix de Vente");
+define("SELLPRICE", "Prix de vente");
 define("QUANTITY", "Quantité");
 define("ACTIONS", "Actions");
 
-define("CATEGORYFLITER", "Catégories");
-define("VIEWCATEGORY", "Voir les Catégories");
+define("CATEGORYFLITER", "Toutes les catégories");
+define("VIEWCATEGORY", "Voir les catégories");
 
-// Category
-define("CATEGORYNAME", "Nom de la Catégorie");
-define("CATEGORYTABLE", "Table des Catégories");
-define("CATEGORYTAX", "Taxe de la Catégorie");
-
-// Order
-define("ORDERTABLE", "Table des Commandes");
-define("ORDERDATE", "Date de Commande");
-
-
-define("SEARCH", "Rechercher des produits...");
+define("SEARCH", "Rechercher des produits");
 
 
 ?>
