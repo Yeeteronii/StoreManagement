@@ -3,7 +3,7 @@ include_once "Controllers/Controller.php";
 include_once "Models/Report.php";
 include_once "Models/User.php";
 require_once __DIR__ . '/../lib/fpdf/fpdf.php';
-use fpdf\FPDF;
+// use \FPDF;
 
 class ReportController extends Controller
 {

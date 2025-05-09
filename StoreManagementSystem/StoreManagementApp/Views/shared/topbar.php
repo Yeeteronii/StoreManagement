@@ -3,7 +3,7 @@ if (!isset($_SESSION['token'])) {
     header("Location: /login/login");
     exit;
 }
-$role = $_SESSION['role'];
+$username = $_SESSION['username'];
 $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
 ?>
@@ -23,7 +23,7 @@ $dirname = dirname($path);
         <div class="topbar">
             <div class="logo">Dépanneur du Souvenir</div>
             <div class="user-info">
-                <span><?=LOGGEDIN?> <?= htmlspecialchars($role) ?></span>
+                <span><?=LOGGEDIN?> <?= htmlspecialchars($username) ?></span>
                 <a class="logout-button" href="../login/login"><?=LOGOUT?></a>
                 <div style="font-size: 10px; color: red">Change Translation</div>
                 <div class="language-switch" style="margin-left: 10px;">

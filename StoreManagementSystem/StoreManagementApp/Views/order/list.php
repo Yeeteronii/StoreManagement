@@ -64,7 +64,7 @@ $canOrder = $data['canOrder'] ?? false;
         <form method="POST" action="<?= $dirname ?>/order/update">
             <?php if ($canUpdate): ?>
                 <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                    <img src="<?= $dirname ?>/images/update.png" class="sort-icon">
+                    <img src="<?= $dirname ?>/images/save.png" class="sort-icon">
                 </button>
             <?php endif; ?>
     </div>

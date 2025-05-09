@@ -75,6 +75,7 @@ class LoginController extends Controller {
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['token'] = bin2hex(random_bytes(16));
                 $_SESSION['role'] = User::getRole($userId);
+                $_SESSION['username'] = User::getUsername($userId);
                 unset($_SESSION['pending_user_id']);
                 header('Location: ' . dirname($path) . "/product/list");
                 exit;

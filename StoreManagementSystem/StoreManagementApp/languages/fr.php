@@ -13,7 +13,7 @@ define("ENTERCODE", "Saisissez votre code Google Authenticator");
 
 
 // TopBar\
-define("LOGGEDIN", "Connecté en tant que");
+define("LOGGEDIN", "Bonjour, ");
 define("EMPLOYEE", "Employée");
 define("ADMIN", "Administrateur");
 define("LOGOUT", "Déconnexion");

@@ -12,7 +12,7 @@ define("VERIFY", "Verify");
 define("ENTERCODE", "Enter your Google Authenticator code");
 
 // TopBar
-define("LOGGEDIN", "Logged in as");
+define("LOGGEDIN", "Hello, ");
 define("EMPLOYEE", "Employee");
 define("ADMIN", "Admin");
 define("LOGOUT", "Logout");

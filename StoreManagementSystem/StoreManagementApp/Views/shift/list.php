@@ -11,16 +11,17 @@ include_once "Util/cdebug.php";
 cdebug($path,'path');
 cdebug(dirname(__DIR__),'DIR');
 
-//include_once dirname(__DIR__) . "/shared/topbar.php";
-//include_once dirname(__DIR__) . "/shared/sidebar.php";
+// include_once dirname(__DIR__) . "/shared/topbar.php";
+// include_once dirname(__DIR__) . "/shared/sidebar.php";
 ?>
-<?php
-//include_once dirname(__DIR__) . "/shared/topbar.php";
-//include_once dirname(__DIR__) . "/shared/sidebar.php";
-?> 
+
 
 <!doctype html>
 <html lang="en">
+<?php
+// include_once dirname(__DIR__) . "/shared/topbar.php";
+// include_once dirname(__DIR__) . "/shared/sidebar.php";
+?> 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">

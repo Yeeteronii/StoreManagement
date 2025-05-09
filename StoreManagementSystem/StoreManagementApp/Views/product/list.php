@@ -122,10 +122,10 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                     <a href="<?= $dirname ?>/product/update/<?= $product->productId ?>">
                         <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
 
-                    <a href="<?= $dirname ?>/product/addToOrder/<?= $product->productId ?>">
                         <?php if (!empty($product->isInOrder)): ?>
                             <img src="<?= $dirname ?>/images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
                         <?php else: ?>
+                            <a href="<?= $dirname ?>/product/addToOrder/<?= $product->productId ?>">
                             <img src="<?= $dirname ?>/images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
                         <?php endif; ?></a>
                 </td>
