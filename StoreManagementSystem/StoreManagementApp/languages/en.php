@@ -33,17 +33,28 @@ define("SETTINGS", "Settings");
 define("PRODUCTTABLE", "Products Table");
 define("PRODUCTNAME", "Product Name");
 define("CATEGORY", "Category");
-define("COST", "COST");
+define("COST", "Cost");
 define("SELLPRICE", "Sell Price");
+define("TAXPRICE", "Tax Price");
 define("QUANTITY", "Quantity");
-define("ACTIONS", "Actions");
 
 define("CATEGORYFLITER", "All Categories");
 define("VIEWCATEGORY", "View Categories");
 
 
-//Category
+// Category
+define("CATEGORYNAME", "Category Name");
+define("CATEGORYTABLE", "Category Table");
+define("CATEGORYTAX", "Category Tax");
+define("SEARCHCATEGORY", "Search Category...");
+define("BACKPRODUCT", "Back to Products");
 
 
-define("SEARCH", "Search products");
+// Order
+define("ORDERTABLE", "Order Table");
+define("ORDERDATE", "Order Date");
+
+define("VIEWDELETE", "View Delete");
+define("ACTIONS", "Actions");
+define("SEARCH", "Search products...");
 ?>

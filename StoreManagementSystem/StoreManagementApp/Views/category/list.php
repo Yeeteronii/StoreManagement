@@ -34,12 +34,12 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Category Table</h2>
+        <h2><?=CATEGORYTABLE?></h2>
     </div>
 
     <div class="controls">
         <form method="GET" action="../category/list" style="display: inline;">
-            <input type="text" name="search" placeholder="Search category..."
+            <input type="text" name="search" placeholder="<?=SEARCHCATEGORY?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search.png">
@@ -71,8 +71,8 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             </th>
             <?php
             $headers = [
-                'categoryName' => 'Category Name',
-                'categoryTax' => 'Category Tax'
+                'categoryName' => CATEGORYNAME,
+                'categoryTax' => CATEGORYTAX
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -93,7 +93,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
 
         <?php foreach ($categories as $category): ?>
@@ -138,7 +138,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
     <div style="position: fixed; bottom: 80px; right: 20px;">
         <a href="<?= $dirname ?>/category/viewDeleted">
             <button type="button" class="icon-btn" style="padding: 10px; background-color: #f7caca; border-radius: 5px;">
-                View Deleted
+            <?=VIEWDELETE?>
             </button>
         </a>
     </div>
@@ -147,7 +147,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
 <div style="position: fixed; bottom: 20px; right: 20px;">
     <a href="<?= $dirname ?>/product/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Products
+        <?=BACKPRODUCT?>
         </button>
     </a>
 </div>

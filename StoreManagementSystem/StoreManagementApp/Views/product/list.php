@@ -39,17 +39,17 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Products Table</h2>
+    <h2><?=PRODUCTTABLE?></h2>
     </div>
     <div class="controls">
         <form method="GET" action="../product/list">
-            <input type="text" name="search" placeholder="Search product..."
+            <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
-                <option value="">All Categories</option>
+                <option value=""><?=CATEGORYFLITER?></option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= htmlspecialchars($cat->categoryName) ?>" <?= $category === $cat->categoryName ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat->categoryName) ?>
@@ -76,12 +76,12 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'productName' => 'Product Name',
-                'categoryName' => 'Category',
-                'cost' => 'Cost',
-                'priceToSell' => 'Sell Price',
-                'taxPrice' => 'Tax Price',
-                'quantity' => 'Quantity'
+                'productName' => PRODUCTNAME,
+                'categoryName' => CATEGORY,
+                'cost' => COST,
+                'priceToSell' => SELLPRICE,
+                'taxPrice' => TAXPRICE,
+                'quantity' => QUANTITY
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -102,7 +102,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
         <?php foreach ($products as $product): ?>
             <?php
@@ -156,7 +156,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
 <div style="position: fixed; bottom: 80px; right: 20px;">
     <a href="<?= $dirname ?>/product/viewDeleted">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #f7caca; border-radius: 5px;">
-            View Deleted
+        <?=VIEWDELETE?>
         </button>
     </a>
 </div>
@@ -166,7 +166,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
     <div style="position: fixed; bottom: 20px; right: 20px;">
         <a href="<?= $dirname ?>/category/list">
             <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8b8e6; border-radius: 5px;">
-                View Categories
+            <?=VIEWCATEGORY?>
             </button>
         </a>
     </div>

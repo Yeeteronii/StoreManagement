@@ -25,6 +25,15 @@ $dirname = dirname($path);
             <div class="user-info">
                 <span><?=LOGGEDIN?> <?= htmlspecialchars($role) ?></span>
                 <a class="logout-button" href="../login/login"><?=LOGOUT?></a>
+                <div style="font-size: 10px; color: red">Change Translation</div>
+                <div class="language-switch" style="margin-left: 10px;">
+        <form method="POST" action="">
+            <select name="lang" onchange="this.form.submit()">
+                <option value="en" <?= $_SESSION['lang'] === 'en' ? 'selected' : '' ?>>English</option>
+                <option value="fr" <?= $_SESSION['lang'] === 'fr' ? 'selected' : '' ?>>Français</option>
+            </select>
+        </form>
+    </div>
             </div>
         </div>
 

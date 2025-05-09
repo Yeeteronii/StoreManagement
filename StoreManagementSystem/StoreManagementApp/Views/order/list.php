@@ -36,17 +36,17 @@ $canOrder = $data['canOrder'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Order Table</h2>
+        <h2><?=ORDERTABLE?></h2>
     </div>
     <div class="controls">
         <form method="GET" action=" ">
-            <input type="text" name="search" placeholder="Search product..."
+            <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
-                <option value="">All Categories</option>
+                <option value=""><?=VIEWCATEGORY?></option>
                 <?php foreach ($categories as $cat): ?>
                     <option value="<?= htmlspecialchars($cat) ?>" <?= $category === $cat ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cat) ?>
@@ -75,10 +75,10 @@ $canOrder = $data['canOrder'] ?? false;
             </th>
             <?php
             $headers = [
-                'productName' => 'Product Name',
-                'categoryName' => 'Category',
-                'orderDate' => 'Order Date',
-                'quantity' => 'Quantity'
+                'productName' => PRODUCTNAME,
+                'categoryName' => CATEGORY,
+                'orderDate' => ORDERDATE,
+                'quantity' => QUANTITY
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
