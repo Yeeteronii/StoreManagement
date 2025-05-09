@@ -33,9 +33,8 @@ class ProductController extends Controller
                     $canUpdate = User::checkRight($_SESSION['user_id'], 'Product', 'update');
                     $canDelete = User::checkRight($_SESSION['user_id'], 'Product', 'delete');
                     $canOrder = User::checkRight($_SESSION['user_id'], 'Product', 'order');
-                    $canCategory = User::checkRight($_SESSION['user_id'], 'Product', 'Category');
+                    $canCategory = User::checkRight($_SESSION['user_id'], 'Product', 'category');
                     $canViewDeleted = User::checkRight($_SESSION['user_id'], 'Product', 'viewDeleted');
-                    $canRestore = User::checkRight($_SESSION['user_id'], 'Product', 'restore');
 
                     $this->render("product", "list", [
                         'products' => $products,
@@ -47,8 +46,7 @@ class ProductController extends Controller
                         'canDelete' => $canDelete,
                         'canOrder' => $canOrder,
                         'canCategory' => $canCategory,
-                        'canViewDeleted' => $canViewDeleted,
-                        'canRestore' => $canRestore
+                        'canViewDeleted' => $canViewDeleted
                     ]);
                 } elseif ($action === "add") {
                     if (!User::checkRight($userId, 'Product', 'add')) {
@@ -105,9 +103,10 @@ class ProductController extends Controller
                     }
                 } elseif ($action === "viewDeleted") {
                     $products = Product::viewDeleted();
-
+                    $canRestore = User::checkRight($_SESSION['user_id'], 'Product', 'restore');
                     $this->render("product", "viewDeleted", [
-                        'products' => $products
+                        'products' => $products,
+                        'canRestore' => $canRestore
                     ]);
                 } elseif ($action === "restore") {
                     if ($id > 0) {

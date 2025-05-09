@@ -10,6 +10,7 @@ $reports = $data['report'] ?? [];
 $sort = $_GET['sort'] ?? 'date';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
+$canRestore = $data['canRestore'] ?? false;
 ?>
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
@@ -27,7 +28,6 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 
     <table id="deletedReportTable">
         <tr>
-            <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
                 'date' => 'Date',
@@ -58,17 +58,18 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
         </tr>
         <?php foreach ($reports as $report): ?>
             <tr>
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $report->reportId ?>"></td>
                 <td><?= htmlspecialchars($report->date) ?></td>
                 <td>$<?= number_format($report->earnings, 2) ?></td>
                 <td>$<?= number_format($report->profits, 2) ?></td>
                 <td><?= htmlspecialchars($report->description) ?></td>
                 <td>
+                    <?php if ($canRestore): ?>
                     <a href="../report/restore/<?= $report->reportId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                             Restore
                         </button>
                     </a>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

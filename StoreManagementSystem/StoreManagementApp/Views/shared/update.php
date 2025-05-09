@@ -85,7 +85,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <input type="number" step="0.01" name="categoryTax" id="categoryTax" value="<?= $category->categoryTax ?>" required>
                 <div class="field-desc">Taxes for this category (in decimal).</div>
 
-                <button type="submit">Update</button>
+                <button type="submit">Update Category</button>
             </form>
         <?php elseif ($source === 'report'): ?>
             <form method="POST" action="../shared/update/<?= $report->reportId ?>">
@@ -94,14 +94,54 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <div class="field-desc">How much you've earned</div>
 
                 <label for="profits">Profits</label>
-                <input type="number" step="0.01" name="profits" id="profits" value="<?= $report->profits ?>"required>
+                <input type="number" step="0.01" name="profits" id="profits" value="<?= $report->profits ?>" required>
                 <div class="field-desc">How much you've made</div>
 
                 <label for="description">Description</label>
-                <input type="text" name="description" id="description" value="<?= $report->description ?>"required>
+                <input type="text" name="description" id="description" value="<?= $report->description ?>" required>
                 <div class="field-desc">A little summary of the day</div>
 
-                <button type="submit">Add Report</button>
+                <button type="submit">Update Report</button>
+            </form>
+        <?php elseif ($source === 'supplier'): ?>
+            <form method="POST" action="../shared/update/<?= $supplier->supplierId ?>">
+                <label for="supplierName">Supplier Name</label>
+                <input type="text" name="supplierName" id="supplierName" value="<?= $supplier->supplierName ?>" required>
+                <div class="field-desc">Name of the supplier</div>
+
+                <label for="email">E-mail</label>
+                <input type="text" name="email" id="email" value="<?= $supplier->email ?>" required>
+                <div class="field-desc">E-mail of the supplier</div>
+
+                <label for="phoneNum">Phone Number</label>
+                <input type="text" name="phoneNum" id="phoneNum" value="<?= $supplier->phoneNum ?>" required>
+                <div class="field-desc">Phone Number of the supplier</div>
+
+                <button type="submit">Update Supplier</button>
+            </form>
+        <?php elseif ($source === 'user'): ?>
+            <form method="POST" action="../shared/update/<?= $user->id ?>">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
+                <div class="field-desc">Username of the user</div>
+
+                <label for="password">Password</label>
+                <input type="text" name="password" id="password" value="<?= $user->password ?>"  disabled>
+                <div class="field-desc">Password given to the user (can only be changed by said user)</div>
+
+                <label>Role</label>
+                <?php if ($canChangeRole): ?>
+                    <select name="role">
+                        <option value="admin" <?= ($user->role == 'admin') ? 'selected' : '' ?>>Admin</option>
+                        <option value="employee" <?= ($user->role == 'employee') ? 'selected' : '' ?>>Employee</option>
+                    </select>
+                <?php else: ?>
+                    <input type="text" value="<?= htmlspecialchars($user->role) ?>" readonly>
+                    <input type="hidden" name="role" value="<?= htmlspecialchars($user->role) ?>">
+                <?php endif; ?>
+                <div class="field-desc">Select the role of the user. (Depending on the role, they will have access to more or less features)</div>
+
+                <button type="submit">Update User</button>
             </form>
         <?php endif; ?>
     <?php endif; ?>

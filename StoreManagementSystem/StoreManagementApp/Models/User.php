@@ -26,12 +26,17 @@ class User extends Model
     public static function authenticate($username, $password)
     {
         $conn = Model::connect();
-        $sql = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
+        $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $username, $password);
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_object();
+        $user = $result->fetch_object();
+
+        if ($user && password_verify($password, $user->password)) {
+            return $user;
+        }
+        return null;
     }
 
     public static function getTwoFASecret($userId)
@@ -131,4 +136,127 @@ class User extends Model
         if($row) return true;
         return false;
     }
+
+    public static function listFilteredSorted($keyword, $sort, $dir)
+    {
+        $allowedSorts = ['username'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'username';
+        $dir = ($dir === 'DESC') ? 'DESC' : 'ASC';
+
+        $conn = Model::connect();
+        $sql = "SELECT * FROM users";
+        $params = [];
+        $types = '';
+
+        if (!empty($keyword)) {
+            $sql .= " AND username LIKE ?";
+            $params[] = '%' . $keyword . '%';
+            $types .= 's';
+        }
+
+        $sql .= " ORDER BY $sort $dir";
+
+        $stmt = $conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $list = [];
+        while ($row = $result->fetch_object()) {
+            $list[] = new User($row);
+        }
+        $stmt->close();
+        return $list;
+    }
+
+    public static function add($data)
+    {
+        $conn = Model::connect();
+        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $data['username'], $hashedPassword);
+        $stmt->execute();
+        $userId = $conn->insert_id;
+        $stmt->close();
+
+        $sql2 = "INSERT INTO users_groups (user_id, group_id) VALUES (?, ?)";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("ii", $userId, $data['group_id']);
+        $stmt2->execute();
+        $stmt2->close();
+    }
+
+    public function update($data)
+    {
+        $conn = Model::connect();
+
+        if (!empty($data['password'])) {
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET username = ?, password = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssi", $data['username'], $hashedPassword, $this->id);
+            $stmt->execute();
+        } else {
+            $sql = "UPDATE users SET username = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("si", $data['username'], $this->id);
+            $stmt->execute();
+        }
+        $stmt->close();
+
+        if (!empty($data['role'])) {
+            $groupStmt = $conn->prepare("SELECT id FROM groups WHERE name = ?");
+            $groupStmt->bind_param("s", $data['role']);
+            $groupStmt->execute();
+            $groupResult = $groupStmt->get_result();
+            if ($groupRow = $groupResult->fetch_object()) {
+                $groupId = $groupRow->id;
+
+                $updateGroupStmt = $conn->prepare("UPDATE users_groups SET group_id = ? WHERE user_id = ?");
+                $updateGroupStmt->bind_param("ii", $groupId, $this->id);
+                $updateGroupStmt->execute();
+                $updateGroupStmt->close();
+            }
+            $groupStmt->close();
+        }
+    }
+    public static function delete($ids)
+    {
+        if (empty($ids)) return;
+
+        $conn = Model::connect();
+
+        $in = implode(',', array_fill(0, count($ids), '?'));
+        $types = str_repeat('i', count($ids));
+
+        $stmt1 = $conn->prepare("DELETE FROM users_groups WHERE user_id IN ($in)");
+        if (!$stmt1) {
+            throw new Exception("Prepare failed for users_groups: " . $conn->error);
+        }
+        $stmt1->bind_param($types, ...$ids);
+        $stmt1->execute();
+        $stmt1->close();
+
+        $stmt2 = $conn->prepare("DELETE FROM users WHERE id IN ($in)");
+        if (!$stmt2) {
+            throw new Exception("Prepare failed for users: " . $conn->error);
+        }
+        $stmt2->bind_param($types, ...$ids);
+        $stmt2->execute();
+        $stmt2->close();
+    }
+    public static function getAllGroups()
+    {
+        $conn = Model::connect();
+        $result = $conn->query("SELECT * FROM groups");
+        $list = [];
+        while ($row = $result->fetch_object()) {
+            $list[] = $row;
+        }
+        return $list;
+    }
+
 }

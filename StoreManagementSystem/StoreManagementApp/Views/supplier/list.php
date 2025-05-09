@@ -5,8 +5,11 @@ if (!isset($_SESSION['token'])) {
 }
 $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
-$reports = $data['report'] ?? [];
-$sort = $_GET['sort'] ?? 'date';
+$suppliers = $data['suppliers'] ?? [];
+
+
+$searchTerm = $data['search'] ?? '';
+$sort = $_GET['sort'] ?? 'supplierName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 
@@ -14,16 +17,28 @@ $canAdd = $data['canAdd'] ?? false;
 $canUpdate = $data['canUpdate'] ?? false;
 $canDelete = $data['canDelete'] ?? false;
 $canViewDeleted = $data['canViewDeleted'] ?? false;
-$canDownload = $data['canDownload'] ?? false;
 ?>
+<?php
+function formatPhoneNumber($number) {
+    $digits = preg_replace('/\D/', '', $number);
+
+    if (strlen($digits) === 10) {
+        return substr($digits, 0, 3) . '-' .
+            substr($digits, 3, 3) . '-' .
+            substr($digits, 6);
+    }
+    return $number;
+}
+?>
+
 
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Report View</title>
-    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/reports.css">
+    <title>Supplier View</title>
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/suppliers.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -34,51 +49,50 @@ $canDownload = $data['canDownload'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Report Table</h2>
+        <h2>Supplier Table</h2>
     </div>
     <div class="controls">
-        <?php if ($canDownload): ?>
-        <a href="../report/download" target="_blank">
-            <button type="button" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/pdf.png" alt="Download" style="width: 20px; height: 20px;">
+        <form method="GET" action="../supplier/list">
+            <input type="text" name="search" placeholder="<?=SEARCH?>"
+                   value="<?= htmlspecialchars($searchTerm) ?>">
+            <button type="submit" class="icon-btn">
+                <img src="<?= $dirname ?>/images/search.png">
             </button>
-        </a>
-        <?php endif; ?>
             <?php if ($canAdd): ?>
-                <a href="../report/add">
+                <a href="../supplier/add">
                     <button type="button" class="icon-btn">
                         <img src="<?= $dirname ?>/images/add.png">
                     </button>
                 </a>
             <?php endif; ?>
-        <form id="deleteForm" method="POST" action="../report/delete">
+        </form>
+        <form id="deleteForm" method="POST" action="../supplier/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
 
-    <table id="reportTable">
+    <table id="supplierTable">
         <tr>
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'date' => 'Date',
-                'earnings' => 'Earnings',
-                'profits' => 'Profits',
-                'descriptions' => 'Description',
+                'supplierName' => "Supplier Name",
+                'email' => "E-Mail",
+                'phoneNum' => "Contact Number",
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?sort=<?= $field ?>&dir=asc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?sort=<?= $field ?>&dir=desc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
                                 </button>
@@ -87,17 +101,17 @@ $canDownload = $data['canDownload'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
-        <?php foreach ($reports as $report): ?>
+        <?php foreach ($suppliers as $supplier): ?>
+
             <tr>
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $report->reportId ?>"></td>
-                <td><?= htmlspecialchars($report->date) ?></td>
-                <td>$<?= number_format($report->earnings, 2) ?></td>
-                <td>$<?= number_format($report->profits, 2) ?></td>
-                <td><?= htmlspecialchars($report->description) ?></td>
+                <td><input type="checkbox" class="delete-checkbox" value="<?= $supplier->supplierId ?>"></td>
+                <td><?= htmlspecialchars($supplier->supplierName) ?></td>
+                <td><?= htmlspecialchars($supplier->email) ?></td>
+                <td><?= htmlspecialchars(formatPhoneNumber($supplier->phoneNum)) ?></td>
                 <td>
-                    <a href="<?= $dirname ?>/report/update/<?= $report->reportId ?>">
+                    <a href="<?= $dirname ?>/supplier/update/<?= $supplier->supplierId ?>">
                         <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
                 </td>
             </tr>
@@ -125,7 +139,7 @@ $canDownload = $data['canDownload'] ?? false;
 </div>
 <?php if ($canViewDeleted): ?>
     <div style="position: fixed; bottom: 80px; right: 20px;">
-        <a href="<?= $dirname ?>/report/viewDeleted">
+        <a href="<?= $dirname ?>/supplier/viewDeleted">
             <button type="button" class="icon-btn" style="padding: 10px; background-color: #f7caca; border-radius: 5px;">
                 <?=VIEWDELETE?>
             </button>

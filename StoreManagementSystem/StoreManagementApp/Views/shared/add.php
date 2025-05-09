@@ -103,6 +103,42 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 
             <button type="submit">Add Report</button>
         </form>
+    <?php elseif ($source === 'supplier' && $role === 'admin'): ?>
+        <form method="POST" action="../supplier/shared/add">
+            <label for="supplierName">Supplier Name</label>
+            <input type="text" name="supplierName" id="supplierName" required>
+            <div class="field-desc">Name of the supplier</div>
+
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" required>
+            <div class="field-desc">E-mail of the supplier</div>
+
+            <label for="phoneNum">Phone Number</label>
+            <input type="text" name="phoneNum" id="phoneNum" required>
+            <div class="field-desc">Phone Number of the supplier</div>
+
+            <button type="submit">Add Supplier</button>
+        </form>
+    <?php elseif ($source === 'user' && $role === 'admin'): ?>
+        <form method="POST" action="../user/shared/add">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+            <div class="field-desc">Username of the user</div>
+
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" required>
+            <div class="field-desc">Password given to the user (can only be changed by said user)</div>
+
+            <label>Role:</label>
+            <select name="group_id" required>
+                <?php foreach ($groups as $group): ?>
+                    <option value="<?= $group->id ?>"><?= htmlspecialchars($group->name) ?></option>
+                <?php endforeach; ?>
+            </select><br>
+            <div class="field-desc">Select the role of the user. (Depending on the role, they will have access to more or less features)</div>
+
+            <button type="submit">Add User</button>
+        </form>
     <?php endif; ?>
 </div>
 

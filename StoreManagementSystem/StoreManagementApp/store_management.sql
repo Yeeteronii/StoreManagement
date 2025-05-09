@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2025 at 01:15 AM
+-- Generation Time: May 09, 2025 at 06:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,10 +63,10 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (23, 'Supplier', 'delete'),
 (24, 'Supplier', 'update'),
 (25, 'Supplier', 'add'),
-(26, 'Employee', 'list'),
-(27, 'Employee', 'delete'),
-(28, 'Employee', 'update'),
-(29, 'Employee', 'add'),
+(26, 'User', 'list'),
+(27, 'User', 'delete'),
+(28, 'User', 'update'),
+(29, 'User', 'add'),
 (30, 'Setting', 'list'),
 (31, 'Setting', 'update'),
 (32, 'Setting', 'language'),
@@ -74,7 +74,12 @@ INSERT INTO `actions` (`id`, `controller`, `action`) VALUES
 (34, 'Product', 'viewDeleted'),
 (35, 'Product', 'restore'),
 (36, 'Category', 'viewDeleted'),
-(37, 'Category', 'restore');
+(37, 'Category', 'restore'),
+(38, 'Report', 'viewDeleted'),
+(39, 'Report', 'restore'),
+(40, 'Report', 'download'),
+(41, 'Supplier', 'viewDeleted'),
+(42, 'Supplier', 'restore');
 
 -- --------------------------------------------------------
 
@@ -95,10 +100,10 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryTax`, `isActive`) VALUES
 (1, 'Veggies', 1.2, 1),
-(2, 'Fruits', 0.05, 1),
+(2, 'Fruits', 0.36, 1),
 (3, 'Drinks', 6.52, 1),
-(4, 'Chocolate', 2.52, 0),
-(5, 'Candy', 0.14, 1);
+(4, 'Chocolate', 2.52, 1),
+(5, 'Candy', 0.45, 1);
 
 -- --------------------------------------------------------
 
@@ -183,7 +188,12 @@ INSERT INTO `groups_actions` (`id`, `group_id`, `action_id`) VALUES
 (45, 1, 35),
 (46, 2, 35),
 (47, 1, 36),
-(48, 1, 37);
+(48, 1, 37),
+(49, 1, 38),
+(50, 1, 39),
+(51, 1, 40),
+(52, 1, 41),
+(53, 1, 42);
 
 -- --------------------------------------------------------
 
@@ -197,6 +207,15 @@ CREATE TABLE `orders` (
   `orderDate` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
   `quantity` int(11) NOT NULL COMMENT 'Example: 10'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderId`, `productId`, `orderDate`, `quantity`) VALUES
+(6, 13, '2025-05-08', 0),
+(7, 13, '2025-05-08', 0),
+(8, 13, '2025-05-08', 0);
 
 -- --------------------------------------------------------
 
@@ -220,22 +239,31 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`productId`, `productName`, `cost`, `priceToSell`, `categoryId`, `threshold`, `quantity`, `isActive`) VALUES
-(12, 'Skittles', 3.99, 5.99, 5, 20, 40, 1);
+(12, 'Skittles', 3.99, 5.99, 5, 20, 40, 1),
+(13, 'grapes', 21, 12, 2, 32, 87, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `report`
+-- Table structure for table `reports`
 --
 
 CREATE TABLE `reports` (
   `reportId` int(11) NOT NULL COMMENT 'Example: 11111111111',
-  `Date` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
+  `date` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
   `earnings` double NOT NULL COMMENT 'Example: 25.00$',
   `profits` double NOT NULL COMMENT 'Example: 15.00$',
-  `decription` varchar(128) NOT NULL COMMENT 'Example: Beer was not well, Candy was selling good, neutral on everything else',
+  `description` varchar(128) NOT NULL COMMENT 'Example: Beer was not well, Candy was selling good, neutral on everything else',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reports`
+--
+
+INSERT INTO `reports` (`reportId`, `date`, `earnings`, `profits`, `description`, `isActive`) VALUES
+(1, '2025-05-09', 3199.11, 219.44, 'Up day due to a high sell of our most expensive items', 1),
+(2, '2025-05-09', 978.09, -234.97, 'Down day due to a miss in sales', 1);
 
 -- --------------------------------------------------------
 
@@ -261,9 +289,16 @@ CREATE TABLE `suppliers` (
   `supplierId` int(11) NOT NULL COMMENT 'Example: 1111111111',
   `supplierName` varchar(32) NOT NULL COMMENT 'Example: Suns of Calydon',
   `email` varchar(32) NOT NULL COMMENT 'Example: parthpatel@gmail.com',
-  `phoneNum` int(11) NOT NULL COMMENT 'Example: 222-111-8907',
+  `phoneNum` varchar(11) NOT NULL COMMENT 'Example: 222-111-8907',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`supplierId`, `supplierName`, `email`, `phoneNum`, `isActive`) VALUES
+(3, 'Long John Silvers', 'LJS@gmail.com', '7895215896', 1);
 
 -- --------------------------------------------------------
 
@@ -275,8 +310,8 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL COMMENT 'Example: 1',
   `username` varchar(32) NOT NULL COMMENT 'Example: parthpatel',
   `password` varchar(128) NOT NULL COMMENT 'Example: NicholasRoyMicrowave',
-  `twofa_secret` varchar(64) DEFAULT NULL,
-  `twofa_enabled` tinyint(1) DEFAULT 0
+  `twofa_secret` varchar(64) DEFAULT NULL COMMENT 'Example: XGXMP7SP54TNPZNFZWB4NJJZAG5X3AOF',
+  `twofa_enabled` tinyint(1) DEFAULT 0 COMMENT 'Example: 1: enabled, 2: disabled'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -284,8 +319,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `twofa_secret`, `twofa_enabled`) VALUES
-(1, 'admin', '12345', 'XGXMP7SP54TNPZNFZWB4NJJZAG5X3AOF', 1),
-(2, 'employee', '67890', 'CJNFTPAC42RZD3J2UHTXW6SL2YCP3CC6', 1);
+(5, 'Parth', '$2y$10$3x1XpZlWTFaeBHjg5ndl7O/qYJ46sBwGaPTAPOMqj38tobGVTvCz6', 'N3VF3SKZZEHPVQKOLSQAQ7JGKUV43L3F', 1),
+(6, 'admin', '$2y$10$m4Ci1qHB01eB98jdOaxgy.NaWPSN3VG7W8WQ7iqF1gtacCTw8myre', NULL, 0),
+(7, 'employee', '$2y$10$p6.skUGztBj35a8QFaVb8uTpt8i9CB0JVcm7edo5Ruc2I5ktZ6PAS', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -304,8 +340,9 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1),
-(2, 2, 2);
+(5, 5, 1),
+(6, 6, 1),
+(7, 7, 2);
 
 --
 -- Indexes for dumped tables
@@ -352,7 +389,7 @@ ALTER TABLE `products`
   ADD KEY `categoryFK` (`categoryId`);
 
 --
--- Indexes for table `report`
+-- Indexes for table `reports`
 --
 ALTER TABLE `reports`
   ADD PRIMARY KEY (`reportId`);
@@ -392,7 +429,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `actions`
 --
 ALTER TABLE `actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -410,25 +447,25 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `groups_actions`
 --
 ALTER TABLE `groups_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=6;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=13;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `report`
+-- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
+  MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shifts`
@@ -440,19 +477,19 @@ ALTER TABLE `shifts`
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1111111111';
+  MODIFY `supplierId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1111111111', AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1', AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

@@ -13,6 +13,7 @@ $categories = $data['categories'] ?? [];
 $sort = $_GET['sort'] ?? 'productName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
+$canRestore = $data['canRestore'] ?? false;
 ?>
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
@@ -53,6 +54,7 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 'categoryName' => 'Category',
                 'cost' => 'Cost',
                 'priceToSell' => 'Sell Price',
+                'taxPrice' => TAXPRICE,
                 'quantity' => 'Quantity'
             ];
             foreach ($headers as $field => $label): ?>
@@ -82,13 +84,16 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
                 <td><?= htmlspecialchars($product->categoryName) ?></td>
                 <td>$<?= number_format($product->cost, 2) ?></td>
                 <td>$<?= number_format($product->priceToSell, 2) ?></td>
+                <td>$<?= number_format($product->taxPrice, 2) ?></td>
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
+                    <?php if ($canRestore): ?>
                     <a href="../product/restore/<?= $product->productId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                             Restore
                         </button>
                     </a>
+                    <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

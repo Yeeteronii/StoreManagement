@@ -5,25 +5,25 @@ if (!isset($_SESSION['token'])) {
 }
 $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
-$reports = $data['report'] ?? [];
-$sort = $_GET['sort'] ?? 'date';
+$users = $data['users'] ?? [];
+
+
+$searchTerm = $data['search'] ?? '';
+$sort = $_GET['sort'] ?? 'supplierName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 
 $canAdd = $data['canAdd'] ?? false;
 $canUpdate = $data['canUpdate'] ?? false;
 $canDelete = $data['canDelete'] ?? false;
-$canViewDeleted = $data['canViewDeleted'] ?? false;
-$canDownload = $data['canDownload'] ?? false;
 ?>
-
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Report View</title>
-    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/reports.css">
+    <title>User View</title>
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/users.css">
     <script>
         function toggleCheckboxes(source) {
             document.querySelectorAll('input[name="delete_ids[]"]').forEach(cb => cb.checked = source.checked);
@@ -34,51 +34,49 @@ $canDownload = $data['canDownload'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Report Table</h2>
+        <h2>User Table</h2>
     </div>
     <div class="controls">
-        <?php if ($canDownload): ?>
-        <a href="../report/download" target="_blank">
-            <button type="button" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/pdf.png" alt="Download" style="width: 20px; height: 20px;">
+        <form method="GET" action="../user/list">
+            <input type="text" name="search" placeholder="<?=SEARCH?>"
+                   value="<?= htmlspecialchars($searchTerm) ?>">
+            <button type="submit" class="icon-btn">
+                <img src="<?= $dirname ?>/images/search.png">
             </button>
-        </a>
-        <?php endif; ?>
             <?php if ($canAdd): ?>
-                <a href="../report/add">
+                <a href="../user/add">
                     <button type="button" class="icon-btn">
                         <img src="<?= $dirname ?>/images/add.png">
                     </button>
                 </a>
             <?php endif; ?>
-        <form id="deleteForm" method="POST" action="../report/delete">
+        </form>
+        <form id="deleteForm" method="POST" action="../user/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
 
-    <table id="reportTable">
+    <table id="supplierTable">
         <tr>
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'date' => 'Date',
-                'earnings' => 'Earnings',
-                'profits' => 'Profits',
-                'descriptions' => 'Description',
+                'username' => "Username",
+                'password' => "Password",
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?sort=<?= $field ?>&dir=asc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?sort=<?= $field ?>&dir=desc">
+                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
                                 </button>
@@ -87,17 +85,16 @@ $canDownload = $data['canDownload'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
-        <?php foreach ($reports as $report): ?>
+        <?php foreach ($users as $user): ?>
+
             <tr>
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $report->reportId ?>"></td>
-                <td><?= htmlspecialchars($report->date) ?></td>
-                <td>$<?= number_format($report->earnings, 2) ?></td>
-                <td>$<?= number_format($report->profits, 2) ?></td>
-                <td><?= htmlspecialchars($report->description) ?></td>
+                <td><input type="checkbox" class="delete-checkbox" value="<?= $user->id ?>"></td>
+                <td><?= htmlspecialchars($user->username) ?></td>
+                <td><?= htmlspecialchars($user->password) ?></td>
                 <td>
-                    <a href="<?= $dirname ?>/report/update/<?= $report->reportId ?>">
+                    <a href="<?= $dirname ?>/user/update/<?= $user->id ?>">
                         <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
                 </td>
             </tr>
@@ -123,15 +120,5 @@ $canDownload = $data['canDownload'] ?? false;
         });
     </script>
 </div>
-<?php if ($canViewDeleted): ?>
-    <div style="position: fixed; bottom: 80px; right: 20px;">
-        <a href="<?= $dirname ?>/report/viewDeleted">
-            <button type="button" class="icon-btn" style="padding: 10px; background-color: #f7caca; border-radius: 5px;">
-                <?=VIEWDELETE?>
-            </button>
-        </a>
-    </div>
-<?php endif; ?>
-
 </body>
 </html>

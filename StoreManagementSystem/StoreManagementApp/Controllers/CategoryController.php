@@ -36,7 +36,6 @@ class CategoryController extends Controller
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Category', 'delete');
                         $canOrder = User::checkRight($_SESSION['user_id'], 'Category', 'order');
                         $canViewDeleted = User::checkRight($_SESSION['user_id'], 'Category', 'viewDeleted');
-                        $canRestore = User::checkRight($_SESSION['user_id'], 'Category', 'restore');
 
 
                         $this->render("category", "list", [
@@ -46,7 +45,6 @@ class CategoryController extends Controller
                             'canDelete' => $canDelete,
                             'canOrder' => $canOrder,
                             'canViewDeleted' => $canViewDeleted,
-                            'canRestore' => $canRestore,
                         ]);
                     } elseif ($action === "add") {
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -78,9 +76,10 @@ class CategoryController extends Controller
                         exit;
                     } elseif ($action === "viewDeleted") {
                         $category = Category::viewDeleted();
-
+                        $canRestore = User::checkRight($_SESSION['user_id'], 'Category', 'restore');
                         $this->render("category", "viewDeleted", [
-                            'categories' => $category
+                            'categories' => $category,
+                            'canRestore' => $canRestore
                         ]);
                     } elseif ($action === "restore") {
                         if ($id > 0) {

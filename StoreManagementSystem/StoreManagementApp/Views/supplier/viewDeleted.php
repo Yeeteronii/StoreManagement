@@ -5,34 +5,57 @@ if (!isset($_SESSION['token'])) {
 }
 $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
-$products = $data['products'] ?? [];
+$suppliers = $data['suppliers'] ?? [];
+
 $searchTerm = $data['search'] ?? '';
-$category = $data['category'] ?? '';
-$categories = $data['categories'] ?? [];
-$sort = $_GET['sort'] ?? 'productName';
+$sort = $_GET['sort'] ?? 'supplierName';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 $canRestore = $data['canRestore'] ?? false;
 ?>
+<?php
+function formatPhoneNumber($number) {
+    $digits = preg_replace('/\D/', '', $number);
+
+    if (strlen($digits) === 10) {
+        return substr($digits, 0, 3) . '-' .
+            substr($digits, 3, 3) . '-' .
+            substr($digits, 6);
+    }
+    return $number;
+}
+?>
+
 <?php include_once dirname(__DIR__) . "/shared/topbar.php"; ?>
 <?php include_once dirname(__DIR__) . "/shared/sidebar.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deleted Category</title>
-    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/categories.css">
+    <title>Deleted Suppliers</title>
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/suppliers.css">
 </head>
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Deleted Products</h2>
+        <h2>Deleted Suppliers</h2>
     </div>
-    <table id="categoryTable">
+    <div class="controls">
+        <form method="GET" action="../supplier/viewDeleted">
+            <input type="text" name="search" placeholder="Search product..."
+                   value="<?= htmlspecialchars($searchTerm) ?>">
+            <button type="submit" class="icon-btn">
+                <img src="<?php echo dirname($path); ?>/images/search.png">
+            </button>
+        </form>
+    </div>
+
+    <table id="deletedSupplierTable">
         <tr>
             <?php
             $headers = [
-                'categoryName' => 'Category Name',
-                'categoryTax' => 'Category Tax'
+                'supplierName' => "Supplier Name",
+                'email' => "E-Mail",
+                'phoneNum' => "Contact Number",
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -53,30 +76,30 @@ $canRestore = $data['canRestore'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
-
-        <?php foreach ($categories as $category): ?>
-            <tr class="">
-                <td><?= htmlspecialchars($category->categoryName) ?></td>
-                <td>$<?= number_format($category->categoryTax, 2) ?></td>
+        <?php foreach ($suppliers as $supplier): ?>
+            <tr>
+                <td><?= htmlspecialchars($supplier->supplierName) ?></td>
+                <td><?= htmlspecialchars($supplier->email) ?></td>
+                <td><?= htmlspecialchars(formatPhoneNumber($supplier->phoneNum)) ?></td>
                 <td>
                     <?php if ($canRestore): ?>
-                    <a href="<?= $dirname ?>/category/restore/<?= $category->categoryId ?>">
-                        <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
-                            Restore
-                        </button>
-                    </a>
+                        <a href="../supplier/restore/<?= $supplier->supplierId ?>">
+                            <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
+                                Restore
+                            </button>
+                        </a>
                     <?php endif; ?>
                 </td>
             </tr>
         <?php endforeach; ?>
-    </table>
+    </table
 </div>
 <div style="position: fixed; bottom: 20px; right: 20px;">
-    <a href="<?= $dirname ?>/category/list">
+    <a href="../supplier/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Categories
+            Back to Suppliers
         </button>
     </a>
 </div>

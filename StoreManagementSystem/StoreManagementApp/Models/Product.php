@@ -56,7 +56,8 @@ class Product extends Model
 
         $conn = Model::connect();
         $sql = "SELECT p.productId, p.productName, p.cost, p.priceToSell, 
-                       p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName, c.categoryTax, (p.priceToSell * c.categoryTax) + p.priceToSell AS taxPrice
+                       p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName, 
+                       c.categoryTax, (p.priceToSell * c.categoryTax) + p.priceToSell AS taxPrice
                 FROM products p
                 JOIN categories c ON c.categoryId = p.categoryId
                 WHERE p.isActive = 1";
@@ -183,6 +184,7 @@ class Product extends Model
         $conn = Model::connect();
         $sql = "SELECT p.productId, p.productName, p.cost, p.priceToSell, 
                    p.categoryId, p.threshold, p.quantity, p.isActive, c.categoryName
+                , c.categoryTax, (p.priceToSell * c.categoryTax) + p.priceToSell AS taxPrice
             FROM products p
             JOIN categories c ON c.categoryId = p.categoryId
             WHERE p.isActive = 0";

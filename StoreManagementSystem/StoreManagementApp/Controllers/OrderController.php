@@ -17,7 +17,6 @@ class OrderController extends Controller
                 $userId = $_SESSION['user_id'];
                 $path = $_SERVER['SCRIPT_NAME'];
                 $action = $_GET['action'] ?? "list";
-                $id = isset($_POST['orderId']) ? intval($_POST['orderId']) : (isset($_GET['id']) ? intval($_GET['id']) : -1);
 
                 if (!User::checkRight($userId, 'Order', 'list')) {
                     $newURL = dirname($path) . "/product/list";
@@ -32,20 +31,16 @@ class OrderController extends Controller
 
                         $categories = Order::getAllCategories();
                         $orders = Order::listFilteredSorted($keyword, $category, $sort, $dir);
-                        $canAdd = User::checkRight($_SESSION['user_id'], 'Order', 'add');
                         $canUpdate = User::checkRight($_SESSION['user_id'], 'Order', 'update');
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Order', 'delete');
-                        $canOrder = User::checkRight($_SESSION['user_id'], 'Order', 'order');
 
                         $this->render("order", "list", [
                             'orders' => $orders,
                             'search' => $keyword,
                             'category' => $category,
                             'categories' => $categories,
-                            'canAdd' => $canAdd,
                             'canUpdate' => $canUpdate,
                             'canDelete' => $canDelete,
-                            'canOrder' => $canOrder
                         ]);
                     } elseif ($action === "delete") {
                         $ids = isset($_POST['delete_ids']) ? $_POST['delete_ids'] : [];
