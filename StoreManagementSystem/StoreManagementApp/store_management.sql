@@ -225,7 +225,7 @@ INSERT INTO `products` (`productId`, `productName`, `cost`, `priceToSell`, `cate
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reports`
+-- Table structure for table `report`
 --
 
 CREATE TABLE `reports` (
@@ -352,7 +352,7 @@ ALTER TABLE `products`
   ADD KEY `categoryFK` (`categoryId`);
 
 --
--- Indexes for table `reports`
+-- Indexes for table `report`
 --
 ALTER TABLE `reports`
   ADD PRIMARY KEY (`reportId`);
@@ -425,7 +425,7 @@ ALTER TABLE `products`
   MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `reports`
+-- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `reports`
   MODIFY `reportId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';

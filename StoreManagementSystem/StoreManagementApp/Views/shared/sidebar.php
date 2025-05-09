@@ -26,7 +26,7 @@ $dirname = dirname($path);
                 <li><a href="../order/list"><?=ORDERS?></a></li>
                 <li><a href="../supplier/view"><?=SUPPLIERS?></a></li>
                 <li><a href="../employee/view"><?=EMPLOYEES?></a></li>
-                <li><a href="../report/view"><?=REPORTS?></a></li>
+                <li><a href="../report/list"><?=REPORTS?></a></li>
                 <li><a href="../setting/view"><?=SETTINGS?></a></li>
             </ul>
         </div>

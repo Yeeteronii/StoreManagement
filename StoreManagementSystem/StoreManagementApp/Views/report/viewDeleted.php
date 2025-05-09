@@ -5,11 +5,9 @@ if (!isset($_SESSION['token'])) {
 }
 $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
-$products = $data['products'] ?? [];
-$searchTerm = $data['search'] ?? '';
-$category = $data['category'] ?? '';
-$categories = $data['categories'] ?? [];
-$sort = $_GET['sort'] ?? 'productName';
+$reports = $data['report'] ?? [];
+
+$sort = $_GET['sort'] ?? 'date';
 $dir = $_GET['dir'] ?? 'asc';
 $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 ?>
@@ -18,35 +16,36 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deleted Category</title>
-    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/categories.css">
+    <title>Deleted Reports</title>
+    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/reports.css">
 </head>
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Deleted Products</h2>
+        <h2>Deleted Reports</h2>
     </div>
-    <table id="categoryTable">
+
+    <table id="deletedReportTable">
         <tr>
-            <th>
-                <input type="checkbox" id="selectAll">
-            </th>
+            <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'categoryName' => 'Category Name',
-                'categoryTax' => 'Category Tax'
+                'date' => 'Date',
+                'earnings' => 'Earnings',
+                'profits' => 'Profits',
+                'descriptions' => 'Description',
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
                     <div class="sortable-header">
                         <?= $label ?>
                         <div class="sort-arrows">
-                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
+                            <a href="?sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
                                 </button>
                             </a>
-                            <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
+                            <a href="?sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
                                     <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
                                 </button>
@@ -57,16 +56,15 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
             <?php endforeach; ?>
             <th>Actions</th>
         </tr>
-
-        <?php foreach ($categories as $category): ?>
-            <tr class="">
+        <?php foreach ($reports as $report): ?>
+            <tr>
+                <td><input type="checkbox" class="delete-checkbox" value="<?= $report->reportId ?>"></td>
+                <td><?= htmlspecialchars($report->date) ?></td>
+                <td>$<?= number_format($report->earnings, 2) ?></td>
+                <td>$<?= number_format($report->profits, 2) ?></td>
+                <td><?= htmlspecialchars($report->description) ?></td>
                 <td>
-                        <input type="checkbox" class="delete-checkbox" value="<?= $category->categoryId ?>">
-                </td>
-                <td><?= htmlspecialchars($category->categoryName) ?></td>
-                <td>$<?= number_format($category->categoryTax, 2) ?></td>
-                <td>
-                    <a href="<?= $dirname ?>/category/restore/<?= $category->categoryId ?>">
+                    <a href="../report/restore/<?= $report->reportId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                             Restore
                         </button>
@@ -77,9 +75,9 @@ $nextDir = ($dir === 'asc') ? 'desc' : 'asc';
     </table>
 </div>
 <div style="position: fixed; bottom: 20px; right: 20px;">
-    <a href="<?= $dirname ?>/category/list">
+    <a href="../report/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Categories
+            Back to Reports
         </button>
     </a>
 </div>

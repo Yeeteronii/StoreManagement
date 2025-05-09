@@ -31,7 +31,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <input type="number" step="0.01" name="cost" id="cost" required>
             <div class="field-desc">How much then item costs.</div>
 
-            <label for="priceToSell">PriceToSell</label>
+            <label for="priceToSell">Sell Price</label>
             <input type="number" step="0.01" name="priceToSell" id="priceToSell" required>
             <div class="field-desc">How much the item will sell for</div>
 
@@ -41,6 +41,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <div class="field-desc">
                 Category name: <span id="categoryNameDisplay" style="font-weight: bold;">Unknown category</span>
             </div>
+
             <label for="threshold">Threshold</label>
             <input type="number" name="threshold" id="threshold" required>
             <div class="field-desc">Amount needed to be considered in stock.</div>
@@ -85,6 +86,22 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <div class="field-desc">Taxes for this category (in decimal)</div>
 
             <button type="submit">Add Category</button>
+        </form>
+    <?php elseif ($source === 'report' && $role === 'admin'): ?>
+        <form method="POST" action="../report/shared/add">
+            <label for="earnings">Earnings</label>
+            <input type="number" step="0.01" name="earnings" id="earnings" required>
+            <div class="field-desc">How much you've earned</div>
+
+            <label for="profits">Profits</label>
+            <input type="number" step="0.01" name="profits" id="profits" required>
+            <div class="field-desc">How much you've made</div>
+
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" required>
+            <div class="field-desc">A little summary of the day</div>
+
+            <button type="submit">Add Report</button>
         </form>
     <?php endif; ?>
 </div>

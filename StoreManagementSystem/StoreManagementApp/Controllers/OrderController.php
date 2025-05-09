@@ -19,7 +19,7 @@ class OrderController extends Controller
                 $action = $_GET['action'] ?? "list";
                 $id = isset($_POST['orderId']) ? intval($_POST['orderId']) : (isset($_GET['id']) ? intval($_GET['id']) : -1);
 
-                if (!User::checkRight($userId, 'Order', $action)) {
+                if (!User::checkRight($userId, 'Order', 'list')) {
                     $newURL = dirname($path) . "/product/list";
                     header("Location:" . $newURL);
                     exit;

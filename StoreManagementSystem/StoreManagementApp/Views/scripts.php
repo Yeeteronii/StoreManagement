@@ -96,7 +96,7 @@ function renderSidebar() {
     { href: 'orders.html', text: 'orders_title' },
     { href: 'suppliers.html', text: 'suppliers_title' },
     { href: 'employees.html', text: 'employees_title' },
-    { href: 'reports.html', text: 'reports_title' },
+    { href: 'report.html', text: 'reports_title' },
     { href: 'settings.html', text: 'settings_title' }
   ] : [
     { href: 'mainpage.html', text: 'welcome_title' },
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Additional page-specific logic for 'reports', 'settings', etc., can be added similarly
+  // Additional page-specific logic for 'report', 'settings', etc., can be added similarly
 });
 
 

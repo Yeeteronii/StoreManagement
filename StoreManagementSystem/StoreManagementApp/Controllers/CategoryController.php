@@ -19,7 +19,7 @@ class CategoryController extends Controller
                 $action = $_GET['action'] ?? "list";
                 $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
-                if (!User::checkRight($userId, 'Category', $action)) {
+                if (!User::checkRight($userId, 'Category', 'list')) {
                     $newURL = dirname($path) . "/product/list";
                     header("Location:" . $newURL);
                     exit;
