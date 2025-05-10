@@ -92,7 +92,7 @@
 
 .add-shift-btn {
   padding: 10px 20px;
-  border: 1px solid black;
-  background: white;
+  background: none;
   cursor: pointer;
+  border: none;
 }

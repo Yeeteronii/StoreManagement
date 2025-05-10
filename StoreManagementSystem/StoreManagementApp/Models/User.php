@@ -148,7 +148,7 @@ class User extends Model
         $types = '';
 
         if (!empty($keyword)) {
-            $sql .= " AND username LIKE ?";
+            $sql .= " WHERE username LIKE ?";
             $params[] = '%' . $keyword . '%';
             $types .= 's';
         }

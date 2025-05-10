@@ -8,14 +8,8 @@ $path = $_SERVER['SCRIPT_NAME'];
 $dirname = dirname($path);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Store Management System</title>
-    <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/nav.css">
-</head>
-<body>
-    <div class="sidebar-header" onclick="toggleSidebar()">
+<link rel="stylesheet" href="<?= $dirname ?>/Views/styles/nav.css">
+<div class="sidebar-header" onclick="toggleSidebar()">
         <img id="menuIcon" src="<?php echo dirname($path); ?>/images/menu.png" alt="Menu" class="menu-icon">
     </div>
     <?php if ($_SESSION['role'] === 'admin'): ?>
@@ -39,7 +33,6 @@ $dirname = dirname($path);
             </ul>
         </div>
     <?php endif; ?>
-        <div class="main-content">
             <script>
                 function toggleSidebar() {
                     const sidebar = document.getElementById("sidebar");
@@ -56,6 +49,3 @@ $dirname = dirname($path);
                 const sidebarHeader = document.querySelector(".sidebar-header");
                 sidebarHeader.onclick = toggleSidebar;
             </script>
-        </div>
-    </body>
-</html>

@@ -45,7 +45,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
         <form method="GET" action="../product/list">
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
-            <button type="submit" class="icon-btn">
+            <button type="submit" class="icon-btn" >
                 <img src="<?= $dirname ?>/images/search.png">
             </button>
             <select name="category" onchange="this.form.submit()">
@@ -58,14 +58,14 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             </select>
             <?php if ($canAdd): ?>
                 <a href="../product/add">
-                    <button type="button" class="icon-btn">
+                    <button type="button" class="icon-btn" style="margin-top: 30px;">
                         <img src="<?= $dirname ?>/images/add.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
         <form id="deleteForm" method="POST" action="../product/delete">
-            <button type="submit" class="icon-btn" style="margin-top: 2px;">
+            <button type="submit" class="icon-btn" style="margin-top: 25px;">
                 <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>

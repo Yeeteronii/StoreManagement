@@ -87,10 +87,9 @@ class Order extends Model
 
         $conn = Model::connect();
 
-        $sql = "SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity
-FROM orders o
-JOIN products p ON o.productId = p.productId
-JOIN categories c ON p.categoryId = c.categoryId";
+        $sql = "SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity FROM orders o 
+        JOIN products p ON o.productId = p.productId
+        JOIN categories c ON p.categoryId = c.categoryId";
 
         $params = [];
         $types = '';

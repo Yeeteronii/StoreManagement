@@ -11,12 +11,11 @@ $path = $_SERVER['SCRIPT_NAME'];
     <title>Settings - Store Management System</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <link rel="stylesheet" href="<?= dirname($path); ?>/Views/styles/shared.css">
-    <link rel="stylesheet" href="<?= dirname($path); ?>/Views/styles/nav.css">
     <link rel="stylesheet" href="<?= dirname($path); ?>/Views/styles/darktheme.css">
 </head>
 <body>
-<?php include_once "Views/shared/topbar2.php"; ?>
-<?php include_once "Views/shared/sidebar2.php"; ?>
+<?php include_once "Views/shared/topbar.php"; ?>
+<?php include_once "Views/shared/sidebar.php"; ?>
 
 <div class="container">
     <?php
