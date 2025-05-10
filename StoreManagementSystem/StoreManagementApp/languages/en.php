@@ -38,6 +38,7 @@ define("SELLPRICE", "Sell Price");
 define("TAXPRICE", "Tax Price");
 define("QUANTITY", "Quantity");
 
+define("DELETEDPRODUCTS", "Deleted Products");
 define("CATEGORYFLITER", "All Categories");
 define("VIEWCATEGORY", "View Categories");
 

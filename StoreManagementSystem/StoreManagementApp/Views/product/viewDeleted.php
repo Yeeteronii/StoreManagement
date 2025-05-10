@@ -20,13 +20,13 @@ $canRestore = $data['canRestore'] ?? false;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deleted Products</title>
+    <title><?= DELETEDPRODUCTS?></title>
     <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/products.css">
 </head>
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Deleted Products</h2>
+        <h2><?= DELETEDPRODUCTS?></h2>
     </div>
     <div class="controls">
         <form method="GET" action="../product/viewDeleted">
@@ -50,12 +50,12 @@ $canRestore = $data['canRestore'] ?? false;
         <tr>
             <?php
             $headers = [
-                'productName' => 'Product Name',
-                'categoryName' => 'Category',
-                'cost' => 'Cost',
-                'priceToSell' => 'Sell Price',
+                'productName' => PRODUCTNAME,
+                'categoryName' => CATEGORY,
+                'cost' => COST,
+                'priceToSell' => SELLPRICE,
                 'taxPrice' => TAXPRICE,
-                'quantity' => 'Quantity'
+                'quantity' => QUANTITY
             ];
             foreach ($headers as $field => $label): ?>
                 <th>

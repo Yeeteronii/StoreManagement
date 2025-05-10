@@ -39,6 +39,7 @@ define("TAXPRICE", "Prix avec Taxe");
 define("QUANTITY", "Quantité");
 define("ACTIONS", "Actions");
 
+define("DELETEDPRODUCTS", "Products Supprimée");
 define("CATEGORYFLITER", "Catégories");
 define("VIEWCATEGORY", "Voir les Catégories");
 
