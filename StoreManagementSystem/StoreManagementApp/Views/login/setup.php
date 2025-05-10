@@ -10,7 +10,7 @@ $dirname = dirname($path);?>
 </style>
 <head>
     <meta charset="UTF-8">
-    <title>Setup 2FA</title>
+    <title><?=SETUP2FA?></title>
     <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/login.css">
     <link rel="stylesheet" href="<?= dirname($path); ?>/Views/styles/darktheme.css">
 </head>
@@ -25,17 +25,17 @@ $dirname = dirname($path);?>
         <img src="<?= $dirname ?>/images/lightmode.png" id="lightIcon" alt="Enable Light Mode" title="Light Mode" style="width: 24px; height: 24px; cursor: pointer; display: none;">
     </div>
 </header>
-    <h2>Scan this QR Code with Google Authenticator</h2>
+    <h2><?=QRCODETOOLTIP?></h2>
     <img src="<?= $qrCodeUrl ?>" alt="Scan this QR with Google Authenticator">
 <br>
 <div class="login-container">
     <form method="POST" action="?action=verify">
         <input type="text" name="code" placeholder="Enter 6-digit code" required>
         <br>
-        <button type="submit" class="login-button">Verify</button>
+        <button type="submit" class="login-button"><?=VERIFY?></button>
     </form>
     <form method="POST" action="?action=reset" style="margin-top: 10px;">
-        <button type="submit" class="login-button">Back to Login</button>
+        <button type="submit" class="login-button"><?=BACKTOLOGIN?></button>
     </form>
 </div>
 

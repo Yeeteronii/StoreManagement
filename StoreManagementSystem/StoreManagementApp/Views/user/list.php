@@ -34,7 +34,7 @@ $canDelete = $data['canDelete'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>User Table</h2>
+        <h2><?=USERTABLE?></h2>
     </div>
     <div class="controls">
         <form method="GET" action="../user/list">
@@ -63,8 +63,8 @@ $canDelete = $data['canDelete'] ?? false;
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'username' => "Username",
-                'password' => "Password",
+                'username' => USERNAME,
+                'password' => PASSWORD,
             ];
             foreach ($headers as $field => $label): ?>
                 <th>

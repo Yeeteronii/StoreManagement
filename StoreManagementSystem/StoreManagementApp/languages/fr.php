@@ -10,7 +10,10 @@ define("INPUTCODE", "Entrez le code à 6 chiffres");
 define("VERIFY", "Vérifier");
 // Verify2FA
 define("ENTERCODE", "Saisissez votre code Google Authenticator");
-
+define("SETUP2FA", "Configurer la 2FA");
+define("QRCODETOOLTIP", "Scannez ce code QR avec Google Authenticator");
+define("BACKTOLOGIN", "Retour à la connexion");
+define("RESENDCODE", "Renvoyer le code");
 
 // TopBar\
 define("LOGGEDIN", "Bonjour, ");
@@ -69,6 +72,25 @@ define("THURSDAY","Jeudi");
 define("FRIDAY","Vendredi");
 define("SATURDAY","Samedi");
 define("SUNDAY","Dimanche");
+
+
+// Supplier
+define("SUPPLIERVIEWTITLE", "Vue Fournisseur");
+define("SUPPLIERTABLE", "Tableau des Fournisseurs");
+define("CONTACTNUMBER", "Numéro de Contact");
+
+// Reports
+define("REPORTTABLE", "Tableau des rapports");
+define("DATE", "Date");
+define("DELETEDREPORTS", "Rapports supprimés");
+define("BACKTOREPORTS", "Retour aux rapports");
+
+// User
+define("USERTABLE", "Table des utilisateurs");
+
+// Settings
+define("UPDATEPASSWORDTOLTIP", "Entrez un nouveau mot de passe si vous souhaitez le modifier. Sinon, laissez vide.");
+define("UPDATECRED", "Mettre à jour les identifiants");
 
 
 // Update

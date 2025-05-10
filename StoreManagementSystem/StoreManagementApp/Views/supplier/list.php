@@ -49,7 +49,8 @@ function formatPhoneNumber($number) {
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Supplier Table</h2>
+        <?php //cdebug(SUPPLIERTABLE)?>
+        <h2><?=SUPPLIERTABLE?></h2>
     </div>
     <div class="controls">
         <form method="GET" action="../supplier/list">
@@ -78,9 +79,9 @@ function formatPhoneNumber($number) {
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'supplierName' => "Supplier Name",
-                'email' => "E-Mail",
-                'phoneNum' => "Contact Number",
+                'supplierName' => SUPPLIERNAME,
+                'email' => EMAIL,
+                'phoneNum' => CONTACTNUMBER,
             ];
             foreach ($headers as $field => $label): ?>
                 <th>

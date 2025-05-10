@@ -23,17 +23,17 @@ $canRestore = $data['canRestore'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Deleted Reports</h2>
+        <h2><?=DELETEDREPORTS?></h2>
     </div>
 
     <table id="deletedReportTable">
         <tr>
             <?php
             $headers = [
-                'date' => 'Date',
-                'earnings' => 'Earnings',
-                'profits' => 'Profits',
-                'descriptions' => 'Description',
+                'date' => DATE,
+                'earnings' => EARNINGS,
+                'profits' => PROFITS,
+                'descriptions' => DESCRIPTION,
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -66,7 +66,7 @@ $canRestore = $data['canRestore'] ?? false;
                     <?php if ($canRestore): ?>
                     <a href="../report/restore/<?= $report->reportId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
-                            Restore
+                            <?=RESTORE?>
                         </button>
                     </a>
                     <?php endif; ?>
@@ -78,7 +78,7 @@ $canRestore = $data['canRestore'] ?? false;
 <div style="position: fixed; bottom: 20px; right: 20px;">
     <a href="../report/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Reports
+            <?=BACKTOREPORTS?>
         </button>
     </a>
 </div>

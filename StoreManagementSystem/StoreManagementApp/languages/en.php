@@ -10,6 +10,10 @@ define("INPUTCODE", "Enter 6-digit code");
 define("VERIFY", "Verify");
 // Verify2FA
 define("ENTERCODE", "Enter your Google Authenticator code");
+define("SETUP2FA", "Setup 2FA");
+define("QRCODETOOLTIP", "Scan this QR Code with Google Authenticator");
+define("BACKTOLOGIN", "Back to Login");
+define("RESENDCODE", "Resend Code");
 
 // TopBar
 define("LOGGEDIN", "Hello, ");
@@ -73,6 +77,29 @@ define("SATURDAY","Saturday");
 define("SUNDAY","Sunday");
 
 
+// Supplier
+define("SUPPLIERVIEWTITLE", "Supplier View");
+define("SUPPLIERTABLE", "Supplier Table");
+define("CONTACTNUMBER", "Contact Number");
+
+// Reports
+define("REPORTTABLE", "Report Table");
+define("DATE", "Date");
+define("DELETEDREPORTS", "Deleted Reports");
+define("BACKTOREPORTS", "Back to Reports");
+
+// User
+define("USERTABLE", "User Table");
+
+
+// Settings
+define("UPDATEPASSWORDTOLTIP", "Enter new password if you wish to change it. Otherwise leave blank.");
+define("UPDATECRED", "Update Credentials");
+
+
+
+
+
 // Update
 define("UPDATEELEMENT", "Update Element");
 define("NAME", "Name");
@@ -120,6 +147,8 @@ define("ENDTIMEERROR", "End time must be after start time!");
 define("UPDATESHIFT", "Update Shift");
 
 define("SELECTUSER","Select User:")
+
+
 
 
 

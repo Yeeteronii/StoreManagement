@@ -34,7 +34,7 @@ $canDownload = $data['canDownload'] ?? false;
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Report Table</h2>
+        <h2><?=REPORTTABLE?></h2>
     </div>
     <div class="controls">
         <?php if ($canDownload): ?>
@@ -63,10 +63,10 @@ $canDownload = $data['canDownload'] ?? false;
             <th><input type="checkbox" id="selectAll"></th>
             <?php
             $headers = [
-                'date' => 'Date',
-                'earnings' => 'Earnings',
-                'profits' => 'Profits',
-                'descriptions' => 'Description',
+                'date' => DATE,
+                'earnings' => EARNINGS,
+                'profits' => PROFITS,
+                'descriptions' => DESCRIPTION,
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -87,7 +87,7 @@ $canDownload = $data['canDownload'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
         <?php foreach ($reports as $report): ?>
             <tr>

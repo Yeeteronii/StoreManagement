@@ -25,20 +25,20 @@ $dirname = dirname($path);?>
         <img src="<?= $dirname ?>/images/lightmode.png" id="lightIcon" alt="Enable Light Mode" title="Light Mode" style="width: 24px; height: 24px; cursor: pointer; display: none;">
     </div>
 </header>
-    <h2>Enter your Google Authenticator code</h2>
+    <h2><?=ENTERCODE?></h2>
     <br>
 <div class="login-container">
     <form method="POST" action="?action=verify">
         <input type="text" name="code" placeholder="Enter 6-digit code" required>
-        <button type="submit" class="login-button">Verify</button>
+        <button type="submit" class="login-button"><?=VERIFY?></button>
     </form>
 
     <form method="POST" action="?action=resend" style="margin-top: 10px;">
-        <button type="submit" class="login-button">Resend Code</button>
+        <button type="submit" class="login-button"><?=RESENDCODE?></button>
     </form>
 
     <form method="POST" action="?action=reset" style="margin-top: 10px;">
-        <button type="submit" class="login-button">Back to Login</button>
+        <button type="submit" class="login-button"><?=BACKTOLOGIN?></button>
     </form>
 </div>
 <div class="language-switch">
