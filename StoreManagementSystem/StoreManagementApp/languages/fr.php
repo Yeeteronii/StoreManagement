@@ -49,6 +49,10 @@ define("CATEGORYTABLE", "Table des Catégories");
 define("CATEGORYTAX", "Taxe de la Catégorie");
 define("SEARCHCATEGORY", "Rechercher Catégorie...");
 define("BACKPRODUCT", "Retour aux Produits");
+define("DELETEDPRODUCTS", "Produits supprimés");
+define("DELETEDCATEGORY", "Catégorie supprimée");
+define("BACKTOCATEGORIES", "Retour aux catégories");
+define("RESTORE", "Restaurer");
 
 // Order
 define("ORDERTABLE", "Table des Commandes");
@@ -57,6 +61,64 @@ define("ORDERDATE", "Date de Commande");
 
 define("VIEWDELETE", "Voir Supprimer");
 define("SEARCH", "Rechercher des produits...");
+
+// Shift
+define("MONDAY","Lundi");
+define("TUESDAY","Mardi");
+define("WEDNESDAY","Mercredi");
+define("THURSDAY","Jeudi");
+define("FRIDAY","Vendredi");
+define("SATURDAY","Samedi");
+define("SUNDAY","Dimanche");
+
+
+// Update
+define("UPDATEELEMENT", "Mettre à jour l'élément");
+define("NAME", "Nom");
+define("THEDISPLAYNAMEOFYOURITEM", "Le nom affiché de votre article");
+define("HOWMUCHTHEITEMCOSTS", "Combien coûte l'article.");
+// define("SELLPRICE", "Prix de vente");
+define("HOWMUCHITEMSELLFOR", "À combien l'article sera vendu");
+define("CATEGORYID", "ID de catégorie");
+//define("CATEGORYNAME", "Nom de la catégorie :");
+define("UNKNOWNCATEGORY", "Catégorie inconnue");
+define("THRESHOLD", "Seuil");
+define("AMOUNTNEEDEDFORSTOCK", "Quantité requise pour être considérée en stock.");
+define("QUANTITYTOOLTIP", "Quantité de produit actuellement disponible.");
+define("UPDATEPRODUCT", "Mettre à jour le produit");
+define("NAMETOOLTIP", "Le nom de votre catégorie");
+//define("CATEGORYTAX", "Taxe de catégorie");
+define("CATEGORYTAXTOOLTIP", "Taxes pour cette catégorie (en décimal).");
+define("UPDATECATEGORY", "Mettre à jour la catégorie");
+define("EARNINGS", "Gains");
+define("EARNINGTOOLTIP", "Combien vous avez gagné");
+define("PROFITS", "Bénéfices");
+define("PROFITTOOLTIP", "Combien vous avez réalisé");
+define("DESCRIPTION", "Description");
+define("DESCRIPTIONTOOLTIP", "Un petit résumé de la journée");
+define("UPDATEREPORT", "Mettre à jour le rapport");
+define("SUPPLIERNAME", "Nom du fournisseur");
+define("SUPPLIERNAMETOOLTIP", "Nom du fournisseur");
+define("EMAIL", "E-mail");
+define("EMAILTOOLTIP", "Adresse e-mail du fournisseur");
+define("PHONENUMBER", "Numéro de téléphone");
+define("PHONENUMBERTOOLTIP", "Numéro de téléphone du fournisseur");
+define("UPDATESUPPLIER", "Mettre à jour le fournisseur");
+define("USERNAMETOOLTIP", "Nom d'utilisateur de l'utilisateur");
+define("PASSWORDTOOLTIP", "Mot de passe attribué à l'utilisateur (ne peut être modifié que par cet utilisateur)");
+define("ROLE", "Rôle");
+define("ROLETOOLTIP", "Sélectionnez le rôle de l'utilisateur. (Selon le rôle, il aura plus ou moins de fonctionnalités)");
+define("UPDATEUSER", "Mettre à jour l'utilisateur");
+define("SELECTDAY", "Sélectionnez un jour :");
+define("DAYOFTHEWEEK", "Jour de la semaine");
+define("STARTTIME", "Heure de début :");
+define("STARTTIMETOOLTIP", "Heure de début du poste");
+define("ENDTIME", "Heure de fin :");
+define("ENDTIMETOOLTIP", "Heure de fin du poste");
+define("ENDTIMEERROR", "L'heure de fin doit être après l'heure de début !");
+define("UPDATESHIFT", "Mettre à jour le poste");
+
+define("SELECTUSER", "Sélectionnez l'utilisateur :");
 
 
 ?>

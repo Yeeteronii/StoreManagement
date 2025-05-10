@@ -29,6 +29,7 @@ class SettingsController extends Controller
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $user = new User($id);
                         $user->update($_POST);
+                        $_SESSION['username'] = $_POST['username'];
                         $_SESSION['notification'] = "User updated successfully.";
                         $newURL = dirname($path) . "/settings/list";
                         header("Location:" . $newURL);

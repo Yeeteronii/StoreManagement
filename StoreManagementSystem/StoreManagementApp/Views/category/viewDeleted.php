@@ -19,20 +19,20 @@ $canRestore = $data['canRestore'] ?? false;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Deleted Category</title>
+    <title><?=DELETEDCATEGORY?></title>
     <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/categories.css">
 </head>
 <body>
 <div class="main-content">
     <div class="header">
-        <h2>Deleted Products</h2>
+        <h2><?=DELETEDPRODUCTS?></h2>
     </div>
     <table id="categoryTable">
         <tr>
             <?php
             $headers = [
-                'categoryName' => 'Category Name',
-                'categoryTax' => 'Category Tax'
+                'categoryName' => CATEGORYNAME,
+                'categoryTax' => CATEGORYTAX
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -53,7 +53,7 @@ $canRestore = $data['canRestore'] ?? false;
                     </div>
                 </th>
             <?php endforeach; ?>
-            <th>Actions</th>
+            <th><?=ACTIONS?></th>
         </tr>
 
         <?php foreach ($categories as $category): ?>
@@ -64,7 +64,7 @@ $canRestore = $data['canRestore'] ?? false;
                     <?php if ($canRestore): ?>
                     <a href="<?= $dirname ?>/category/restore/<?= $category->categoryId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
-                            Restore
+                            <?=RESTORE?>
                         </button>
                     </a>
                     <?php endif; ?>
@@ -76,7 +76,7 @@ $canRestore = $data['canRestore'] ?? false;
 <div style="position: fixed; bottom: 20px; right: 20px;">
     <a href="<?= $dirname ?>/category/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Categories
+            <?=BACKTOCATEGORIES?>
         </button>
     </a>
 </div>

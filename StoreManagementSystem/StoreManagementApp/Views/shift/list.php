@@ -44,7 +44,7 @@ function idToColor($id) {
             </div>
 
             <div class="schedule-grid">
-                <?php foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day): ?>
+                <?php foreach ([MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] as $day): ?>
                     <div class="day"><?= $day ?></div>
                 <?php endforeach; ?>
 

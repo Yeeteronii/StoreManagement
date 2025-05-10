@@ -13,44 +13,44 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update Element</title>
+    <title><?=UPDATEELEMENT?></title>
     <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/shared.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>Update Element</h2>
+    <h2><?=UPDATEELEMENT?></h2>
 
     <?php if ($source === 'product'): ?>
         <form method="POST" action="../shared/update/<?= $product->productId ?>">
-            <label for="productName">Name</label>
+            <label for="productName"><?=NAME?></label>
             <input type="text" name="productName" id="productName" value="<?= htmlspecialchars($product->productName) ?>" required>
-            <div class="field-desc">The display name of your item</div>
+            <div class="field-desc"><?=THEDISPLAYNAMEOFYOURITEM?></div>
 
-            <label for="cost">Cost</label>
+            <label for="cost"><?=COST?></label>
             <input type="number" step="0.01" name="cost" id="cost" value="<?= $product->cost ?>" required>
-            <div class="field-desc">How much then item costs.</div>
+            <div class="field-desc"><?=HOWMUCHTHEITEMCOSTS?></div>
 
-            <label for="priceToSell">Sell Price</label>
+            <label for="priceToSell"><?=SELLPRICE?></label>
             <input type="number" step="0.01" name="priceToSell" id="priceToSell" value="<?= $product->priceToSell ?>" required>
-            <div class="field-desc">How much the item will sell for</div>
+            <div class="field-desc"><?=HOWMUCHITEMSELLFOR?></div>
 
-            <label for="categoryId">Category ID</label>
+            <label for="categoryId"><?=CATEGORYID?></label>
             <input type="number" name="categoryId" id="categoryId" value="<?= $product->categoryId ?>" required oninput="updateCategoryName()">
             <div class="field-desc">
-                Category name: <span id="categoryNameDisplay" style="font-weight: bold;">Unknown category</span>
+                <?=CATEGORYNAME?> <span id="categoryNameDisplay" style="font-weight: bold;"><?=UNKNOWNCATEGORY?></span>
             </div>
 
 
-            <label for="threshold">Threshold</label>
+            <label for="threshold"><?=THRESHOLD?></label>
             <input type="number" name="threshold" id="threshold" value="<?= $product->threshold ?>" required>
-            <div class="field-desc">Amount needed to be considered in stock.</div>
+            <div class="field-desc"><?=AMOUNTNEEDEDFORSTOCK?></div>
 
-            <label for="quantity">Quantity</label>
+            <label for="quantity"><?=QUANTITY?></label>
             <input type="number" name="quantity" id="quantity" value="<?= $product->quantity ?>" required>
-            <div class="field-desc">How much product is currently available.</div>
+            <div class="field-desc"><?=QUANTITYTOOLTIP?></div>
 
-            <button type="submit">Update Product</button>
+            <button type="submit"><?=UPDATEPRODUCT?></button>
 
             <script>
                 const categoryMap = {
@@ -77,59 +77,59 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
     <?php elseif ($_SESSION['role'] === 'admin'): ?>
         <?php if ($source === 'category'): ?>
             <form method="POST" action="../shared/update/<?= $category->categoryId ?>">
-                <label for="categoryName">Name</label>
+                <label for="categoryName"><?=NAME?></label>
                 <input type="text" id="categoryName" name="categoryName" value="<?= htmlspecialchars($category->categoryName) ?>" required>
-                <div class="field-desc">The name of your category</div>
+                <div class="field-desc"><?=NAMETOOLTIP?></div>
 
-                <label for="categoryTax">Category Tax</label>
+                <label for="categoryTax"><?=CATEGORYTAX?></label>
                 <input type="number" step="0.01" name="categoryTax" id="categoryTax" value="<?= $category->categoryTax ?>" required>
-                <div class="field-desc">Taxes for this category (in decimal).</div>
+                <div class="field-desc"><?=CATEGORYTAXTOOLTIP?></div>
 
-                <button type="submit">Update Category</button>
+                <button type="submit"><?=UPDATECATEGORY?></button>
             </form>
         <?php elseif ($source === 'report'): ?>
             <form method="POST" action="../shared/update/<?= $report->reportId ?>">
-                <label for="earnings">Earnings</label>
+                <label for="earnings"><?=EARNINGS?></label>
                 <input type="number" step="0.01" name="earnings" id="earnings" value="<?= $report->earnings ?>" required>
-                <div class="field-desc">How much you've earned</div>
+                <div class="field-desc"><?=EARNINGTOOLTIP?></div>
 
-                <label for="profits">Profits</label>
+                <label for="profits"><?=PROFITS?></label>
                 <input type="number" step="0.01" name="profits" id="profits" value="<?= $report->profits ?>" required>
-                <div class="field-desc">How much you've made</div>
+                <div class="field-desc"><?=PROFITTOOLTIP?></div>
 
-                <label for="description">Description</label>
+                <label for="description"><?=DESCRIPTION?></label>
                 <input type="text" name="description" id="description" value="<?= $report->description ?>" required>
-                <div class="field-desc">A little summary of the day</div>
+                <div class="field-desc"><?=DESCRIPTIONTOOLTIP?></div>
 
-                <button type="submit">Update Report</button>
+                <button type="submit"><?=UPDATEREPORT?></button>
             </form>
         <?php elseif ($source === 'supplier'): ?>
             <form method="POST" action="../shared/update/<?= $supplier->supplierId ?>">
-                <label for="supplierName">Supplier Name</label>
+                <label for="supplierName"><?=SUPPLIERNAME?></label>
                 <input type="text" name="supplierName" id="supplierName" value="<?= $supplier->supplierName ?>" required>
-                <div class="field-desc">Name of the supplier</div>
+                <div class="field-desc"><?=SUPPLIERNAMETOOLTIP?></div>
 
-                <label for="email">E-mail</label>
+                <label for="email"><?=EMAIL?></label>
                 <input type="text" name="email" id="email" value="<?= $supplier->email ?>" required>
-                <div class="field-desc">E-mail of the supplier</div>
+                <div class="field-desc"><?=EMAILTOOLTIP?></div>
 
-                <label for="phoneNum">Phone Number</label>
+                <label for="phoneNum"><?=PHONENUMBER?></label>
                 <input type="text" name="phoneNum" id="phoneNum" value="<?= $supplier->phoneNum ?>" required>
-                <div class="field-desc">Phone Number of the supplier</div>
+                <div class="field-desc"><?=PHONENUMBERTOOLTIP?></div>
 
-                <button type="submit">Update Supplier</button>
+                <button type="submit"><?=UPDATESUPPLIER?></button>
             </form>
         <?php elseif ($source === 'user'): ?>
             <form method="POST" action="../shared/update/<?= $user->id ?>">
-                <label for="username">Username</label>
+                <label for="username"><?=USERNAME?></label>
                 <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
-                <div class="field-desc">Username of the user</div>
+                <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
-                <label for="password">Password</label>
+                <label for="password"><?=PASSWORD?></label>
                 <input type="text" name="password" id="password" value="<?= $user->password ?>"  disabled>
-                <div class="field-desc">Password given to the user (can only be changed by said user)</div>
+                <div class="field-desc"><?=PASSWORDTOOLTIP?></div>
 
-                <label>Role</label>
+                <label><?=ROLE?></label>
                 <?php if ($canChangeRole): ?>
                     <select name="role">
                         <option value="admin" <?= ($user->role == 'admin') ? 'selected' : '' ?>>Admin</option>
@@ -139,13 +139,13 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                     <input type="text" value="<?= htmlspecialchars($user->role) ?>" readonly>
                     <input type="hidden" name="role" value="<?= htmlspecialchars($user->role) ?>">
                 <?php endif; ?>
-                <div class="field-desc">Select the role of the user. (Depending on the role, they will have access to more or less features)</div>
+                <div class="field-desc"><?=ROLETOOLTIP?></div>
 
-                <button type="submit">Update User</button>
+                <button type="submit"><?=UPDATEUSER?></button>
             </form>
         <?php elseif ($source === 'shift'): ?>
             <form method="POST" action="../shared/update/<?= $shift->shiftId ?>">
-                <label for="userId">Select User:</label>
+                <label for="userId"><?=SELECTUSER?></label>
                 <select name="userId" id="userId" required>
                     <?php foreach ($users as $user): ?>
                         <option value="<?= $user->id ?>" <?= $user->id == $shift->userId ? 'selected' : '' ?>>
@@ -153,9 +153,9 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <div class="field-desc">Username of the user</div>
+                <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
-                <label for="day">Select Day:</label>
+                <label for="day"><?=SELECTDAY?></label>
                 <select name="day" id="day" required>
                     <?php
                     $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -163,9 +163,9 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                         <option value="<?= $day ?>" <?= $day === $shift->day ? 'selected' : '' ?>><?= $day ?></option>
                     <?php endforeach; ?>
                 </select>
-                <div class="field-desc">Day of the week</div>
+                <div class="field-desc"><?=DAYOFTHEWEEK?></div>
 
-                <label for="startTime">Start Time:</label>
+                <label for="startTime"><?=STARTTIME?></label>
                 <select name="startTime" id="startTime" required>
                     <?php for ($hour = 9; $hour <= 22; $hour++): ?>
                         <?php $value = sprintf('%02d:00:00', $hour); ?>
@@ -174,9 +174,9 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                         </option>
                     <?php endfor; ?>
                 </select>
-                <div class="field-desc">Start time of the shift</div>
+                <div class="field-desc"><?=STARTTIMETOOLTIP?></div>
 
-                <label for="endTime">End Time:</label>
+                <label for="endTime"><?=ENDTIME?></label>
                 <select name="endTime" id="endTime" required>
                     <?php for ($hour = 10; $hour <= 23; $hour++): ?>
                         <?php $value = sprintf('%02d:00:00', $hour); ?>
@@ -185,10 +185,10 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                         </option>
                     <?php endfor; ?>
                 </select>
-                <div class="field-desc">End time of the shift</div>
-                <div id="timeError" style="color: red; font-size: 12px; display: none;">End time must be after start time!</div>
+                <div class="field-desc"><?=ENDTIMETOOLTIP?></div>
+                <div id="timeError" style="color: red; font-size: 12px; display: none;"><?=ENDTIMEERROR?></div>
 
-                <button type="submit">Update Shift</button>
+                <button type="submit"><?=UPDATESHIFT?></button>
 
                 <script>
                     const form = document.querySelector('form');
