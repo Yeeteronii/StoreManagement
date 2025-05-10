@@ -22,7 +22,7 @@ class Product extends Model
             $this->setProperties($param);
         } elseif (is_int($param)) {
             $conn = Model::connect();
-            $stmt = $conn->prepare("SELECT p.*, c.categoryName FROM products p 
+            $stmt = $conn->prepare("SELECT p.*, c.*, (p.priceToSell * c.categoryTax) + p.priceToSell AS taxPrice FROM products p 
                                     JOIN categories c ON p.categoryId = c.categoryId 
                                     WHERE p.productId = ? AND p.isActive = 1");
             $stmt->bind_param("i", $param);
@@ -158,11 +158,39 @@ class Product extends Model
         $stmt->execute();
         $stmt->close();
     }
+
     public static function addToOrder($productId)
     {
         $conn = Model::connect();
-        $stmt = $conn->prepare("INSERT INTO orders (productId, orderDate) VALUES (?, CURDATE())");
+        $stmt = $conn->prepare("SELECT threshold, quantity FROM products WHERE productId = ?");
         $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_object();
+        if ($row) {
+            $threshold = $row->threshold;
+            $quantity = $row->quantity;
+        } else {
+            return; // Product not found
+        }
+
+        $delta = $threshold - $quantity;
+        if ($delta < 0) {
+            $delta = 0;
+        }
+
+        // $stmt = $conn->prepare("UPDATE products SET quantity = ? WHERE productId = ?");
+        // $stmt->bind_param("ii", $delta, $productId);
+        // $stmt->execute();
+        // $stmt->close();
+
+        // // Add to orders table
+        // self::addOrder($productId);
+    
+    
+        $conn = Model::connect();
+        $stmt = $conn->prepare("INSERT INTO orders (productId, orderDate, quantity) VALUES (?, CURDATE(), ?)");
+        $stmt->bind_param("ii", $productId, $delta);
         $stmt->execute();
         $stmt->close();
     }

@@ -2,6 +2,8 @@
 include_once "Controllers/Controller.php";
 include_once "Models/User.php";
 
+cdebug($_SESSION);
+
 class SettingsController extends Controller
 {
     public function route()
@@ -18,31 +20,11 @@ class SettingsController extends Controller
                 exit;
             } else {
                 if ($action === "list") {
-                    $shifts = Shift::list();
+                    $userData = new User($_SESSION['user_id']);
 
-
-                    $canAdd = User::checkRight($_SESSION['user_id'], 'Shift', 'add');
-                    $canUpdate = User::checkRight($_SESSION['user_id'], 'Shift', 'update');
-                    $canDelete = User::checkRight($_SESSION['user_id'], 'Shift', 'delete');
-
-                    $this->render("setting", "list", [
-                        'shifts' => $shifts,
-                        'canAdd' => $canAdd,
-                        'canUpdate' => $canUpdate,
-                        'canDelete' => $canDelete,
+                    $this->render("settings", "list", [
+                        'user' => $userData,
                     ]);
-                } elseif ($action === "add") {
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        Shift::add($_POST);
-                        $newURL = dirname($path) . "/shift/list";
-                        header("Location:" . $newURL);
-                        exit;
-                    } else {
-                        $users = User::listFilteredSorted('', 'username', 'ASC');
-                        $this->render("shared", "add", [
-                            'role' => $_SESSION['role'],
-                            'users' => $users]);
-                    }
                 } elseif ($action === "update") {
                     $shift = new Shift($id);
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
