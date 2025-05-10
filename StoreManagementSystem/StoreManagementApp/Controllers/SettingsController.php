@@ -2,7 +2,7 @@
 include_once "Controllers/Controller.php";
 include_once "Models/User.php";
 
-cdebug($_SESSION);
+
 
 class SettingsController extends Controller
 {
@@ -26,19 +26,17 @@ class SettingsController extends Controller
                         'user' => $userData,
                     ]);
                 } elseif ($action === "update") {
-                    $shift = new Shift($id);
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $shift->update($_POST);
-                        $newURL = dirname($path) . "/shift/list";
+                        $user = new User($id);
+                        $user->update($_POST);
+                        $_SESSION['notification'] = "User updated successfully.";
+                        $newURL = dirname($path) . "/settings/list";
                         header("Location:" . $newURL);
                         exit;
                     } else {
-                        $users = User::listFilteredSorted('', 'username', 'ASC');
-                        $this->render("shared", "update", ['shift' => $shift,
-                            'role' => $_SESSION['role'],
-                            'users' => $users]);
+                        $newURL = dirname($path) . "/settings/list";
+                        header("Location:" . $newURL);
                     }
-
                 } elseif ($action === "delete") {
                     if ($id > 0) {
                         Shift::delete($id);

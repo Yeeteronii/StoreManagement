@@ -1,0 +1,15 @@
+:root {
+    --darkcolor: #343131;
+}
+
+
+body.darktheme {
+    background-color: var(--darkcolor);
+    color: #f3f1f8;
+}
+
+body.darktheme button {
+    border: 2px solid white;
+    color: white;
+    background-color: var(--darkcolor);
+}
