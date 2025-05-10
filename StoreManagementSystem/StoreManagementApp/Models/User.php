@@ -69,6 +69,21 @@ class User extends Model
         return $stmt->execute();
     }
 
+    public static function getUser($userId)
+    {
+        $conn = Model::connect();
+        $sql = "SELECT * FROM users WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        //$row = $result->fetch_object();
+        if ($row = $result->fetch_object()) {
+            return new User($row);
+        }
+        return null;
+    }
+
     public static function getRole($userId)
     {
         $conn = Model::connect();
@@ -97,7 +112,6 @@ class User extends Model
         $row = $result->fetch_object();
         return $row ? $row->username : null;
     }
-
 
     private function setProperties($obj)
     {
