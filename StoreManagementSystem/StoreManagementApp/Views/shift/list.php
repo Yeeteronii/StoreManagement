@@ -8,6 +8,10 @@ $dirname = dirname($path);
 $shifts = $data['shifts'] ?? [];
 $username = $_SESSION['username'];
 $weekDays = ['monday'=>1, 'tuesday'=>2, 'wednesday'=>3, 'thursday'=>4, 'friday'=>5, 'saturday'=>6, 'sunday'=>7];
+
+$canAdd = $data['canAdd'] ?? false;
+$canUpdate = $data['canUpdate'] ?? false;
+$canDelete = $data['canDelete'] ?? false;
 ?>
 
 <?php
@@ -70,12 +74,15 @@ function idToColor($id) {
                                  ">
                         <?= htmlspecialchars($shift->username) ?>
                         <div class="shift-actions">
+                            <?php if ($canUpdate): ?>
                             <a href="../shift/update/<?= $shift->shiftId ?>">
                                 <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;">
                             </a>
+                            <?php elseif ($canDelete): ?>
                             <a href="../shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
                                 <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width:20px; height:20px;">
                             </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -83,11 +90,13 @@ function idToColor($id) {
         </div>
 
         <div class="add-shift-container">
+            <?php if ($canAdd): ?>
             <a href="../shift/add">
                 <button class="add-shift-btn">
                     <img src="<?= $dirname ?>/images/add.png">
                 </button>
             </a>
+            <?php endif; ?>
         </div>
 
     </div>

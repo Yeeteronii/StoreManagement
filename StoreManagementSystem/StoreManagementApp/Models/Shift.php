@@ -89,9 +89,10 @@ class Shift extends Model
 
         $sql = "SELECT COUNT(*) AS count FROM shifts 
         WHERE userId = ? AND day = ? 
-        AND NOT (endTime <= ? OR startTime >= ?)";
+        AND NOT (endTime <= ? OR startTime >= ?)
+        AND shiftId != ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("isss", $data['userId'], $data['day'], $data['startTime'], $data['endTime']);
+        $stmt->bind_param("isssi", $data['userId'], $data['day'], $data['startTime'], $data['endTime'], $this->shiftId);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
 
