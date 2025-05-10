@@ -49,7 +49,6 @@ define("CATEGORYTABLE", "Category Table");
 define("CATEGORYTAX", "Category Tax");
 define("SEARCHCATEGORY", "Search Category...");
 define("BACKPRODUCT", "Back to Products");
-define("DELETEDPRODUCTS", "Deleted Products");
 define("DELETEDCATEGORY", "Deleted Category");
 define("BACKTOCATEGORIES", "Back to Categories");
 define("RESTORE", "Restore");
