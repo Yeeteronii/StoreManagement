@@ -14,7 +14,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 <html>
 <head>
     <title>Add Element</title>
-    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/add.css">
+    <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/shared.css">
 </head>
 <body>
 
@@ -138,6 +138,73 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <div class="field-desc">Select the role of the user. (Depending on the role, they will have access to more or less features)</div>
 
             <button type="submit">Add User</button>
+        </form>
+    <?php elseif ($source === 'shift' && $role === 'admin'): ?>
+        <form method="POST" action="../shift/shared/add">
+            <label for="userId">Select User:</label>
+            <select name="userId" id="userId" required>
+                <?php foreach ($users as $user): ?>
+                    <option value="<?= $user->id ?>"><?= htmlspecialchars($user->username) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <div class="field-desc">Username of the user</div>
+
+            <label for="day">Select Day:</label>
+            <select name="day" id="day" required>
+                <?php
+                $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                foreach ($daysOfWeek as $day): ?>
+                    <option value="<?= $day ?>"><?= $day ?></option>
+                <?php endforeach; ?>
+            </select>
+            <div class="field-desc">Day of the week</div>
+
+            <label for="startTime">Start Time:</label>
+            <select name="startTime" id="startTime" required>
+                <?php for ($hour = 9; $hour <= 22; $hour++): ?>
+                    <option value="<?= sprintf('%02d:00:00', $hour) ?>"><?= sprintf('%02d:00', $hour) ?></option>
+                <?php endfor; ?>
+            </select>
+            <div class="field-desc">Start time of the shift</div>
+
+            <label for="endTime">End Time:</label>
+            <select name="endTime" id="endTime" required>
+                <?php for ($hour = 10; $hour <= 23; $hour++): ?>
+                    <option value="<?= sprintf('%02d:00:00', $hour) ?>"><?= sprintf('%02d:00', $hour) ?></option>
+                <?php endfor; ?>
+            </select>
+            <div class="field-desc">End time of the shift</div>
+            <div id="timeError" style="color: red; font-size: 12px; display: none;">End time must be after start time!</div>
+            <button type="submit">Add Shift</button>
+
+
+            <script>
+                const form = document.querySelector('form');
+                const startSelect = document.getElementById('startTime');
+                const endSelect = document.getElementById('endTime');
+                const timeError = document.getElementById('timeError');
+
+                function validateTime() {
+                    if (startSelect.value >= endSelect.value) {
+                        endSelect.style.border = '2px solid red';
+                        timeError.style.display = 'block';
+                        return false;
+                    } else {
+                        endSelect.style.border = '';
+                        timeError.style.display = 'none';
+                        return true;
+                    }
+                }
+
+                startSelect.addEventListener('change', validateTime);
+                endSelect.addEventListener('change', validateTime);
+
+                form.addEventListener('submit', function(e) {
+                    if (!validateTime()) {
+                        e.preventDefault();
+                    }
+                });
+            </script>
         </form>
     <?php endif; ?>
 </div>

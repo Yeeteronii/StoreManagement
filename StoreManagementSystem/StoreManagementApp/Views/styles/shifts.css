@@ -1,0 +1,98 @@
+.schedule-container {
+  display: grid;
+  grid-template-columns: 80px auto;
+  gap: 0;
+  margin-left: 50px;
+}
+
+.sidebar.open ~ .content {
+  left: 220px;
+  width: calc(100% - 220px);
+}
+.content {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+.time-labels {
+  display: grid;
+  grid-template-rows: 40px repeat(14, 40px);
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(200px, 1fr));
+  grid-template-rows: 40px repeat(14, 40px);
+  background: white;
+  position: relative;
+  top: 0;
+  max-width: calc(7 * 200px);
+}
+
+.header-cell, .day {
+  border: 1px solid #ccc;
+  text-align: center;
+  background: #f7f7f7;
+  font-weight: bold;
+}
+
+.time-label {
+  border: 1px solid #ccc;
+  text-align: right;
+  padding-right: 4px;
+  font-weight: bold;
+  background: #f7f7f7;
+}
+
+.time-cell {
+  border: 1px solid #eee;
+  background: transparent;
+}
+
+.shift-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 4px;
+  z-index: 10;
+}
+
+.shift-actions {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.shift-actions a {
+  background: none;
+  border: none;
+}
+
+.shift-actions img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.add-shift-container {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.add-shift-btn {
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}

@@ -45,7 +45,6 @@ class Product extends Model
         $this->threshold = $row->threshold;
         $this->quantity = $row->quantity;
         $this->isActive = $row->isActive;
-        $this->taxPrice = $row->taxPrice;
     }
 
     public static function listFilteredSorted($keyword, $category, $sort, $dir)

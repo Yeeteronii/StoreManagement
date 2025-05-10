@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-    margin-left: 250px; /* leave space for sidebar */
+    margin-left: 250px;
     padding: 40px 60px;
 }
 

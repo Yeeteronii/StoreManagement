@@ -21,7 +21,7 @@ define("LOGOUT", "Déconnexion");
 
 // Sidebar
 define("PRODUCT", "Produits");
-define("SCHEDULE", "Horaire");
+define("SHIFT", "Horaire");
 define("ORDERS", "Commandes");
 define("SUPPLIERS", "Fournisseurs");
 define("EMPLOYEES", "Employées");

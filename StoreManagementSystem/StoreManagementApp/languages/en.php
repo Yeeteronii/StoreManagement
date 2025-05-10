@@ -20,7 +20,7 @@ define("LOGOUT", "Logout");
 
 // Sidebar
 define("PRODUCT", "Products");
-define("SCHEDULE", "Schedule");
+define("SHIFT", "Schedule");
 define("ORDERS", "Orders");
 define("SUPPLIERS", "Suppliers");
 define("EMPLOYEES", "Employees");

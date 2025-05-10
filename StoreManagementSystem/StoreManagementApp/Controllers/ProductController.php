@@ -10,15 +10,19 @@ class ProductController extends Controller
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         } else {
+            $userId = $_SESSION['user_id'];
+            $path = $_SERVER['SCRIPT_NAME'];
+            $action = $_GET['action'] ?? "list";
+            $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
             if (!isset($_SESSION['token'])) {
                 header("Location: /login/login");
                 exit;
             } else {
-                $userId = $_SESSION['user_id'];
-                $path = $_SERVER['SCRIPT_NAME'];
-                $action = $_GET['action'] ?? "list";
-                $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
-
+                if (!User::checkRight($userId, 'Product', 'add')) {
+                    $newURL = dirname($path) . "/product/list";
+                    header("Location:" . $newURL);
+                    exit;
+                }
                 if ($action === "list") {
                     $keyword = trim($_GET['search'] ?? '');
                     $category = trim($_GET['category'] ?? '');
@@ -49,11 +53,6 @@ class ProductController extends Controller
                         'canViewDeleted' => $canViewDeleted
                     ]);
                 } elseif ($action === "add") {
-                    if (!User::checkRight($userId, 'Product', 'add')) {
-                        $newURL = dirname($path) . "/product/list";
-                        header("Location:" . $newURL);
-                        exit;
-                    }
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Product::add($_POST);
                         $newURL = dirname($path) . "/product/list";

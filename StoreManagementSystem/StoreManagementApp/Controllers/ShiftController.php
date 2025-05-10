@@ -1,74 +1,78 @@
 <?php
-// include_once "Controllers/Controller.php";
-// include_once "Models/Shift.php";
+include_once "Controllers/Controller.php";
+include_once "Models/Shift.php";
+include_once "Models/User.php";
 
-// class ShiftController extends Controller
-// {
-//    public function route()
-//    {
-//        if (session_status() === PHP_SESSION_NONE) {
-//            session_start();
-//        }
+class ShiftController extends Controller
+{
+    public function route()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        } else {
+            $userId = $_SESSION['user_id'];
+            $path = $_SERVER['SCRIPT_NAME'];
+            $action = $_GET['action'] ?? "list";
+            $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
+            if (!isset($_SESSION['token'])) {
+                header("Location: /login/login");
+                exit;
+            } else {
+                if (!User::checkRight($userId, 'Shift', 'list')) {
+                    $newURL = dirname($path) . "/product/list";
+                    header("Location:" . $newURL);
+                    exit;
+                } else {
+                    if ($action === "list") {
+                        $shifts = Shift::list();
 
-//        $path = $_SERVER['SCRIPT_NAME'];
-//        $action = $_GET['action'] ?? "list";
-//        $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
-//        if (!isset($_SESSION['token'])) {
-//            header("Location: /login/login");
-//            exit;
-//        }
+                        $canAdd = User::checkRight($_SESSION['user_id'], 'Shift', 'add');
+                        $canUpdate = User::checkRight($_SESSION['user_id'], 'Shift', 'update');
+                        $canDelete = User::checkRight($_SESSION['user_id'], 'Shift', 'delete');
 
-//        if ($action === "list") {
-//            $shifts = Shift::list();
+                        $this->render("shift", "list", [
+                            'shifts' => $shifts,
+                            'canAdd' => $canAdd,
+                            'canUpdate' => $canUpdate,
+                            'canDelete' => $canDelete,
+                        ]);
+                    } elseif ($action === "add") {
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            Shift::add($_POST);
+                            $newURL = dirname($path) . "/shift/list";
+                            header("Location:" . $newURL);
+                            exit;
+                        } else {
+                            $users = User::listFilteredSorted('', 'username', 'ASC');
+                            $this->render("shared", "add", [
+                                'role' => $_SESSION['role'],
+                                'users' => $users]);
+                        }
+                    } elseif ($action === "update") {
+                        $shift = new Shift($id);
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                            $shift->update($_POST);
+                            $newURL = dirname($path) . "/shift/list";
+                            header("Location:" . $newURL);
+                            exit;
+                        } else {
+                            $users = User::listFilteredSorted('', 'username', 'ASC');
+                            $this->render("shared", "update", ['shift' => $shift,
+                                'role' => $_SESSION['role'],
+                                'users' => $users]);
+                        }
 
-//            $this->render("shift", "list", $shifts);
-
-//        } elseif ($action === "add") {
-//            if ($_SESSION['role'] !== 'admin') {
-//                header("Location:" . dirname($path) . "/login/login");
-//                exit;
-//            }
-
-//            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//                Product::add($_POST);
-//                header("Location:" . dirname($path) . "/product/list");
-//                exit;
-//            } else {
-//                $this->render("shared", "add");
-//            }
-
-//        } elseif ($action === "update") {
-//            $product = new Product($id);
-//            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//                $product->update($_POST);
-//                header("Location:" . dirname($path) . "/product/list");
-//                exit;
-//            } else {
-//                $this->render("shared", "update", ['product' => $product]);
-//            }
-
-//        } elseif ($action === "delete") {
-//            $product = new Product($id);
-//            $product->delete();
-//            header("Location:" . dirname($path) . "/product/list");
-//            exit;
-
-//        } elseif ($action === "deleteMultiple") {
-//            $ids = $_POST['delete_ids'] ?? [];
-//            if (!empty($ids)) {
-//                Product::deleteMultiple(array_map('intval', $ids));
-//            }
-//            header("Location:" . dirname($path) . "/product/list");
-//            exit;
-
-//        } elseif ($action === "addToOrder") {
-//            $product = new Product($id);
-//            if ($product) {
-//                Product::addToOrder($product->productId);
-//            }
-//            header("Location:" . dirname($path) . "/product/list");
-//            exit;
-//        }
-//    }
-// }
+                    } elseif ($action === "delete") {
+                        if ($id > 0) {
+                            Shift::delete($id);
+                        }
+                        $newURL = dirname($path) . "/shift/list";
+                        header("Location:" . $newURL);
+                        exit;
+                    }
+                }
+            }
+        }
+    }
+}
