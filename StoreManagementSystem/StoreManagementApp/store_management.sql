@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2025 at 06:49 AM
+-- Generation Time: May 10, 2025 at 03:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -240,7 +240,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`productId`, `productName`, `cost`, `priceToSell`, `categoryId`, `threshold`, `quantity`, `isActive`) VALUES
 (12, 'Skittles', 3.99, 5.99, 5, 20, 40, 1),
-(13, 'grapes', 21, 12, 2, 32, 87, 1);
+(13, 'grapes', 21, 12, 2, 32, 87, 1),
+(14, 'Vodka', 21, 21, 3, 23, 322, 1);
 
 -- --------------------------------------------------------
 
@@ -274,10 +275,17 @@ INSERT INTO `reports` (`reportId`, `date`, `earnings`, `profits`, `description`,
 CREATE TABLE `shifts` (
   `shiftId` int(11) NOT NULL COMMENT 'Example: 11111111111',
   `userId` int(11) NOT NULL COMMENT 'Example: 11111111111',
-  `day` date NOT NULL COMMENT 'Example: 14/04/2025 (dd/mm/yyyy)',
+  `day` varchar(32) NOT NULL COMMENT 'Example: Monday',
   `startTime` time NOT NULL COMMENT 'Example: 10:00:00',
   `endTime` time NOT NULL COMMENT 'Example: 18:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `shifts`
+--
+
+INSERT INTO `shifts` (`shiftId`, `userId`, `day`, `startTime`, `endTime`) VALUES
+(35, 7, 'Monday', '09:00:00', '20:00:00');
 
 -- --------------------------------------------------------
 
@@ -319,8 +327,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `twofa_secret`, `twofa_enabled`) VALUES
-(5, 'Parth', '$2y$10$3x1XpZlWTFaeBHjg5ndl7O/qYJ46sBwGaPTAPOMqj38tobGVTvCz6', 'N3VF3SKZZEHPVQKOLSQAQ7JGKUV43L3F', 1),
-(6, 'admin', '$2y$10$m4Ci1qHB01eB98jdOaxgy.NaWPSN3VG7W8WQ7iqF1gtacCTw8myre', NULL, 0),
+(5, 'round', '$2y$10$3x1XpZlWTFaeBHjg5ndl7O/qYJ46sBwGaPTAPOMqj38tobGVTvCz6', 'CIYQ2E7ZHDDYODWSPEIHNIYLYRN2WG4E', 1),
+(6, 'parth', '$2y$10$m4Ci1qHB01eB98jdOaxgy.NaWPSN3VG7W8WQ7iqF1gtacCTw8myre', '3LAXNYPW3JMCVREUKL553WT3G6FPTHTG', 1),
 (7, 'employee', '$2y$10$p6.skUGztBj35a8QFaVb8uTpt8i9CB0JVcm7edo5Ruc2I5ktZ6PAS', NULL, 0);
 
 -- --------------------------------------------------------
@@ -459,7 +467,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=14;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `reports`
@@ -471,7 +479,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `shifts`
 --
 ALTER TABLE `shifts`
-  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111';
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
