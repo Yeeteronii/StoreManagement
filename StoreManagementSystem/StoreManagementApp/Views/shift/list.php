@@ -78,7 +78,8 @@ function idToColor($id) {
                             <a href="../shift/update/<?= $shift->shiftId ?>">
                                 <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;">
                             </a>
-                            <?php elseif ($canDelete): ?>
+                            <?php endif; ?>
+                            <?php if ($canDelete): ?>
                             <a href="../shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
                                 <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width:20px; height:20px;">
                             </a>
