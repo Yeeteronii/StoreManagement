@@ -13,46 +13,82 @@ $dirname = dirname($path);
 </style>
 
 <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/nav.css">
+<link rel="stylesheet" href="<?= dirname($path); ?>/Views/styles/darktheme.css">
 <div class="topbar">
-        <div class="logo">Dépanneur du Souvenir</div>
-        <div class="user-info">
-            <span><?=LOGGEDIN?> <?= htmlspecialchars($username) ?></span>
-            <!-- <a class="logout-button" href="../login/login"><?=LOGOUT?></a> -->
-            <!-- <div style="font-size: 10px; color: red">Change Translation</div> -->
-            <div class="language-switch" style="margin-left: 10px;">
-    <form method="POST" action="">
-        <select name="lang" onchange="this.form.submit()">
-            <option value="en" <?= $_SESSION['lang'] === 'en' ? 'selected' : '' ?>>English</option>
-            <option value="fr" <?= $_SESSION['lang'] === 'fr' ? 'selected' : '' ?>>Français</option>
-        </select>
-    </form>
+    <div class="logo" style="font-family: 'Charm', cursive; font-size: 28px; color: darkred;">
+        Dépanneur du Souvenir
+    </div>
+    <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+        <span><strong><?= LOGGEDIN ?> <?= htmlspecialchars($username) ?></strong></span>
+
+        <div class="language-switch">
+            <form method="POST" action="">
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" <?= $_SESSION['lang'] === 'en' ? 'selected' : '' ?>>English</option>
+                    <option value="fr" <?= $_SESSION['lang'] === 'fr' ? 'selected' : '' ?>>Français</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="theme-toggle">
+            <img src="<?= $dirname ?>/images/darkmode.png" id="darkIcon" alt="Enable Dark Mode" title="Dark Mode" style="width: 24px; height: 24px; cursor: pointer;">
+            <img src="<?= $dirname ?>/images/lightmode.png" id="lightIcon" alt="Enable Light Mode" title="Light Mode" style="width: 24px; height: 24px; cursor: pointer; display: none;">
+        </div>
+    </div>
+</div>
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("open");
         }
     </script>
-</div>
-    <div class="darktheme-buttons">
-        <a href="" class="darktheme-button">Dark</a>
-        <a href="" class="lighttheme-button">Light</a>
-        <script>
-            const darkButton = document.querySelector('.darktheme-button');
-            const lightButton = document.querySelector('.lighttheme-button');
+<script>
+    function updateThemeImages(isDarkTheme) {
+        document.querySelectorAll('img').forEach(img => {
+            if (img.id === 'darkIcon' || img.id === 'lightIcon') return;
+            const src = img.src;
+            if (isDarkTheme) {
+                img.src = src.replace('-light.png', '-dark.png');
+            } else {
+                img.src = src.replace('-dark.png', '-light.png');
+            }
+        });
+    }
 
-            darkButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                document.body.classList.add('darktheme');
-            });
+    const darkIcon = document.getElementById('darkIcon');
+    const lightIcon = document.getElementById('lightIcon');
 
-            lightButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                document.body.classList.remove('darktheme');
-            });
-        </script>
-    </div>
+    window.addEventListener('DOMContentLoaded', () => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.body.classList.add('darktheme');
+            darkIcon.style.display = 'none';
+            lightIcon.style.display = 'inline';
+            updateThemeImages(true);
+        } else {
+            document.body.classList.remove('darktheme');
+            darkIcon.style.display = 'inline';
+            lightIcon.style.display = 'none';
+            updateThemeImages(false);
+        }
+    });
 
-        </div>
-    </div>
+    darkIcon.addEventListener('click', () => {
+        document.body.classList.add('darktheme');
+        darkIcon.style.display = 'none';
+        lightIcon.style.display = 'inline';
+        updateThemeImages(true);
+        localStorage.setItem('theme', 'dark');
+    });
+
+    lightIcon.addEventListener('click', () => {
+        document.body.classList.remove('darktheme');
+        darkIcon.style.display = 'inline';
+        lightIcon.style.display = 'none';
+        updateThemeImages(false);
+        localStorage.setItem('theme', 'light');
+    });
+</script>
+
 
     

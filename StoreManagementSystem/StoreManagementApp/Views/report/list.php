@@ -40,20 +40,20 @@ $canDownload = $data['canDownload'] ?? false;
         <?php if ($canDownload): ?>
         <a href="../report/download" target="_blank">
             <button type="button" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/pdf.png" alt="Download" style="width: 20px; height: 20px;">
+                <img src="<?= $dirname ?>/images/pdf-light.png" alt="Download" style="width: 20px; height: 20px;">
             </button>
         </a>
         <?php endif; ?>
             <?php if ($canAdd): ?>
                 <a href="../report/add">
                     <button type="button" class="icon-btn">
-                        <img src="<?= $dirname ?>/images/add.png">
+                        <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         <form id="deleteForm" method="POST" action="../report/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
@@ -75,12 +75,12 @@ $canDownload = $data['canDownload'] ?? false;
                         <div class="sort-arrows">
                             <a href="?sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>
@@ -98,7 +98,7 @@ $canDownload = $data['canDownload'] ?? false;
                 <td><?= htmlspecialchars($report->description) ?></td>
                 <td>
                     <a href="<?= $dirname ?>/report/update/<?= $report->reportId ?>">
-                        <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
+                        <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;"></a>
                 </td>
             </tr>
         <?php endforeach; ?>

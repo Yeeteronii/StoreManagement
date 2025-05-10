@@ -43,7 +43,7 @@ $canOrder = $data['canOrder'] ?? false;
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/search.png">
+                <img src="<?= $dirname ?>/images/search-light.png">
             </button>
             <select name="category" onchange="this.form.submit()">
                 <option value=""><?=VIEWCATEGORY?></option>
@@ -57,14 +57,14 @@ $canOrder = $data['canOrder'] ?? false;
         <?php if ($canDelete): ?>
         <form id="deleteForm" method="POST" action="<?= $dirname ?>/order/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
         <?php endif; ?>
         <form method="POST" action="<?= $dirname ?>/order/update">
             <?php if ($canUpdate): ?>
                 <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                    <img src="<?= $dirname ?>/images/save.png" class="sort-icon">
+                    <img src="<?= $dirname ?>/images/save-light.png" class="sort-icon">
                 </button>
             <?php endif; ?>
     </div>
@@ -87,12 +87,12 @@ $canOrder = $data['canOrder'] ?? false;
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>

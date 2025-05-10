@@ -10,7 +10,7 @@ $dirname = dirname($path);
 
 <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/nav.css">
 <div class="sidebar-header" onclick="toggleSidebar()">
-        <img id="menuIcon" src="<?php echo dirname($path); ?>/images/menu.png" alt="Menu" class="menu-icon">
+        <img id="menuIcon" src="<?php echo dirname($path); ?>/images/menu-light.png" alt="Menu" class="menu-icon">
     </div>
     <?php if ($_SESSION['role'] === 'admin'): ?>
         <div class="sidebar" id="sidebar">

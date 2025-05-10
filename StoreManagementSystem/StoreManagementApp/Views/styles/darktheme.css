@@ -1,15 +1,118 @@
 :root {
-    --darkcolor: #343131;
+    --darkcolor: #1a1a1a;
+    --lightgray: #d3d3d3;
+    --whitetext: #ffffff;
 }
 
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+}
 
 body.darktheme {
     background-color: var(--darkcolor);
-    color: #f3f1f8;
+    color: var(--whitetext);
+}
+
+body.darktheme .grid,
+body.darktheme .main-content,
+body.darktheme .shift-grid {
+    background-color: var(--darkcolor);
+    color: var(--whitetext);
+}
+
+body.darktheme table {
+    background-color: var(--darkcolor);
+    color: var(--whitetext);
+    border-color: #aaa;
+}
+body.darktheme .row-red {
+    background-color: #660000;
+    color: #fff;
+}
+
+body.darktheme .row-yellow {
+    background-color: #665500;
+    color: #fff;
+}
+
+body.darktheme th {
+    background-color: darkviolet;
+    color: var(--whitetext);
+}
+
+body.darktheme td {
+    border-color: #aaa;
+}
+
+body.darktheme input,
+body.darktheme select,
+body.darktheme textarea {
+    background-color: #bfbfbf;
+    color: var(--whitetext);
+    border: 1px solid #aaa;
 }
 
 body.darktheme button {
-    border: 2px solid white;
+    background: none;
+    color: var(--whitetext);
+}
+body.darktheme tr:hover {
+    background-color: #c0c0c0;
+}
+
+body.darktheme .topbar {
+    background-color: #2a2a2a;
+    color: var(--whitetext);
+}
+
+body.darktheme .modal {
+    background-color: var(--lightgray);
+    color: var(--whitetext);
+}
+
+body.darktheme .view-delete-button {
+    background-color: #800000;
     color: white;
-    background-color: var(--darkcolor);
+}
+
+body.darktheme .schedule-grid {
+    background-color: var(--lightgray);
+    color: var(--whitetext);
+}
+
+body.darktheme .time-labels {
+    background-color: var(--lightgray);
+    color: var(--whitetext);
+}
+
+body.darktheme .day {
+    background-color: var(--lightgray);
+    color: var(--whitetext);
+    border: 1px solid #aaa;
+}
+
+body.darktheme .time-label {
+    background-color: var(--lightgray);
+    color: var(--whitetext);
+    border: 1px solid #aaa;
+}
+
+body.darktheme .time-cell {
+    background-color: var(--lightgray);
+    border: 1px solid #aaa;
+}
+
+body.darktheme .login-container .login-button {
+    background-color: blue;
+    color: black;
+    border: 1px solid #777;
+}
+body.darktheme .login-text {
+    color: black;
+}
+body.darktheme .login-container .login-button:hover {
+    background-color: #666;
+    color: black;
 }

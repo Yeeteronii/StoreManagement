@@ -33,7 +33,7 @@ $canRestore = $data['canRestore'] ?? false;
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="<?php echo dirname($path); ?>/images/search.png">
+                <img src="<?php echo dirname($path); ?>/images/search-light.png">
             </button>
             <select name="category" onchange="this.form.submit()">
                 <option value="">All Categories</option>
@@ -64,12 +64,12 @@ $canRestore = $data['canRestore'] ?? false;
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?php echo dirname($path); ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?php echo dirname($path); ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?php echo dirname($path); ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>

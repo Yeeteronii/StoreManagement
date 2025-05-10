@@ -46,7 +46,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn" >
-                <img src="<?= $dirname ?>/images/search.png">
+                <img src="<?= $dirname ?>/images/search-light.png">
             </button>
             <select name="category" onchange="this.form.submit()">
                 <option value=""><?=CATEGORYFLITER?></option>
@@ -59,14 +59,14 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             <?php if ($canAdd): ?>
                 <a href="../product/add">
                     <button type="button" class="icon-btn" style="margin-top: 30px;">
-                        <img src="<?= $dirname ?>/images/add.png">
+                        <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
         <form id="deleteForm" method="POST" action="../product/delete">
             <button type="submit" class="icon-btn" style="margin-top: 25px;">
-                <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
@@ -90,12 +90,12 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&category=<?= urlencode($category) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>
@@ -120,13 +120,13 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
                     <a href="<?= $dirname ?>/product/update/<?= $product->productId ?>">
-                        <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
+                        <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;"></a>
 
                         <?php if (!empty($product->isInOrder)): ?>
-                            <img src="<?= $dirname ?>/images/ordered.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
+                            <img src="<?= $dirname ?>/images/ordered-light.png" alt="Already in Order" title="Already in Order" style="width:20px; height:20px;">
                         <?php else: ?>
                             <a href="<?= $dirname ?>/product/addToOrder/<?= $product->productId ?>">
-                            <img src="<?= $dirname ?>/images/order.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
+                            <img src="<?= $dirname ?>/images/order-light.png" alt="Add to Order" title="Add to Order" style="width:20px; height:20px;">
                         <?php endif; ?></a>
                 </td>
             </tr>

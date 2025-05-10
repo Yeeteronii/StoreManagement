@@ -6,18 +6,36 @@ body {
     background-color: #f3f1f8;
 }
 
+
+.language-switch form {
+    margin: 0;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.theme-toggle img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
 .topbar {
-    height: 50px;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #d9d7df;
+    width: 100%;
+    height: 60px;
+    background-color: #ddd;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 999;
 }
 
 .logo {
@@ -29,7 +47,9 @@ body {
 .user-info {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
+
 
 .user-info span {
     margin-right: 10px;

@@ -42,12 +42,12 @@ $canRestore = $data['canRestore'] ?? false;
                         <div class="sort-arrows">
                             <a href="?sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>

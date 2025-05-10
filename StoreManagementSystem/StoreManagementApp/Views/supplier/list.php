@@ -56,19 +56,19 @@ function formatPhoneNumber($number) {
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="<?= $dirname ?>/images/search.png">
+                <img src="<?= $dirname ?>/images/search-light.png">
             </button>
             <?php if ($canAdd): ?>
                 <a href="../supplier/add">
                     <button type="button" class="icon-btn">
-                        <img src="<?= $dirname ?>/images/add.png">
+                        <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
         <form id="deleteForm" method="POST" action="../supplier/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                <img src="<?= $dirname ?>/images/delete.png" alt="Delete" style="width: 20px; height: 20px;">
+                <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
         </form>
     </div>
@@ -89,12 +89,12 @@ function formatPhoneNumber($number) {
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>
@@ -112,7 +112,7 @@ function formatPhoneNumber($number) {
                 <td><?= htmlspecialchars(formatPhoneNumber($supplier->phoneNum)) ?></td>
                 <td>
                     <a href="<?= $dirname ?>/supplier/update/<?= $supplier->supplierId ?>">
-                        <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;"></a>
+                        <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;"></a>
                 </td>
             </tr>
         <?php endforeach; ?>

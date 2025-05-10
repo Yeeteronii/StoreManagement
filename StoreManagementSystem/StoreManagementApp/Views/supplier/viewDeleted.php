@@ -44,7 +44,7 @@ function formatPhoneNumber($number) {
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="<?php echo dirname($path); ?>/images/search.png">
+                <img src="<?php echo dirname($path); ?>/images/search-light.png">
             </button>
         </form>
     </div>
@@ -64,12 +64,12 @@ function formatPhoneNumber($number) {
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>

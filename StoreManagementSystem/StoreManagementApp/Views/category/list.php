@@ -42,14 +42,14 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
             <input type="text" name="search" placeholder="<?=SEARCHCATEGORY?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
-                <img src="<?= $dirname ?>/images/search.png">
+                <img src="<?= $dirname ?>/images/search-light.png">
             </button>
         </form>
 
         <?php if ($canAdd): ?>
             <a href="<?= $dirname ?>/category/add">
                 <button type="button" class="icon-btn">
-                    <img src="<?= $dirname ?>/images/add.png">
+                    <img src="<?= $dirname ?>/images/add-light.png">
                 </button>
             </a>
         <?php endif; ?>
@@ -57,7 +57,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
         <?php if ($canDelete): ?>
             <form id="deleteForm" method="POST" action="../category/delete">
                 <button type="submit" class="icon-btn" style="margin-top: 2px;">
-                    <img src="<?= $dirname ?>/images/delete.png" alt="Delete"
+                    <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete"
                          style="width: 20px; height: 20px;">
                 </button>
             </form>
@@ -81,12 +81,12 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                         <div class="sort-arrows">
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=asc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_up.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-up-light.png" class="sort-icon">
                                 </button>
                             </a>
                             <a href="?search=<?= urlencode($searchTerm) ?>&sort=<?= $field ?>&dir=desc">
                                 <button type="button" class="sort-btn">
-                                    <img src="<?= $dirname ?>/images/arrow_down.png" class="sort-icon">
+                                    <img src="<?= $dirname ?>/images/arrow-down-light.png" class="sort-icon">
                                 </button>
                             </a>
                         </div>
@@ -108,7 +108,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                 <td>
                     <?php if ($canUpdate): ?>
                         <a href="<?= $dirname ?>/category/update/<?= $category->categoryId ?>">
-                            <img src="<?= $dirname ?>/images/update.png" alt="Edit" style="width:20px; height:20px;">
+                            <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;">
                         </a>
                     <?php endif; ?>
                 </td>
