@@ -45,7 +45,6 @@ $dirname = dirname($path);
                         menuIcon.style.display = "block";
                     }
                 }
-                // Attach the toggleSidebar function to the onclick event
                 const sidebarHeader = document.querySelector(".sidebar-header");
                 sidebarHeader.onclick = toggleSidebar;
             </script>

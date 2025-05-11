@@ -38,7 +38,7 @@ body.darktheme .row-yellow {
 }
 
 body.darktheme th {
-    background-color: darkviolet;
+    background-color: #666666;
     color: var(--whitetext);
 }
 
@@ -78,29 +78,27 @@ body.darktheme .view-delete-button {
 }
 
 body.darktheme .schedule-grid {
-    background-color: var(--lightgray);
+    background-color: var(--darkcolor);
     color: var(--whitetext);
 }
 
 body.darktheme .time-labels {
-    background-color: var(--lightgray);
+    background-color: var(--darkcolor);
     color: var(--whitetext);
 }
 
 body.darktheme .day {
-    background-color: var(--lightgray);
+    background-color: var(--darkcolor);
     color: var(--whitetext);
-    border: 1px solid #aaa;
 }
 
 body.darktheme .time-label {
-    background-color: var(--lightgray);
+    background-color: var(--darkcolor);
     color: var(--whitetext);
-    border: 1px solid #aaa;
 }
 
 body.darktheme .time-cell {
-    background-color: var(--lightgray);
+    background-color: var(--darkcolor);
     border: 1px solid #aaa;
 }
 
@@ -115,4 +113,17 @@ body.darktheme .login-text {
 body.darktheme .login-container .login-button:hover {
     background-color: #666;
     color: black;
+}
+
+body.darktheme .sidebar {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+body.darktheme .sidebar a {
+    color: white;
+}
+
+body.darktheme .sidebar a:hover {
+    color: #ddd;
 }

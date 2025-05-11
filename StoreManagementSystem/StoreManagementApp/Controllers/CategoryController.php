@@ -48,21 +48,33 @@ class CategoryController extends Controller
                         ]);
                     } elseif ($action === "add") {
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            Category::add($_POST);
-                            $newURL = dirname($path) . "/category/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                Category::add($_POST);
+                                $newURL = dirname($path) . "/category/list";
+                                header("Location:" . $newURL);
+                                exit;
+                            } catch (Exception $e) {
+                                $this->render("shared", "add", [
+                                    'error' => $e->getMessage()
+                                ]);
+                            }
                         } else {
                             $this->render("shared", "add");
                         }
                     } elseif ($action === "update") {
                         $category = new Category($id);
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $newTax = isset($_POST['categoryTax']) ? floatval($_POST['categoryTax']) : 0.0;
-                            $category->update($newTax);
-                            $newURL = dirname($path) . "/category/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                $category->update($_POST);
+                                $newURL = dirname($path) . "/category/list";
+                                header("Location:" . $newURL);
+                                exit;
+                            } catch (Exception $e) {
+                                $this->render("shared", "update", [
+                                    'category' => $category,
+                                    'error' => $e->getMessage()
+                                ]);
+                            }
                         } else {
                             $this->render("shared", "update", ['category' => $category]);
                         }

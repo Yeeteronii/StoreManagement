@@ -54,10 +54,17 @@ class ProductController extends Controller
                     ]);
                 } elseif ($action === "add") {
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        Product::add($_POST);
-                        $newURL = dirname($path) . "/product/list";
-                        header("Location:" . $newURL);
-                        exit;
+                        try {
+                            Product::add($_POST);
+                            header("Location: " . dirname($path) . "/product/list");
+                            exit;
+                        } catch (Exception $e) {
+                            $categories = Product::getAllCategories();
+                            $this->render("shared", "add", [
+                                'categories' => $categories,
+                                'error' => $e->getMessage()
+                            ]);
+                        }
                     } else {
                         $categories = Product::getAllCategories();
                         $this->render("shared", "add", [
@@ -67,14 +74,25 @@ class ProductController extends Controller
                 } elseif ($action === "update") {
                     $product = new Product($id);
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $product->update($_POST);
-                        $newURL = dirname($path) . "/product/list";
-                        header("Location:" . $newURL);
-                        exit;
+                        try {
+                            $product->update($_POST);
+                            header("Location: " . dirname($path) . "/product/list");
+                            exit;
+                        } catch (Exception $e) {
+                            $categories = Product::getAllCategories();
+                            $this->render("shared", "update", [
+                                'product' => $product,
+                                'categories' => $categories,
+                                'error' => $e->getMessage()
+                            ]);
+                        }
                     } else {
-                        $this->render("shared", "update", ['product' => $product]);
+                        $categories = Product::getAllCategories();
+                        $this->render("shared", "update", [
+                            'product' => $product,
+                            'categories' => $categories
+                        ]);
                     }
-
                 } elseif ($action === "delete") {
                     $ids = $_POST['delete_ids'] ?? [];
                     if (!empty($ids)) {

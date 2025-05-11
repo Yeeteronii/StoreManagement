@@ -4,6 +4,7 @@ if (!isset($_SESSION['token'])) {
     exit;
 }
 $role = $_SESSION['role'];
+$dirname = $_SESSION['dirname'];
 $source = strtolower($_GET['controller'] ?? 'unknown');
 ?>
 
@@ -22,7 +23,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
     <h2><?=UPDATEELEMENT?></h2>
 
     <?php if ($source === 'product'): ?>
-        <form method="POST" action="../shared/update/<?= $product->productId ?>">
+        <form method="POST" action="<?= $dirname ?>/product/update/<?= $product->productId ?>">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
             <label for="productName"><?=NAME?></label>
             <input type="text" name="productName" id="productName" value="<?= htmlspecialchars($product->productName) ?>" required>
             <div class="field-desc"><?=THEDISPLAYNAMEOFYOURITEM?></div>
@@ -76,7 +82,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
         </form>
     <?php elseif ($_SESSION['role'] === 'admin'): ?>
         <?php if ($source === 'category'): ?>
-            <form method="POST" action="../shared/update/<?= $category->categoryId ?>">
+            <form method="POST" action="<?= $dirname ?>/category/update/<?= $category->categoryId ?>">
+                <?php if (!empty($error)): ?>
+                    <div class="add-error-message">
+                        <?= htmlspecialchars($error) ?>
+                    </div>
+                <?php endif; ?>
                 <label for="categoryName"><?=NAME?></label>
                 <input type="text" id="categoryName" name="categoryName" value="<?= htmlspecialchars($category->categoryName) ?>" required>
                 <div class="field-desc"><?=NAMETOOLTIP?></div>
@@ -88,7 +99,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <button type="submit"><?=UPDATECATEGORY?></button>
             </form>
         <?php elseif ($source === 'report'): ?>
-            <form method="POST" action="../shared/update/<?= $report->reportId ?>">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="<?= $dirname ?>/report/update/<?= $report->reportId ?>">
                 <label for="earnings"><?=EARNINGS?></label>
                 <input type="number" step="0.01" name="earnings" id="earnings" value="<?= $report->earnings ?>" required>
                 <div class="field-desc"><?=EARNINGTOOLTIP?></div>
@@ -104,7 +120,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <button type="submit"><?=UPDATEREPORT?></button>
             </form>
         <?php elseif ($source === 'supplier'): ?>
-            <form method="POST" action="../shared/update/<?= $supplier->supplierId ?>">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="<?= $dirname ?>/supplier/update/<?= $supplier->supplierId ?>">
                 <label for="supplierName"><?=SUPPLIERNAME?></label>
                 <input type="text" name="supplierName" id="supplierName" value="<?= $supplier->supplierName ?>" required>
                 <div class="field-desc"><?=SUPPLIERNAMETOOLTIP?></div>
@@ -120,9 +141,14 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <button type="submit"><?=UPDATESUPPLIER?></button>
             </form>
         <?php elseif ($source === 'user'): ?>
-            <form method="POST" action="../shared/update/<?= $user->id ?>">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="<?= $dirname ?>/user/update/<?= $user->id ?>">
                 <label for="username"><?=USERNAME?></label>
-                <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
+                <input type="text" name="username" id="username" value="<?= $user->username ?>" disabled>
                 <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
                 <label for="password"><?=PASSWORD?></label>
@@ -144,7 +170,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 <button type="submit"><?=UPDATEUSER?></button>
             </form>
         <?php elseif ($source === 'shift'): ?>
-            <form method="POST" action="../shared/update/<?= $shift->shiftId ?>">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+            <form method="POST" action="<?= $dirname ?>/shift/update/<?= $shift->shiftId ?>">
                 <label for="userId"><?=SELECTUSER?></label>
                 <select name="userId" id="userId" required>
                     <?php foreach ($users as $user): ?>

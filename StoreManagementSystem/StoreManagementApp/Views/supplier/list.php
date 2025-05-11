@@ -49,7 +49,6 @@ function formatPhoneNumber($number) {
 <body>
 <div class="main-content">
     <div class="header">
-        <?php //cdebug(SUPPLIERTABLE)?>
         <h2><?=SUPPLIERTABLE?></h2>
     </div>
     <div class="controls">

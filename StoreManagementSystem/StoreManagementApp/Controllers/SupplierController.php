@@ -45,26 +45,42 @@ class SupplierController extends Controller
                             'canDelete' => $canDelete,
                             'canViewDeleted' => $canViewDeleted,
                         ]);
-                    } elseif ($action === "add") {
+                    }
+                    elseif ($action === "add") {
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            Supplier::add($_POST);
-                            $newURL = dirname($path) . "/supplier/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                Supplier::add($_POST);
+                                header("Location: " . dirname($path) . "/supplier/list");
+                                exit;
+                            } catch (Exception $e) {
+                                $this->render("shared", "add", [
+                                    'error' => $e->getMessage(),
+                                    'role' => $_SESSION['role']
+                                ]);
+                            }
                         } else {
-                            $this->render("shared", "add");
+                            $this->render("shared", "add", ['role' => $_SESSION['role']]);
                         }
                     } elseif ($action === "update") {
                         $supplier = new Supplier($id);
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $supplier->update($_POST);
-                            $newURL = dirname($path) . "/supplier/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                $supplier->update($_POST);
+                                header("Location: " . dirname($path) . "/supplier/list");
+                                exit;
+                            } catch (Exception $e) {
+                                $this->render("shared", "update", [
+                                    'supplier' => $supplier,
+                                    'error' => $e->getMessage(),
+                                    'role' => $_SESSION['role']
+                                ]);
+                            }
                         } else {
-                            $this->render("shared", "update", ['supplier' => $supplier]);
+                            $this->render("shared", "update", [
+                                'supplier' => $supplier,
+                                'role' => $_SESSION['role']
+                            ]);
                         }
-
                     } elseif ($action === "delete") {
                         $ids = $_POST['delete_ids'] ?? [];
                         if (!empty($ids)) {

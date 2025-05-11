@@ -39,30 +39,50 @@ class ShiftController extends Controller
                         ]);
                     } elseif ($action === "add") {
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            Shift::add($_POST);
-                            $newURL = dirname($path) . "/shift/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                Shift::add($_POST);
+                                header("Location:" . dirname($path) . "/shift/list");
+                                exit;
+                            } catch (Exception $e) {
+                                $users = User::listFilteredSorted('', 'username', 'ASC');
+                                $this->render("shared", "add", [
+                                    'role' => $_SESSION['role'],
+                                    'users' => $users,
+                                    'error' => $e->getMessage()
+                                ]);
+                            }
                         } else {
                             $users = User::listFilteredSorted('', 'username', 'ASC');
                             $this->render("shared", "add", [
                                 'role' => $_SESSION['role'],
-                                'users' => $users]);
+                                'users' => $users
+                            ]);
                         }
+
                     } elseif ($action === "update") {
                         $shift = new Shift($id);
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $shift->update($_POST);
-                            $newURL = dirname($path) . "/shift/list";
-                            header("Location:" . $newURL);
-                            exit;
+                            try {
+                                $shift->update($_POST);
+                                header("Location:" . dirname($path) . "/shift/list");
+                                exit;
+                            } catch (Exception $e) {
+                                $users = User::listFilteredSorted('', 'username', 'ASC');
+                                $this->render("shared", "update", [
+                                    'shift' => $shift,
+                                    'role' => $_SESSION['role'],
+                                    'users' => $users,
+                                    'error' => $e->getMessage()
+                                ]);
+                            }
                         } else {
                             $users = User::listFilteredSorted('', 'username', 'ASC');
-                            $this->render("shared", "update", ['shift' => $shift,
+                            $this->render("shared", "update", [
+                                'shift' => $shift,
                                 'role' => $_SESSION['role'],
-                                'users' => $users]);
+                                'users' => $users
+                            ]);
                         }
-
                     } elseif ($action === "delete") {
                         if ($id > 0) {
                             Shift::delete($id);

@@ -21,7 +21,7 @@ body {
   top: 80px;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: auto;
   padding: 20px;
   transition: left 0.3s ease, width 0.3s ease;
   overflow: hidden;
@@ -34,10 +34,8 @@ body {
   display: grid;
   grid-template-rows: 40px repeat(14, 1fr);
 }
-
-
 .schedule-grid {
-  height: 100%;
+  height: fit-content;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(7, minmax(180px, 1fr));

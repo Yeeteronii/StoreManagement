@@ -67,14 +67,21 @@ class Supplier extends Model
     }
     public static function add($data)
     {
+        if (!preg_match("/^(\(\+\d{1,3}\)\s)?\d{3}-\d{3}-\d{4}$/", $data['phoneNum'])) {
+            throw new Exception("Invalid phone format. Use xxx-xxx-xxxx (country code) (+xxx) xxx-xxx-xxxx.");
+        }
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || !preg_match('/\.[a-z]{2,4}$/', $data['email'])) {
+            throw new Exception("Invalid email format.");
+        }
+
         $conn = Model::connect();
         $sql = "INSERT INTO suppliers (supplierName, email, phoneNum, isActive) VALUES (?, ?, ?, 1)";
         $stmt = $conn->prepare($sql);
-        $cleanPhone = preg_replace("/[^0-9]/", "", $data['phoneNum']);
         $stmt->bind_param("sss",
             $data['supplierName'],
             $data['email'],
-            $cleanPhone
+            $data['phoneNum']
         );
         $stmt->execute();
         $stmt->close();
@@ -82,18 +89,26 @@ class Supplier extends Model
 
     public function update($data)
     {
+        if (!preg_match("/^(\(\+\d{1,3}\)\s)?\d{3}-\d{3}-\d{4}$/", $data['phoneNum'])) {
+            throw new Exception("Invalid phone format. Use xxx-xxx-xxxx or (country code) (+xxx) xxx-xxx-xxxx.");
+        }
+
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || !preg_match('/\.[a-z]{2,4}$/', $data['email'])) {
+            throw new Exception("Invalid email format.");
+        }
+
         $conn = Model::connect();
         $sql = "UPDATE suppliers SET supplierName = ?, email = ?, phoneNum = ? WHERE supplierId = ?";
         $stmt = $conn->prepare($sql);
-        $cleanPhone = preg_replace("/[^0-9]/", "", $data['phoneNum']);
         $stmt->bind_param("sssi",
             $data['supplierName'],
             $data['email'],
-            $cleanPhone,
+            $data['phoneNum'],
             $this->supplierId);
         $stmt->execute();
         $stmt->close();
     }
+
 
     public static function delete($ids)
     {

@@ -75,10 +75,14 @@ class Category {
         $stmt->close();
         return $list;
     }
-    
+
 
     public static function add($data)
     {
+        if ($data['categoryTax'] < 0) {
+            throw new Exception("Category Tax must be a non-negative number.");
+        }
+
         $conn = Model::connect();
         $sql = "INSERT INTO categories (categoryName, categoryTax, isActive) VALUES (?, ?, 1)";
         $stmt = $conn->prepare($sql);
@@ -87,11 +91,15 @@ class Category {
         $stmt->close();
     }
 
-    public function update($newQuantity)
+    public function update($data)
     {
+        if ($data['categoryTax'] < 0) {
+            throw new Exception("Category Tax must be a non-negative number.");
+        }
+
         $conn = Model::connect();
-        $stmt = $conn->prepare("UPDATE categories SET categoryTax = ? WHERE categoryId = ?");
-        $stmt->bind_param("di", $newQuantity, $this->categoryId);
+        $stmt = $conn->prepare("UPDATE categories SET categoryName = ?, categoryTax = ? WHERE categoryId = ?");
+        $stmt->bind_param("sdi", $data['categoryName'], $data['categoryTax'], $this->categoryId);
         $stmt->execute();
         $stmt->close();
     }

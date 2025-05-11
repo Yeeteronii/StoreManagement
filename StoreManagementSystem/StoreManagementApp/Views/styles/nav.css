@@ -123,7 +123,6 @@ body {
     padding: 40px 60px;
     transition: margin-left 0.3s ease;
 }
-
 .sidebar.open ~ .main-content {
     margin-left: 220px;
 }

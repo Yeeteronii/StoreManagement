@@ -110,18 +110,24 @@ class Product extends Model
     {
         $conn = Model::connect();
 
-
-        $stmtTax = $conn->prepare("SELECT categoryTax FROM categories WHERE categoryId = ?");
-        $stmtTax->bind_param("i", $data['categoryId']);
-        $stmtTax->execute();
-        $result = $stmtTax->get_result();
-        $row = $result->fetch_object();
-        $categoryTax = $row ? $row->categoryTax : 0.0;
-        $stmtTax->close();
-
-
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
             VALUES (?, ?, ?, ?, ?, ?, 1)";
+
+        if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
+            throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
+        }
+        if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
+            throw new Exception("Category ID must be a whole number.");
+        }
+
+        $stmtCheck = $conn->prepare("SELECT 1 FROM categories WHERE categoryId = ? AND isActive = 1");
+        $stmtCheck->bind_param("i", $data['categoryId']);
+        $stmtCheck->execute();
+        $result = $stmtCheck->get_result();
+        if ($result->num_rows === 0) {
+            throw new Exception("Invalid Category ID: This category does not exist.");
+        }
+        $stmtCheck->close();
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sddiii",
             $data['productName'],
@@ -138,9 +144,28 @@ class Product extends Model
     public function update($data)
     {
         $conn = Model::connect();
+
+
         $sql = "UPDATE products 
                 SET productName = ?, cost = ?, priceToSell = ?, categoryId = ?, threshold = ?, quantity = ? 
                 WHERE productId = ?";
+
+        if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
+            throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
+        }
+        if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
+            throw new Exception("Category ID must be a whole number.");
+        }
+
+        $stmtCheck = $conn->prepare("SELECT 1 FROM categories WHERE categoryId = ? AND isActive = 1");
+        $stmtCheck->bind_param("i", $data['categoryId']);
+        $stmtCheck->execute();
+        $result = $stmtCheck->get_result();
+        if ($result->num_rows === 0) {
+            throw new Exception("Invalid Category ID: This category does not exist.");
+        }
+        $stmtCheck->close();
+
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sddiiii", $data['productName'], $data['cost'], $data['priceToSell'],
             $data['categoryId'], $data['threshold'], $data['quantity'], $this->productId);

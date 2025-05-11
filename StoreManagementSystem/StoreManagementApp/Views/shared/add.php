@@ -4,6 +4,7 @@ if (!isset($_SESSION['token'])) {
     exit;
 }
 $role = $_SESSION['role'];
+$dirname = $_SESSION['dirname'];
 $source = strtolower($_GET['controller'] ?? 'unknown');
 ?>
 
@@ -22,7 +23,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
     <h2>Add Element</h2>
 
     <?php if ($source === 'product' && $role === 'admin'): ?>
-        <form method="POST" action="../product/shared/add">
+        <form method="POST" action="<?= $dirname ?>/product/add">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
             <label for="productName">Name</label>
             <input type="text" name="productName" id="productName" required>
             <div class="field-desc">The display name of your item</div>
@@ -76,7 +82,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
         </form>
 
     <?php elseif ($source === 'category' && $role === 'admin'): ?>
-        <form method="POST" action="../category/shared/add">
+        <form method="POST" action="<?= $dirname ?>/category/add">
+            <?php if (!empty($error)): ?>
+                <div class="add-error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
             <label for="categoryName">Name</label>
             <input type="text" name="categoryName" id="categoryName" required>
             <div class="field-desc">The name of your category</div>
@@ -88,7 +99,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <button type="submit">Add Category</button>
         </form>
     <?php elseif ($source === 'report' && $role === 'admin'): ?>
-        <form method="POST" action="../report/shared/add">
+        <?php if (!empty($error)): ?>
+            <div class="add-error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="<?= $dirname ?>/report/add">
             <label for="earnings">Earnings</label>
             <input type="number" step="0.01" name="earnings" id="earnings" required>
             <div class="field-desc">How much you've earned</div>
@@ -104,7 +120,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <button type="submit">Add Report</button>
         </form>
     <?php elseif ($source === 'supplier' && $role === 'admin'): ?>
-        <form method="POST" action="../supplier/shared/add">
+        <?php if (!empty($error)): ?>
+            <div class="add-error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="<?= $dirname ?>/supplier/add">
             <label for="supplierName">Supplier Name</label>
             <input type="text" name="supplierName" id="supplierName" required>
             <div class="field-desc">Name of the supplier</div>
@@ -120,7 +141,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <button type="submit">Add Supplier</button>
         </form>
     <?php elseif ($source === 'user' && $role === 'admin'): ?>
-        <form method="POST" action="../user/shared/add">
+        <?php if (!empty($error)): ?>
+            <div class="add-error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="<?= $dirname ?>/user/add">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" required>
             <div class="field-desc">Username of the user</div>
@@ -140,7 +166,12 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <button type="submit">Add User</button>
         </form>
     <?php elseif ($source === 'shift' && $role === 'admin'): ?>
-        <form method="POST" action="../shift/shared/add">
+        <?php if (!empty($error)): ?>
+            <div class="add-error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="<?= $dirname ?>/shift/add">
             <label for="userId">Select User:</label>
             <select name="userId" id="userId" required>
                 <?php foreach ($users as $user): ?>
