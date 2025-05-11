@@ -136,7 +136,7 @@ class User extends Model
         return false;
     }
 
-    public static function listFilteredSorted($keyword, $sort, $dir)
+    public static function list($keyword, $sort, $dir)
     {
         $allowedSorts = ['username'];
         if (!in_array($sort, $allowedSorts)) $sort = 'username';

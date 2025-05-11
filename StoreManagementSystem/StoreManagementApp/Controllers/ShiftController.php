@@ -44,7 +44,7 @@ class ShiftController extends Controller
                                 header("Location:" . dirname($path) . "/shift/list");
                                 exit;
                             } catch (Exception $e) {
-                                $users = User::listFilteredSorted('', 'username', 'ASC');
+                                $users = User::list('', 'username', 'ASC');
                                 $this->render("shared", "add", [
                                     'role' => $_SESSION['role'],
                                     'users' => $users,
@@ -52,7 +52,7 @@ class ShiftController extends Controller
                                 ]);
                             }
                         } else {
-                            $users = User::listFilteredSorted('', 'username', 'ASC');
+                            $users = User::list('', 'username', 'ASC');
                             $this->render("shared", "add", [
                                 'role' => $_SESSION['role'],
                                 'users' => $users
@@ -67,7 +67,7 @@ class ShiftController extends Controller
                                 header("Location:" . dirname($path) . "/shift/list");
                                 exit;
                             } catch (Exception $e) {
-                                $users = User::listFilteredSorted('', 'username', 'ASC');
+                                $users = User::list('', 'username', 'ASC');
                                 $this->render("shared", "update", [
                                     'shift' => $shift,
                                     'role' => $_SESSION['role'],
@@ -76,7 +76,7 @@ class ShiftController extends Controller
                                 ]);
                             }
                         } else {
-                            $users = User::listFilteredSorted('', 'username', 'ASC');
+                            $users = User::list('', 'username', 'ASC');
                             $this->render("shared", "update", [
                                 'shift' => $shift,
                                 'role' => $_SESSION['role'],

@@ -28,7 +28,7 @@ class UserController extends Controller
                         $sort = $_GET['sort'] ?? 'username';
                         $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-                        $users = User::listFilteredSorted($keyword, $sort, $dir);
+                        $users = User::list($keyword, $sort, $dir);
                         $canAdd = User::checkRight($_SESSION['user_id'], 'User', 'add');
                         $canUpdate = User::checkRight($_SESSION['user_id'], 'User', 'update');
                         $canDelete = User::checkRight($_SESSION['user_id'], 'User', 'delete');

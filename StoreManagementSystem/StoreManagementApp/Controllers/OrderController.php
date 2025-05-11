@@ -2,6 +2,7 @@
 include_once "Controllers/Controller.php";
 include_once "Models/Order.php";
 include_once "Models/User.php";
+include_once "Models/Category.php";
 
 class OrderController extends Controller
 {
@@ -29,8 +30,8 @@ class OrderController extends Controller
                         $sort = $_GET['sort'] ?? 'productName';
                         $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-                        $categories = Order::getAllCategories();
-                        $orders = Order::listFilteredSorted($keyword, $category, $sort, $dir);
+                        $categories = Category::getCategoriesNames();
+                        $orders = Order::list($keyword, $category, $sort, $dir);
                         $canUpdate = User::checkRight($_SESSION['user_id'], 'Order', 'update');
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Order', 'delete');
 

@@ -35,7 +35,7 @@ class Report extends Model
         $this->isActive = $row->isActive;
     }
 
-    public static function listFilteredSorted($sort, $dir)
+    public static function list($sort, $dir)
     {
         $allowedSorts = ['date', 'earnings', 'profits', 'description'];
         if (!in_array($sort, $allowedSorts)) $sort = 'date';

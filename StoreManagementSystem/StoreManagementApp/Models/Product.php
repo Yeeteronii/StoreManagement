@@ -48,7 +48,7 @@ class Product extends Model
         $this->taxPrice = $row->taxPrice;
     }
 
-    public static function listFilteredSorted($keyword, $category, $sort, $dir)
+    public static function list($keyword, $category, $sort, $dir)
     {
         $allowedSorts = ['productName', 'categoryName', 'cost', 'priceToSell', 'quantity'];
         if (!in_array($sort, $allowedSorts)) $sort = 'productName';
@@ -94,17 +94,6 @@ class Product extends Model
         return $list;
     }
 
-    public static function getAllCategories()
-    {
-        $conn = Model::connect();
-        $sql = "SELECT categoryId, categoryName FROM categories WHERE isActive = 1";
-        $result = $conn->query($sql);
-        $categories = [];
-        while ($row = $result->fetch_object()) {
-            $categories[] = $row;
-        }
-        return $categories;
-    }
 
     public static function add($data)
     {
@@ -196,7 +185,7 @@ class Product extends Model
             $threshold = $row->threshold;
             $quantity = $row->quantity;
         } else {
-            return; // Product not found
+            return;
         }
 
         $delta = $threshold - $quantity;
@@ -204,15 +193,6 @@ class Product extends Model
             $delta = 0;
         }
 
-        // $stmt = $conn->prepare("UPDATE products SET quantity = ? WHERE productId = ?");
-        // $stmt->bind_param("ii", $delta, $productId);
-        // $stmt->execute();
-        // $stmt->close();
-
-        // // Add to orders table
-        // self::addOrder($productId);
-    
-    
         $conn = Model::connect();
         $stmt = $conn->prepare("INSERT INTO orders (productId, orderDate, quantity) VALUES (?, CURDATE(), ?)");
         $stmt->bind_param("ii", $productId, $delta);

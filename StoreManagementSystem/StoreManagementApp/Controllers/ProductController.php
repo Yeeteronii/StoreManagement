@@ -2,7 +2,7 @@
 include_once "Controllers/Controller.php";
 include_once "Models/Product.php";
 include_once "Models/User.php";
-
+include_once "Models/Category.php";
 class ProductController extends Controller
 {
     public function route()
@@ -29,8 +29,8 @@ class ProductController extends Controller
                     $sort = $_GET['sort'] ?? 'productName';
                     $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-                    $categories = Product::getAllCategories();
-                    $products = Product::listFilteredSorted($keyword, $category, $sort, $dir);
+                    $categories = Category::listCategories();
+                    $products = Product::list($keyword, $category, $sort, $dir);
 
 
                     $canAdd = User::checkRight($_SESSION['user_id'], 'Product', 'add');
@@ -59,14 +59,14 @@ class ProductController extends Controller
                             header("Location: " . dirname($path) . "/product/list");
                             exit;
                         } catch (Exception $e) {
-                            $categories = Product::getAllCategories();
+                            $categories = Category::listCategories();
                             $this->render("shared", "add", [
                                 'categories' => $categories,
                                 'error' => $e->getMessage()
                             ]);
                         }
                     } else {
-                        $categories = Product::getAllCategories();
+                        $categories = Category::listCategories();
                         $this->render("shared", "add", [
                             'categories' => $categories
                         ]);
@@ -79,7 +79,7 @@ class ProductController extends Controller
                             header("Location: " . dirname($path) . "/product/list");
                             exit;
                         } catch (Exception $e) {
-                            $categories = Product::getAllCategories();
+                            $categories = Category::listCategories();
                             $this->render("shared", "update", [
                                 'product' => $product,
                                 'categories' => $categories,
@@ -87,7 +87,7 @@ class ProductController extends Controller
                             ]);
                         }
                     } else {
-                        $categories = Product::getAllCategories();
+                        $categories = Category::listCategories();
                         $this->render("shared", "update", [
                             'product' => $product,
                             'categories' => $categories

@@ -29,7 +29,7 @@ class Category {
         $this->isActive = $row->isActive;
     }
 
-    public static function list()
+    public static function listCategories()
     {
         $list = [];
         $sql = "SELECT * FROM categories WHERE isActive = 1";
@@ -40,8 +40,20 @@ class Category {
         }
         return $list;
     }
+    public static function getCategoriesNames()
+    {
+        $conn = Model::connect();
+        $sql = "SELECT categoryName FROM categories";
+        $result = $conn->query($sql);
+        $categories = [];
+        while ($row = $result->fetch_object()) {
+            $categories[] = $row->categoryName;
+        }
+        return $categories;
+    }
 
-    public static function listFilteredSorted($keyword, $sort, $dir)
+
+    public static function list($keyword, $sort, $dir)
     {
         $allowedSorts = ['categoryName', 'categoryTax'];
         if (!in_array($sort, $allowedSorts)) $sort = 'categoryName';

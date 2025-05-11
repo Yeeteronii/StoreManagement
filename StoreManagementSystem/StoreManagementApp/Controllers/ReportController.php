@@ -29,7 +29,7 @@ class ReportController extends Controller
                     $sort = $_GET['sort'] ?? 'date';
                     $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-                    $reports = Report::listFilteredSorted($sort, $dir);
+                    $reports = Report::list($sort, $dir);
 
 
                     $canAdd = User::checkRight($_SESSION['user_id'], 'Report', 'add');
@@ -92,7 +92,7 @@ class ReportController extends Controller
                 } elseif ($action === "download") {
                     $sort = $_GET['sort'] ?? 'date';
                     $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
-                    $reports = Report::listFilteredSorted($sort, $dir);
+                    $reports = Report::list($sort, $dir);
 
                     $this->generatePdf($reports);
                     $newURL = dirname($path) . "/report/list";

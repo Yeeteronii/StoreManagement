@@ -38,33 +38,6 @@ class Order extends Model
         $this->productName = $row->productName;
     }
 
-    public static function list()
-    {
-        $list = [];
-        $sql = "SELECT o.orderId, p.productName, c.categoryName, o.orderDate, o.quantity 
-                    FROM orders o 
-                    JOIN products p ON o.productId = p.productId 
-                    JOIN categories c ON p.categoryId = c.categoryId";
-        $conn = Model::connect();
-        $result = $conn->query($sql);
-        while ($row = $result->fetch_object()) {
-            $list[] = new Order($row);
-        }
-        return $list;
-    }
-
-    public static function getAllCategories()
-    {
-        $conn = Model::connect();
-        $sql = "SELECT categoryName FROM categories";
-        $result = $conn->query($sql);
-        $categories = [];
-        while ($row = $result->fetch_object()) {
-            $categories[] = $row->categoryName;
-        }
-        return $categories;
-    }
-
     public static function update($quantities)
     {
         $conn = Model::connect();
@@ -79,7 +52,7 @@ class Order extends Model
     }
 
 
-    public static function listFilteredSorted($keyword, $category, $sort, $dir)
+    public static function list($keyword, $category, $sort, $dir)
     {
         $allowedSorts = ['productName', 'categoryName', 'orderDate', 'quantity'];
         if (!in_array($sort, $allowedSorts)) $sort = 'productName';

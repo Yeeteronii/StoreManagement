@@ -33,7 +33,7 @@ class Supplier extends Model
         $this->isActive = $row->isActive;
     }
 
-    public static function listFilteredSorted($keyword, $sort, $dir)
+    public static function list($keyword, $sort, $dir)
     {
         $allowedSorts = ['supplierName', 'email', 'phoneNum'];
         if (!in_array($sort, $allowedSorts)) $sort = 'supplierName';

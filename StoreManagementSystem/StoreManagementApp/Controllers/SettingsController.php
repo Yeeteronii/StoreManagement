@@ -21,7 +21,6 @@ class SettingsController extends Controller
             } else {
                 if ($action === "list") {
                     $userData = new User($_SESSION['user_id']);
-
                     $this->render("settings", "list", [
                         'user' => $userData,
                     ]);

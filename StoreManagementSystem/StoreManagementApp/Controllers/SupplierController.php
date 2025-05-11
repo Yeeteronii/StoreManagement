@@ -29,7 +29,7 @@ class SupplierController extends Controller
                         $sort = $_GET['sort'] ?? 'supplierName';
                         $dir = ($_GET['dir'] ?? 'asc') === 'desc' ? 'DESC' : 'ASC';
 
-                        $suppliers = Supplier::listFilteredSorted($keyword, $sort, $dir);
+                        $suppliers = Supplier::list($keyword, $sort, $dir);
 
 
                         $canAdd = User::checkRight($_SESSION['user_id'], 'Report', 'add');

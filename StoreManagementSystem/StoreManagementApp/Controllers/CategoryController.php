@@ -30,7 +30,7 @@ class CategoryController extends Controller
                         $dir = (isset($_GET['dir']) ? $_GET['dir'] : 'asc') === 'desc' ? 'DESC' : 'ASC';
 
 
-                        $categories = Category::listFilteredSorted($keyword, $sort, $dir);
+                        $categories = Category::list($keyword, $sort, $dir);
                         $canAdd = User::checkRight($_SESSION['user_id'], 'Category', 'add');
                         $canUpdate = User::checkRight($_SESSION['user_id'], 'Category', 'update');
                         $canDelete = User::checkRight($_SESSION['user_id'], 'Category', 'delete');

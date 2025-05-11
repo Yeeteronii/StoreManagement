@@ -1,10 +1,6 @@
 <?php
 $path = $_SERVER['SCRIPT_NAME'];
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,25 +35,17 @@ $path = $_SERVER['SCRIPT_NAME'];
 
         <button type="submit"><?=UPDATECRED?></button>
     </form>
-
-    
-
     <script>
         jQuery(document).ready(function($) {
             $('body').on('click', function() {
-                // Hide the notification after 3 seconds
-
+                $('.notification').fadeOut(300);
             });
+
+            setTimeout(function() {
+                $('.notification').fadeOut(300);
+            }, 3000);
         });
     </script>
-    
-
-
-
-    
-
-
-
 </div>
 </body>
 </html>
