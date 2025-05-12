@@ -15,8 +15,11 @@ $path = $_SERVER['SCRIPT_NAME'];
 
 <div class="container">
     <?php
-    if (isset($_SESSION['notification'])) {
-        echo "<div class='notification'>" . $_SESSION['notification'] . "</div>";
+    if (isset($_SESSION['notification']) && $_SESSION['notificationStatus'] == "success") {
+        echo "<div class='notification-success'>" . $_SESSION['notification'] . "</div>";
+        unset($_SESSION['notification']);
+    } elseif (isset($_SESSION['notification']) && $_SESSION['notificationStatus'] == "failed") {
+        echo "<div class='notification-failed'>" . $_SESSION['notification'] . "</div>";
         unset($_SESSION['notification']);
     }
     ?>

@@ -26,13 +26,21 @@ class SettingsController extends Controller
                     ]);
                 } elseif ($action === "update") {
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        $user = new User($id);
-                        $user->update($_POST);
-                        $_SESSION['username'] = $_POST['username'];
-                        $_SESSION['notification'] = "User updated successfully.";
-                        $newURL = dirname($path) . "/settings/list";
-                        header("Location:" . $newURL);
-                        exit;
+                        if (isset($_POST['username']) && isset($_POST['password']) && $_POST['username'] !== "" && $_POST['password'] !== "") {
+                            $user = new User($id);
+                            $user->update($_POST);
+                            $_SESSION['username'] = $_POST['username'];
+                            $_SESSION['notification'] = "User updated successfully.";
+                            $_SESSION['notificationStatus'] = "success";
+                            $newURL = dirname($path) . "/settings/list";
+                            header("Location:" . $newURL);
+                            exit;
+                        } else {
+                            $_SESSION['notification'] = "Please enter valid credentials.";
+                            $_SESSION['notificationStatus'] = "failed";
+                            $newURL = dirname($path) . "/settings/list";
+                            header("Location:" . $newURL);
+                        }
                     } else {
                         $newURL = dirname($path) . "/settings/list";
                         header("Location:" . $newURL);

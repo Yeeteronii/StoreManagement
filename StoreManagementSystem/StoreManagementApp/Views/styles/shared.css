@@ -76,10 +76,18 @@ button {
     font-size: 14px;
     border-radius: 4px;
 }
-.notification {
+.notification-success {
     margin-top: 40px;
     padding: 10px;
     border-radius: 4px;
     background-color: green;
+    color: white;
+}
+
+.notification-failed {
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: red;
     color: white;
 }

@@ -222,6 +222,16 @@ class User extends Model
             $groupStmt->close();
         }
     }
+
+    public static function validateUpdate($data) {
+        if (!empty($data['username']) && !empty($data['password'])) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public static function delete($ids)
     {
         if (empty($ids)) return;
