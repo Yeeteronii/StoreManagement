@@ -74,15 +74,16 @@ function idToColor($id) {
                                  ">
                         <?= htmlspecialchars($shift->username) ?>
                         <div class="shift-actions">
-                            <?php if ($canUpdate): ?>
-                            <a href="../shift/update/<?= $shift->shiftId ?>">
-                                <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;">
-                            </a>
-                            <?php endif; ?>
-                            <?php if ($canDelete): ?>
+                            <?php if ($canUpdate && $canDelete): ?>
+                                <a href="../shift/update/<?= $shift->shiftId ?>">
+                                    <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;">
+                                </a>
                             <a href="../shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
                                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width:20px; height:20px;">
                             </a>
+                            <?php else: ?>
+                                <p> No Rights To Edit or update
+                                </p>
                             <?php endif; ?>
                         </div>
                     </div>

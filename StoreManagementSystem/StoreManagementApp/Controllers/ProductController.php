@@ -18,7 +18,7 @@ class ProductController extends Controller
                 header("Location: /login/login");
                 exit;
             } else {
-                if (!User::checkRight($userId, 'Product', 'add')) {
+                if (!User::checkRight($userId, 'Product', 'list')) {
                     $newURL = dirname($path) . "/product/list";
                     header("Location:" . $newURL);
                     exit;

@@ -61,7 +61,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <script>
                 const categoryMap = {
                     <?php foreach ($categories as $category): ?>
-                    <?= $category->categoryId ?>: "<?= htmlspecialchars($category->categoryName) ?>",
+                    <?= $category->categoryId ?>: "<?= htmlspecialchars($category->categoryName) ?>"
                     <?php endforeach; ?>
                 };
 
@@ -148,7 +148,7 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <?php endif; ?>
             <form method="POST" action="<?= $dirname ?>/user/update/<?= $user->id ?>">
                 <label for="username"><?=USERNAME?></label>
-                <input type="text" name="username" id="username" value="<?= $user->username ?>" disabled>
+                <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
                 <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
                 <label for="password"><?=PASSWORD?></label>

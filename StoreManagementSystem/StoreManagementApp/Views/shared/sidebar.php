@@ -19,7 +19,7 @@ $dirname = dirname($path);
                 <li><a href="../shift/list"><?=SHIFT?></a></li>
                 <li><a href="../order/list"><?=ORDERS?></a></li>
                 <li><a href="../supplier/list"><?=SUPPLIERS?></a></li>
-                <li><a href="../user/list"><?=USERS?></a></li>
+                <li><a href="../user/list"><?=EMPLOYEES?></a></li>
                 <li><a href="../report/list"><?=REPORTS?></a></li>
                 <li><a href="../settings/list"><?=SETTINGS?></a></li>
             </ul>
@@ -29,7 +29,7 @@ $dirname = dirname($path);
             <ul class="nav-links">
                 <li><a href="../product/list"><?=PRODUCT?></a></li>
                 <li><a href="../shift/list"><?=SHIFT?></a></li>
-                <li><a href="../settings/view"><?=SETTINGS?></a></li>
+                <li><a href="../settings/list"><?=SETTINGS?></a></li>
             </ul>
         </div>
     <?php endif; ?>
