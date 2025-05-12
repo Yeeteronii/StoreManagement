@@ -27,7 +27,7 @@ define("PRODUCT", "Produits");
 define("SHIFT", "Horaire");
 define("ORDERS", "Commandes");
 define("SUPPLIERS", "Fournisseurs");
-define("EMPLOYEES", "Employées");
+define("USERS", "Utilisateurs");
 define("REPORTS", "Rapports");
 define("SETTINGS", "Paramètres");
 
