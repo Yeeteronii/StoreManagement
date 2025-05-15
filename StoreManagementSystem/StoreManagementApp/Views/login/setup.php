@@ -29,12 +29,12 @@ $dirname = dirname($path);?>
     <img src="<?= $qrCodeUrl ?>" alt="Scan this QR with Google Authenticator">
 <br>
 <div class="login-container">
-    <form method="POST" action="?action=verify">
+    <form method="POST" action="../login/verify">
         <input type="text" name="code" placeholder="Enter 6-digit code" required>
         <br>
         <button type="submit" class="login-button"><?=VERIFY?></button>
     </form>
-    <form method="POST" action="?action=reset" style="margin-top: 10px;">
+    <form method="POST" action="../login/reset">
         <button type="submit" class="login-button"><?=BACKTOLOGIN?></button>
     </form>
 </div>

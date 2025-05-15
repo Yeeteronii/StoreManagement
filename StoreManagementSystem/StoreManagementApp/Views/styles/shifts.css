@@ -32,14 +32,15 @@ body {
 .time-labels {
   height: 100%;
   display: grid;
-  grid-template-rows: 40px repeat(14, 1fr);
+  grid-template-rows: 40px repeat(14, 60px);
+
 }
 .schedule-grid {
   height: fit-content;
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat(7, minmax(180px, 1fr));
-  grid-template-rows: 40px repeat(14, 1fr);
+  grid-template-rows: 40px repeat(14, 60px);
   background: white;
   max-width: calc(7 * 180px);
 }

@@ -32,11 +32,17 @@ $dirname = dirname($path); ?>
         <img src="<?= $dirname ?>/images/defaultguy.jpg" alt="User Icon" class="user-icon">
 
         <h2 class="login-text"><?=LOGIN?></h2>
-        <form method="POST" action="<?= $path ?>">
+        <?php if (!empty($data['error'])): ?>
+            <div style="background-color: #fdd; color: darkred; padding: 10px; border: 1px solid darkred; margin-bottom: 10px;">
+                <?= htmlspecialchars($data['error']) ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="../login/login">
             <input type="text" name="username" placeholder="<?=USERNAME?>" required>
             <input type="password" name="password" placeholder="<?=PASSWORD?>" required>
             <button type="submit" class="login-button"><?=LOGIN?></button>
         </form>
+
     </div>
 
     <div class="language-switch">

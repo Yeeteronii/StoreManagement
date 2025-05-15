@@ -28,16 +28,21 @@ $dirname = dirname($path);?>
     <h2><?=ENTERCODE?></h2>
     <br>
 <div class="login-container">
-    <form method="POST" action="?action=verify">
+    <?php if (!empty($data['error'])): ?>
+        <div style="background-color: #fdd; color: darkred; padding: 10px; border: 1px solid darkred; margin-bottom: 10px;">
+            <?= htmlspecialchars($data['error']) ?>
+        </div>
+    <?php endif; ?>
+    <form method="POST" action="../login/verify">
         <input type="text" name="code" placeholder="Enter 6-digit code" required>
         <button type="submit" class="login-button"><?=VERIFY?></button>
     </form>
 
-    <form method="POST" action="?action=resend" style="margin-top: 10px;">
+    <form method="POST" action="../login/resend">
         <button type="submit" class="login-button"><?=RESENDCODE?></button>
     </form>
 
-    <form method="POST" action="?action=reset" style="margin-top: 10px;">
+    <form method="POST" action="../login/reset">
         <button type="submit" class="login-button"><?=BACKTOLOGIN?></button>
     </form>
 </div>
