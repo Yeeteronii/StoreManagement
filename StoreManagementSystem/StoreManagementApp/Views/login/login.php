@@ -37,7 +37,7 @@ $dirname = dirname($path); ?>
                 <?= htmlspecialchars($data['error']) ?>
             </div>
         <?php endif; ?>
-        <form method="POST" action="../login/login">
+        <form method="POST" action="<?= dirname($path); ?>/login/login">
             <input type="text" name="username" placeholder="<?=USERNAME?>" required>
             <input type="password" name="password" placeholder="<?=PASSWORD?>" required>
             <button type="submit" class="login-button"><?=LOGIN?></button>
