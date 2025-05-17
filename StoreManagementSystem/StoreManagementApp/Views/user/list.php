@@ -37,21 +37,21 @@ $canDelete = $data['canDelete'] ?? false;
         <h2><?=USERTABLE?></h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../user/list">
+        <form method="GET" action="<?= dirname($path); ?>/user/list">
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search-light.png">
             </button>
             <?php if ($canAdd): ?>
-                <a href="../user/add">
+                <a href="<?= dirname($path); ?>/user/add">
                     <button type="button" class="icon-btn">
                         <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
-        <form id="deleteForm" method="POST" action="../user/delete">
+        <form id="deleteForm" method="POST" action="<?= dirname($path); ?>/user/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>

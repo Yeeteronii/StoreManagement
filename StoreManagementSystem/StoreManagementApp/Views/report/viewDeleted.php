@@ -64,7 +64,7 @@ $canRestore = $data['canRestore'] ?? false;
                 <td><?= htmlspecialchars($report->description) ?></td>
                 <td>
                     <?php if ($canRestore): ?>
-                    <a href="../report/restore/<?= $report->reportId ?>">
+                    <a href="<?= dirname($path); ?>/report/restore/<?= $report->reportId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                             <?=RESTORE?>
                         </button>
@@ -76,7 +76,7 @@ $canRestore = $data['canRestore'] ?? false;
     </table>
 </div>
 <div style="position: fixed; bottom: 20px; right: 20px;">
-    <a href="../report/list">
+    <a href="<?= dirname($path); ?>/report/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
             <?=BACKTOREPORTS?>
         </button>

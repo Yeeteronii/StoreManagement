@@ -52,21 +52,21 @@ function formatPhoneNumber($number) {
         <h2><?=SUPPLIERTABLE?></h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../supplier/list">
+        <form method="GET" action="<?= dirname($path); ?>/supplier/list">
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search-light.png">
             </button>
             <?php if ($canAdd): ?>
-                <a href="../supplier/add">
+                <a href="<?= dirname($path); ?>/supplier/add">
                     <button type="button" class="icon-btn">
                         <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
-        <form id="deleteForm" method="POST" action="../supplier/delete">
+        <form id="deleteForm" method="POST" action="<?= dirname($path); ?>/supplier/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>

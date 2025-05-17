@@ -15,21 +15,21 @@ $dirname = dirname($path);
     <?php if ($_SESSION['role'] === 'admin'): ?>
         <div class="sidebar" id="sidebar">
             <ul class="nav-links">
-                <li><a href="../product/list"><?=PRODUCT?></a></li>
-                <li><a href="../shift/list"><?=SHIFT?></a></li>
-                <li><a href="../order/list"><?=ORDERS?></a></li>
-                <li><a href="../supplier/list"><?=SUPPLIERS?></a></li>
-                <li><a href="../user/list"><?=EMPLOYEES?></a></li>
-                <li><a href="../report/list"><?=REPORTS?></a></li>
-                <li><a href="../settings/list"><?=SETTINGS?></a></li>
+                <li><a href="<?= dirname($path); ?>/product/list"><?=PRODUCT?></a></li>
+                <li><a href="<?= dirname($path); ?>/shift/list"><?=SHIFT?></a></li>
+                <li><a href="<?= dirname($path); ?>/order/list"><?=ORDERS?></a></li>
+                <li><a href="<?= dirname($path); ?>/supplier/list"><?=SUPPLIERS?></a></li>
+                <li><a href="<?= dirname($path); ?>/user/list"><?=EMPLOYEES?></a></li>
+                <li><a href="<?= dirname($path); ?>/report/list"><?=REPORTS?></a></li>
+                <li><a href="<?= dirname($path); ?>/settings/list"><?=SETTINGS?></a></li>
             </ul>
         </div>
     <?php else : ?>
         <div class="sidebar" id="sidebar">
             <ul class="nav-links">
-                <li><a href="../product/list"><?=PRODUCT?></a></li>
-                <li><a href="../shift/list"><?=SHIFT?></a></li>
-                <li><a href="../settings/list"><?=SETTINGS?></a></li>
+                <li><a href="<?= dirname($path); ?>/product/list"><?=PRODUCT?></a></li>
+                <li><a href="<?= dirname($path); ?>/shift/list"><?=SHIFT?></a></li>
+                <li><a href="<?= dirname($path); ?>/settings/list"><?=SETTINGS?></a></li>
             </ul>
         </div>
     <?php endif; ?>

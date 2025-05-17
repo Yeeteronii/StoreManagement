@@ -38,20 +38,20 @@ $canDownload = $data['canDownload'] ?? false;
     </div>
     <div class="controls">
         <?php if ($canDownload): ?>
-        <a href="../report/download" target="_blank">
+        <a href="<?= dirname($path); ?>/report/download" target="_blank">
             <button type="button" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/pdf-light.png" alt="Download" style="width: 20px; height: 20px;">
             </button>
         </a>
         <?php endif; ?>
             <?php if ($canAdd): ?>
-                <a href="../report/add">
+                <a href="<?= dirname($path); ?>/report/add">
                     <button type="button" class="icon-btn">
                         <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
-        <form id="deleteForm" method="POST" action="../report/delete">
+        <form id="deleteForm" method="POST" action=<?= dirname($path); ?>/report/delete">
             <button type="submit" class="icon-btn" style="margin-top: 2px;">
                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>

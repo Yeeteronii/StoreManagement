@@ -29,7 +29,7 @@ $canRestore = $data['canRestore'] ?? false;
         <h2><?= DELETEDPRODUCTS?></h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../product/viewDeleted">
+        <form method="GET" action="<?= dirname($path); ?>/product/viewDeleted">
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
@@ -88,7 +88,7 @@ $canRestore = $data['canRestore'] ?? false;
                 <td><?= $product->quantity ?>/<?= $product->threshold ?></td>
                 <td>
                     <?php if ($canRestore): ?>
-                    <a href="../product/restore/<?= $product->productId ?>">
+                    <a href="<?= dirname($path); ?>/product/restore/<?= $product->productId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                             Restore
                         </button>
@@ -100,7 +100,7 @@ $canRestore = $data['canRestore'] ?? false;
     </table>
 </div>
 <div style="position: fixed; bottom: 20px; right: 20px;">
-    <a href="../product/list">
+    <a href="<?= dirname($path); ?>/product/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
             Back to Products
         </button>

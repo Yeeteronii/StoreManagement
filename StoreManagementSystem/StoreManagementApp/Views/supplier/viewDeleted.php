@@ -40,7 +40,7 @@ function formatPhoneNumber($number) {
         <h2>Deleted Suppliers</h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../supplier/viewDeleted">
+        <form method="GET" action="<?= dirname($path); ?>/supplier/viewDeleted">
             <input type="text" name="search" placeholder="Search product..."
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
@@ -85,7 +85,7 @@ function formatPhoneNumber($number) {
                 <td><?= htmlspecialchars(formatPhoneNumber($supplier->phoneNum)) ?></td>
                 <td>
                     <?php if ($canRestore): ?>
-                        <a href="../supplier/restore/<?= $supplier->supplierId ?>">
+                        <a href=<?= dirname($path); ?>/supplier/restore/<?= $supplier->supplierId ?>">
                             <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
                                 Restore
                             </button>
@@ -97,7 +97,7 @@ function formatPhoneNumber($number) {
     </table
 </div>
 <div style="position: fixed; bottom: 20px; right: 20px;">
-    <a href="../supplier/list">
+    <a href="<?= dirname($path); ?>/supplier/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
             Back to Suppliers
         </button>

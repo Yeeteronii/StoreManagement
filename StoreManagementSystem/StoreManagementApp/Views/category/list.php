@@ -38,7 +38,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
     </div>
 
     <div class="controls">
-        <form method="GET" action="../category/list" style="display: inline;">
+        <form method="GET" action="<?= dirname($path); ?>/category/list" style="display: inline;">
             <input type="text" name="search" placeholder="<?=SEARCHCATEGORY?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
@@ -55,7 +55,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
         <?php endif; ?>
 
         <?php if ($canDelete): ?>
-            <form id="deleteForm" method="POST" action="../category/delete">
+            <form id="deleteForm" method="POST" action="<?= dirname($path); ?>/category/delete">
                 <button type="submit" class="icon-btn" style="margin-top: 2px;">
                     <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete"
                          style="width: 20px; height: 20px;">

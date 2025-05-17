@@ -92,10 +92,10 @@ function idToColor($id) {
                     <?= htmlspecialchars($shift->username) ?>
                     <div class="shift-actions">
                         <?php if ($canUpdate && $canDelete): ?>
-                            <a href="../shift/update/<?= $shift->shiftId ?>">
+                            <a href="<?= dirname($path); ?>/shift/update/<?= $shift->shiftId ?>">
                                 <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;">
                             </a>
-                            <a href="../shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
+                            <a href="<?= dirname($path); ?>/shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
                                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width:20px; height:20px;">
                             </a>
                         <?php else: ?>
@@ -109,7 +109,7 @@ function idToColor($id) {
 
     <div class="add-shift-container">
         <?php if ($canAdd): ?>
-            <a href="../shift/add">
+            <a href="<?= dirname($path); ?>/shift/add">
                 <button class="add-shift-btn">
                     <img src="<?= $dirname ?>/images/add-light.png">
                 </button>

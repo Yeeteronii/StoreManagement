@@ -25,10 +25,10 @@ $path = $_SERVER['SCRIPT_NAME'];
     ?>
 
     <br><br>
-    <a style="float: right" class="logout-button-large" href="../login/login"><?=LOGOUT?></a>
+    <a style="float: right" class="logout-button-large" href="<?= dirname($path); ?>/login/login"><?=LOGOUT?></a>
     <h2 data-translate="settings_title"><?=SETTINGS?></h2>
     
-    <form action="../settings/update/<?= $user->id ?>" method="POST">
+    <form action="<?= dirname($path); ?>/settings/update/<?= $user->id ?>" method="POST">
         <label for="username"><?=USERNAME?></label>
         <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
 
