@@ -42,7 +42,7 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
     <h2><?=PRODUCTTABLE?></h2>
     </div>
     <div class="controls">
-        <form method="GET" action="../product/list">
+        <form method="GET" action="<?= dirname($path); ?>/product/list">
             <input type="text" name="search" placeholder="<?=SEARCH?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn" >
@@ -57,14 +57,14 @@ $canViewDeleted = $data['canViewDeleted'] ?? false;
                 <?php endforeach; ?>
             </select>
             <?php if ($canAdd): ?>
-                <a href="../product/add">
+                <a href="<?= dirname($path); ?>/product/add">
                     <button type="button" class="icon-btn" style="margin-top: 30px;">
                         <img src="<?= $dirname ?>/images/add-light.png">
                     </button>
                 </a>
             <?php endif; ?>
         </form>
-        <form id="deleteForm" method="POST" action="../product/delete">
+        <form id="deleteForm" method="POST" action="<?= dirname($path); ?>/product/delete">
             <button type="submit" class="icon-btn" style="margin-top: 25px;">
                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width: 20px; height: 20px;">
             </button>
