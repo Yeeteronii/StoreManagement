@@ -85,9 +85,9 @@ function formatPhoneNumber($number) {
                 <td><?= htmlspecialchars(formatPhoneNumber($supplier->phoneNum)) ?></td>
                 <td>
                     <?php if ($canRestore): ?>
-                        <a href=<?= dirname($path); ?>/supplier/restore/<?= $supplier->supplierId ?>">
+                        <a href="<?= dirname($path); ?>/supplier/restore/<?= $supplier->supplierId ?>">
                             <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
-                                Restore
+                                <?=RESTORE?>
                             </button>
                         </a>
                     <?php endif; ?>
