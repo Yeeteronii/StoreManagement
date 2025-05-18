@@ -59,11 +59,11 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <button type="submit"><?=UPDATEPRODUCT?></button>
 
             <script>
-                const categoryMap = {
-                    <?php foreach ($categories as $category): ?>
-                    <?= $category->categoryId ?>: "<?= htmlspecialchars($category->categoryName) ?>"
-                    <?php endforeach; ?>
-                };
+                    const categoryMap = {
+                        <?php foreach ($categories as $i => $category): ?>
+                        <?= $category->categoryId ?>: "<?= htmlspecialchars($category->categoryName) ?>"<?= $i < count($categories) - 1 ? ',' : '' ?>
+                        <?php endforeach; ?>
+                    };
 
                 function updateCategoryName() {
                     const input = document.getElementById('categoryId');
@@ -140,7 +140,15 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 
                 <button type="submit"><?=UPDATESUPPLIER?></button>
             </form>
-        <?php elseif ($source === 'user'): ?>
+        <?php elseif ($source === 'user'):
+            $currentUserRole = $_SESSION['role'];
+            $targetUserRole = $user->role;
+            $canEditRole = $canChangeRole && (
+                    ($currentUserRole === 'admin' && $targetUserRole === 'employee') ||
+                    ($currentUserRole === 'admin' && $targetUserRole === 'admin' && $_SESSION['user_id'] !== $user->id)
+                );
+            $isSameLevel = $currentUserRole === 'admin' && $targetUserRole === 'admin' && $_SESSION['user_id'] !== $user->id;
+            ?>
             <?php if (!empty($error)): ?>
                 <div class="add-error-message">
                     <?= htmlspecialchars($error) ?>
@@ -148,15 +156,15 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <?php endif; ?>
             <form method="POST" action="<?= $dirname ?>/user/update/<?= $user->id ?>">
                 <label for="username"><?=USERNAME?></label>
-                <input type="text" name="username" id="username" value="<?= $user->username ?>" required>
+                <input type="text" name="username" id="username" value="<?= $user->username ?>" disabled>
                 <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
                 <label for="password"><?=PASSWORD?></label>
-                <input type="text" name="password" id="password" value="<?= $user->password ?>"  disabled>
+                <input type="text" name="password" id="password" value="<?= str_repeat('*', strlen($user->password)) ?>"  disabled>
                 <div class="field-desc"><?=PASSWORDTOOLTIP?></div>
 
                 <label><?=ROLE?></label>
-                <?php if ($canChangeRole): ?>
+                <?php if ($canEditRole): ?>
                     <select name="role">
                         <option value="admin" <?= ($user->role == 'admin') ? 'selected' : '' ?>>Admin</option>
                         <option value="employee" <?= ($user->role == 'employee') ? 'selected' : '' ?>>Employee</option>
@@ -166,6 +174,11 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                     <input type="hidden" name="role" value="<?= htmlspecialchars($user->role) ?>">
                 <?php endif; ?>
                 <div class="field-desc"><?=ROLETOOLTIP?></div>
+                <?php if ($isSameLevel): ?>
+                    <label for="target_password"> <?= CONFIRMUSERPASSWORDMESSAGE?> <?= htmlspecialchars($user->username) ?></label>
+                    <input type="password" name="target_password" id="target_password" required>
+                    <div class="field-desc"><?=CHANGEROLEPASSWORDTOOLTIP?></div>
+                <?php endif; ?>
 
                 <button type="submit"><?=UPDATEUSER?></button>
             </form>

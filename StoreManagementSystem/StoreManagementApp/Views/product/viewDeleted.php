@@ -90,7 +90,7 @@ $canRestore = $data['canRestore'] ?? false;
                     <?php if ($canRestore): ?>
                     <a href="<?= dirname($path); ?>/product/restore/<?= $product->productId ?>">
                         <button type="button" style="padding: 5px; background-color: #a5d6a7; border-radius: 4px;">
-                            Restore
+                            <?=RESTORE?>
                         </button>
                     </a>
                     <?php endif; ?>
@@ -102,7 +102,7 @@ $canRestore = $data['canRestore'] ?? false;
 <div style="position: fixed; bottom: 20px; right: 20px;">
     <a href="<?= dirname($path); ?>/product/list">
         <button type="button" class="icon-btn" style="padding: 10px; background-color: #c8e6f7; border-radius: 5px;">
-            Back to Products
+            <?=BACKPRODUCT?>
         </button>
     </a>
 </div>

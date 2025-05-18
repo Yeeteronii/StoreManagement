@@ -29,22 +29,6 @@ function idToColor($id) {
 <head>
     <title>Schedule</title>
     <link rel="stylesheet" href="<?= $dirname ?>/Views/styles/shifts.css">
-    <style>
-        .time-labels {
-            height: 100%;
-            display: grid;
-            grid-template-rows: 40px repeat(14, 60px);
-        }
-        .schedule-grid {
-            height: fit-content;
-            overflow: hidden;
-            display: grid;
-            grid-template-columns: repeat(7, minmax(180px, 1fr));
-            grid-template-rows: 40px repeat(14, 60px);
-            background: white;
-            max-width: calc(7 * 180px);
-        }
-    </style>
 </head>
 <body>
 <div class="content">
@@ -61,7 +45,7 @@ function idToColor($id) {
         </div>
 
         <div class="schedule-grid">
-            <?php foreach (['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as $day): ?>
+            <?php foreach ([MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] as $day): ?>
                 <div class="day"><?= $day ?></div>
             <?php endforeach; ?>
 
@@ -98,8 +82,6 @@ function idToColor($id) {
                             <a href="<?= dirname($path); ?>/shift/delete/<?= $shift->shiftId ?>" onclick="return confirm('Are you sure?');">
                                 <img src="<?= $dirname ?>/images/delete-light.png" alt="Delete" style="width:20px; height:20px;">
                             </a>
-                        <?php else: ?>
-                            <p>No Rights To Edit or Update</p>
                         <?php endif; ?>
                     </div>
                 </div>

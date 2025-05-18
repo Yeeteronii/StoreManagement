@@ -26,7 +26,7 @@ class SettingsController extends Controller
                     ]);
                 } elseif ($action === "update") {
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        if (isset($_POST['username']) && isset($_POST['password']) && $_POST['username'] !== "" && $_POST['password'] !== "") {
+                        if (isset($_POST['username']) && isset($_POST['password'])) {
                             $user = new User($id);
                             $user->update($_POST);
                             $_SESSION['username'] = $_POST['username'];
@@ -45,13 +45,6 @@ class SettingsController extends Controller
                         $newURL = dirname($path) . "/settings/list";
                         header("Location:" . $newURL);
                     }
-                } elseif ($action === "delete") {
-                    if ($id > 0) {
-                        Shift::delete($id);
-                    }
-                    $newURL = dirname($path) . "/shift/list";
-                    header("Location:" . $newURL);
-                    exit;
                 }
             }
         }

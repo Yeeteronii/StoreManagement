@@ -30,6 +30,7 @@ define("SUPPLIERS", "Suppliers");
 define("EMPLOYEES", "Employees");
 define("REPORTS", "Reports");
 define("SETTINGS", "Settings");
+define("VIEWGUIDE", "View Guide");
 
 
 // Products
@@ -145,9 +146,9 @@ define("ENDTIME", "End Time:");
 define("ENDTIMETOOLTIP", "End time of the shift");
 define("ENDTIMEERROR", "End time must be after start time!");
 define("UPDATESHIFT", "Update Shift");
-
-define("SELECTUSER","Select User:")
-
+define("CHANGEROLEPASSWORDTOOLTIP", "To change this user's role, enter their password for verification.");
+define("SELECTUSER","Select User:");
+define("CONFIRMUSERPASSWORDMESSAGE", "Confirm the password of");
 
 
 

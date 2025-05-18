@@ -52,6 +52,28 @@ class UserController extends Controller
                         $canChangeRole = ($_SESSION['user_id'] !== $id);
 
                         $user->role = User::getRole($id);
+                        $isSameLevel = $user->role === $_SESSION['role'] && $_SESSION['user_id'] !== $user->id;
+                        $passwordRequired = $isSameLevel && isset($_POST['role']) && $_POST['role'] !== $user->role;
+
+                        if ($passwordRequired) {
+                            $enteredPassword = $_POST['target_password'] ?? '';
+                            $conn = Model::connect();
+                            $stmt = $conn->prepare("SELECT password FROM users WHERE id = ?");
+                            $stmt->bind_param("i", $user->id);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $row = $result->fetch_object();
+                            $stmt->close();
+
+                            if (!$row || !password_verify($enteredPassword, $row->password)) {
+                                $this->render("shared", "update", [
+                                    'user' => $user,
+                                    'canChangeRole' => $canChangeRole,
+                                    'error' => "Invalid password. You cannot change this user's role."
+                                ]);
+                                return;
+                            }
+                        }
                         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             if (!$canChangeRole) {
                                 unset($_POST['role']);

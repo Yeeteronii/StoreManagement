@@ -7,13 +7,16 @@ class User extends Model
     public $id;
     public $username;
     public $password;
+    public $role;
     public function __construct($param = null)
     {
         if (is_object($param) || is_array($param)) {
             $this->setProperties($param);
         } elseif (is_int($param)) {
             $conn = Model::connect();
-            $sql = "SELECT * FROM `users` WHERE `id` = ?";
+            $sql = "
+                SELECT u.*, g.name AS role FROM users u JOIN users_groups ug ON u.id = ug.user_id
+                JOIN groups g ON ug.group_id = g.id WHERE u.id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i", $param);
             $stmt->execute();
@@ -98,13 +101,12 @@ class User extends Model
         return $row ? $row->username : null;
     }
 
-    private function setProperties($obj)
+    private function setProperties($row)
     {
-        if ($obj) {
-            $this->id = isset($obj->id) ? $obj->id : null;
-            $this->username = isset($obj->username) ? $obj->username : '';
-            $this->password = isset($obj->password) ? $obj->password : '';
-        }
+        $this->id = $row->id;
+        $this->username = $row->username;
+        $this->password = $row->password;
+        $this->role = $row->role;
     }
 
 
@@ -138,17 +140,20 @@ class User extends Model
 
     public static function list($keyword, $sort, $dir)
     {
-        $allowedSorts = ['username'];
+        $allowedSorts = ['username','role'];
         if (!in_array($sort, $allowedSorts)) $sort = 'username';
         $dir = ($dir === 'DESC') ? 'DESC' : 'ASC';
 
         $conn = Model::connect();
-        $sql = "SELECT * FROM users";
+        $sql = "
+            SELECT u.*, g.name AS role FROM users u 
+                JOIN users_groups ug ON u.id = ug.user_id 
+                JOIN groups g ON ug.group_id = g.id";
         $params = [];
         $types = '';
 
         if (!empty($keyword)) {
-            $sql .= " WHERE username LIKE ?";
+            $sql .= " WHERE u.username LIKE ?";
             $params[] = '%' . $keyword . '%';
             $types .= 's';
         }
@@ -198,13 +203,14 @@ class User extends Model
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssi", $data['username'], $hashedPassword, $this->id);
             $stmt->execute();
-        } else {
+            $stmt->close();
+        } elseif (!empty($data['username'])) {
             $sql = "UPDATE users SET username = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("si", $data['username'], $this->id);
             $stmt->execute();
+            $stmt->close();
         }
-        $stmt->close();
 
         if (!empty($data['role'])) {
             $groupStmt = $conn->prepare("SELECT id FROM groups WHERE name = ?");
@@ -222,16 +228,6 @@ class User extends Model
             $groupStmt->close();
         }
     }
-
-    public static function validateUpdate($data) {
-        if (!empty($data['username']) && !empty($data['password'])) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public static function delete($ids)
     {
         if (empty($ids)) return;

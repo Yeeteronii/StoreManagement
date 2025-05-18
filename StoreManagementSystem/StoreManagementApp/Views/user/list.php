@@ -65,6 +65,7 @@ $canDelete = $data['canDelete'] ?? false;
             $headers = [
                 'username' => USERNAME,
                 'password' => PASSWORD,
+                'role' => ROLE,
             ];
             foreach ($headers as $field => $label): ?>
                 <th>
@@ -92,7 +93,8 @@ $canDelete = $data['canDelete'] ?? false;
             <tr>
                 <td><input type="checkbox" class="delete-checkbox" value="<?= $user->id ?>"></td>
                 <td><?= htmlspecialchars($user->username) ?></td>
-                <td><?= htmlspecialchars($user->password) ?></td>
+                <td><?= str_repeat('*', strlen($user->password)) ?></td>
+                <td><?= htmlspecialchars($user->role)?></td>
                 <td>
                     <a href="<?= $dirname ?>/user/update/<?= $user->id ?>">
                         <img src="<?= $dirname ?>/images/update-light.png" alt="Edit" style="width:20px; height:20px;"></a>

@@ -30,6 +30,7 @@ define("SUPPLIERS", "Fournisseurs");
 define("EMPLOYEES", "Employées");
 define("REPORTS", "Rapports");
 define("SETTINGS", "Paramètres");
+define("VIEWGUIDE", "Voir Guide");
 
 // Products
 
@@ -138,8 +139,8 @@ define("ENDTIME", "Heure de fin :");
 define("ENDTIMETOOLTIP", "Heure de fin du poste");
 define("ENDTIMEERROR", "L'heure de fin doit être après l'heure de début !");
 define("UPDATESHIFT", "Mettre à jour le poste");
-
+define("CHANGEROLEPASSWORDTOOLTIP", "Pour changer le role de ce utilisateur, veuillez mettre leur mot de passe pour valider.");
 define("SELECTUSER", "Sélectionnez l'utilisateur :");
-
+define("CONFIRMUSERPASSWORDMESSAGE", "Confirmez le mot de passe de");
 
 ?>
