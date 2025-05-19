@@ -143,4 +143,45 @@ define("CHANGEROLEPASSWORDTOOLTIP", "Pour changer le role de ce utilisateur, veu
 define("SELECTUSER", "Sélectionnez l'utilisateur :");
 define("CONFIRMUSERPASSWORDMESSAGE", "Confirmez le mot de passe de");
 
+
+define("ADDTITLE", "Ajouter un élément");
+
+//ADD
+define("NAMEDESCRIPTION", "Le nom affiché de votre article");
+define("COSTDESCRIPTION", "Combien coûte l'article.");
+define("SELLPRICEDESCRIPTION", "À combien l'article sera vendu");
+define("CATEGORYDESCRIPTION", "Catégorie inconnue");
+define("THRESHOLDDESCRIPTION", "Quantité requise pour être considérée en stock.");
+define("QUANTITYDESCRIPTION", "Quantité de produit actuellement disponible.");
+
+
+define("CATEGORYTAXDESCRIPTION", "Taxes pour cette catégorie (en décimal).");
+
+define("EARNINGSDESCRIPTION", "Combien vous avez gagné");
+define("PROFITSDESCRIPTION", "Combien vous avez fait de bénéfices");
+define("DESCRIPTIONDESCRIPTION", "Un petit résumé de la journée");
+
+define("SUPPLIERNAMEDESCRIPTION", "Nom du fournisseur");
+define("EMAILDESCRIPTION", "E-mail du fournisseur");
+define("PHONENUMBERDESCRIPTION", "Numéro de téléphone du fournisseur");
+
+define("USERNAMEDESCRIPTION", "Nom d'utilisateur de l'utilisateur");
+define("PASSWORDDESCRIPTION", "Mot de passe donné à l'utilisateur (modifiable uniquement par cet utilisateur)");
+define("ROLEDESCRIPTION", "Sélectionnez le rôle de l'utilisateur. (Selon le rôle, l'accès à certaines fonctionnalités sera accordé)");
+
+define("DAYDESCRIPTION", "Jour de la semaine");
+define("STARTTIMEDESCRIPTION", "Heure de début du quart de travail");
+define("ENDTIMEDESCRIPTION", "Heure de fin du quart de travail");
+
+define("ADDPRODUCT", "Ajouter un produit");
+define("ADDCATEGORY", "Ajouter une catégorie");
+define("ADDREPORT", "Ajouter un rapport");
+define("ADDSUPPLIER", "Ajouter un fournisseur");
+define("ADDUSER", "Ajouter un utilisateur");
+define("ADDSHIFT", "Ajouter un quart de travail");
+
+define("ADDERRORMESSAGE", "Une erreur est survenue. Veuillez vérifier les informations saisies.");
+define("INVALID", "Catégorie invalide");
+
+
 ?>

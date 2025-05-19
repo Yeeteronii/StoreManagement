@@ -150,6 +150,53 @@ define("CHANGEROLEPASSWORDTOOLTIP", "To change this user's role, enter their pas
 define("SELECTUSER","Select User:");
 define("CONFIRMUSERPASSWORDMESSAGE", "Confirm the password of");
 
+// Add
+// define("ADDTITLE", "Add Element");
+// define("NAMEDESCRIPTION", "The display name of your item");
+// define("COSTDESCRIPTION", "How much the item costs.");
+// define("CATEGORYDESCRIPTION", "Unknown category");
+// define("THRESHOLDDESCRIPTION", "Amount needed to be considered in stock.");
+// define("QUANTITYDESCRIPTION", "How much product is currently available.");
+
+// Add Page
+define("ADDTITLE", "Add Element");
+// Common
+define("NAMEDESCRIPTION", "The display name of your item");
+define("COSTDESCRIPTION", "How much the item costs.");
+define("SELLPRICEDESCRIPTION", "How much the item will sell for");
+define("CATEGORYDESCRIPTION", "Unknown category");
+define("THRESHOLDDESCRIPTION", "Amount needed to be considered in stock.");
+define("QUANTITYDESCRIPTION", "How much product is currently available.");
+
+// Category
+define("CATEGORYTAXDESCRIPTION", "Taxes for this category (in decimal).");
+
+// Report
+define("EARNINGSDESCRIPTION", "How much you've earned");
+define("PROFITSDESCRIPTION", "How much you've made");
+define("DESCRIPTIONDESCRIPTION", "A little summary of the day");
+// Supplier
+define("SUPPLIERNAMEDESCRIPTION", "Name of the supplier");
+define("EMAILDESCRIPTION", "E-mail of the supplier");
+define("PHONENUMBERDESCRIPTION", "Phone Number of the supplier");
+// User
+define("USERNAMEDESCRIPTION", "Username of the user");
+define("PASSWORDDESCRIPTION", "Password given to the user (can only be changed by said user)");
+define("ROLEDESCRIPTION", "Select the role of the user. (Depending on the role, they will have access to more or less features)");
+// Shift
+define("DAYDESCRIPTION", "Day of the week");
+define("STARTTIMEDESCRIPTION", "Start time of the shift");
+define("ENDTIMEDESCRIPTION", "End time of the shift");
+// Buttons
+define("ADDPRODUCT", "Add Product");
+define("ADDCATEGORY", "Add Category");
+define("ADDREPORT", "Add Report");
+define("ADDSUPPLIER", "Add Supplier");
+define("ADDUSER", "Add User");
+define("ADDSHIFT", "Add Shift");
+// Errors
+define("ADDERRORMESSAGE", "An error occurred. Please check the input.");
+define("INVALID", "Invalid Category");
 
 
 

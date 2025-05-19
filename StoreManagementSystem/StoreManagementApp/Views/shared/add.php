@@ -14,13 +14,13 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Element</title>
+    <title><?=ADDTITLE?></title>
     <link rel="stylesheet" href="/StoreManagement/StoreManagementSystem/StoreManagementApp/Views/styles/shared.css">
 </head>
 <body>
 
 <div class="container">
-    <h2>Add Element</h2>
+    <h2><?=ADDTITLE?></h2>
 
     <?php if ($source === 'product' && $role === 'admin'): ?>
         <form method="POST" action="<?= $dirname ?>/product/add">
@@ -29,34 +29,34 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                     <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
-            <label for="productName">Name</label>
+            <label for="productName"><?=NAME?></label>
             <input type="text" name="productName" id="productName" required>
-            <div class="field-desc">The display name of your item</div>
+            <div class="field-desc"><?=NAMEDESCRIPTION?></div>
 
-            <label for="cost">Cost</label>
+            <label for="cost"><?=COST?></label>
             <input type="number" step="0.01" name="cost" id="cost" required>
-            <div class="field-desc">How much then item costs.</div>
+            <div class="field-desc"><?=COSTDESCRIPTION?></div>
 
-            <label for="priceToSell">Sell Price</label>
+            <label for="priceToSell"><?=SELLPRICE?></label>
             <input type="number" step="0.01" name="priceToSell" id="priceToSell" required>
-            <div class="field-desc">How much the item will sell for</div>
+            <div class="field-desc"><?=SELLPRICEDESCRIPTION?></div>
 
 
-            <label for="categoryId">Category ID</label>
+            <label for="categoryId"><?=CATEGORYID?></label>
             <input type="number" name="categoryId" id="categoryId" required oninput="updateCategoryName()">
             <div class="field-desc">
-                Category name: <span id="categoryNameDisplay" style="font-weight: bold;">Unknown category</span>
+                <?=CATEGORYNAME?> : <span id="categoryNameDisplay" style="font-weight: bold;"><?=CATEGORYDESCRIPTION?></span>
             </div>
 
-            <label for="threshold">Threshold</label>
+            <label for="threshold"><?=THRESHOLD?></label>
             <input type="number" name="threshold" id="threshold" required>
-            <div class="field-desc">Amount needed to be considered in stock.</div>
+            <div class="field-desc"><?=THRESHOLDDESCRIPTION?></div>
 
-            <label for="quantity">Quantity</label>
+            <label for="quantity"><?=QUANTITY?></label>
             <input type="number" name="quantity" id="quantity" required>
-            <div class="field-desc">How much product is currently available.</div>
+            <div class="field-desc"><?=QUANTITYDESCRIPTION?></div>
 
-            <button type="submit">Add Product</button>
+            <button type="submit"><?=ADDPRODUCT?></button>
 
             <script>
                 const categoryMap = {
@@ -73,9 +73,9 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                     if (categoryMap.hasOwnProperty(id)) {
                         nameDisplay.textContent = categoryMap[id];
                     } else if (id === '') {
-                        nameDisplay.textContent = "Unknown category";
+                        nameDisplay.textContent = "<?=CATEGORYDESCRIPTION?>";
                     } else {
-                        nameDisplay.textContent = "Invalid category";
+                        nameDisplay.textContent = "<?=INVALID?>";
                     }
                 }
             </script>
@@ -88,15 +88,15 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                     <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
-            <label for="categoryName">Name</label>
+            <label for="categoryName"><?=NAME?></label>
             <input type="text" name="categoryName" id="categoryName" required>
-            <div class="field-desc">The name of your category</div>
+            <div class="field-desc"><?=NAMETOOLTIP?></div>
 
-            <label for="categoryTax">Category Tax</label>
+            <label for="categoryTax"><?=CATEGORYTAX?></label>
             <input type="number" step="0.01" name="categoryTax" id="categoryTax" required>
-            <div class="field-desc">Taxes for this category (in decimal)</div>
+            <div class="field-desc"><?=CATEGORYTAXTOOLTIP?></div>
 
-            <button type="submit">Add Category</button>
+            <button type="submit"><?=ADDCATEGORY?></button>
         </form>
     <?php elseif ($source === 'report' && $role === 'admin'): ?>
         <?php if (!empty($error)): ?>
@@ -105,19 +105,19 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             </div>
         <?php endif; ?>
         <form method="POST" action="<?= $dirname ?>/report/add">
-            <label for="earnings">Earnings</label>
+            <label for="earnings"><?=EARNINGS?></label>
             <input type="number" step="0.01" name="earnings" id="earnings" required>
-            <div class="field-desc">How much you've earned</div>
+            <div class="field-desc"><?=EARNINGSDESCRIPTION?></div>
 
-            <label for="profits">Profits</label>
+            <label for="profits"><?=PROFITS?></label>
             <input type="number" step="0.01" name="profits" id="profits" required>
-            <div class="field-desc">How much you've made</div>
+            <div class="field-desc"><?=PROFITSDESCRIPTION?></div>
 
-            <label for="description">Description</label>
+            <label for="description"><?=DESCRIPTION?></label>
             <input type="text" name="description" id="description" required>
-            <div class="field-desc">A little summary of the day</div>
+            <div class="field-desc"><?=DESCRIPTIONDESCRIPTION?></div>
 
-            <button type="submit">Add Report</button>
+            <button type="submit"><?=ADDREPORT?></button>
         </form>
     <?php elseif ($source === 'supplier' && $role === 'admin'): ?>
         <?php if (!empty($error)): ?>
@@ -126,19 +126,19 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             </div>
         <?php endif; ?>
         <form method="POST" action="<?= $dirname ?>/supplier/add">
-            <label for="supplierName">Supplier Name</label>
+            <label for="supplierName"><?=SUPPLIERNAME?></label>
             <input type="text" name="supplierName" id="supplierName" required>
-            <div class="field-desc">Name of the supplier</div>
+            <div class="field-desc"><?=SUPPLIERNAMEDESCRIPTION?></div>
 
-            <label for="email">E-mail</label>
+            <label for="email"><?=EMAIL?></label>
             <input type="text" name="email" id="email" required>
-            <div class="field-desc">E-mail of the supplier</div>
+            <div class="field-desc"><?=EMAILDESCRIPTION?></div>
 
-            <label for="phoneNum">Phone Number</label>
+            <label for="phoneNum"><?=PHONENUMBER?></label>
             <input type="text" name="phoneNum" id="phoneNum" required>
-            <div class="field-desc">Phone Number of the supplier</div>
+            <div class="field-desc"><?=PHONENUMBERDESCRIPTION?></div>
 
-            <button type="submit">Add Supplier</button>
+            <button type="submit"><?=ADDSUPPLIER?></button>
         </form>
     <?php elseif ($source === 'user' && $role === 'admin'): ?>
         <?php if (!empty($error)): ?>
@@ -147,23 +147,23 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             </div>
         <?php endif; ?>
         <form method="POST" action="<?= $dirname ?>/user/add">
-            <label for="username">Username</label>
+            <label for="username"><?=USERNAME?></label>
             <input type="text" name="username" id="username" required>
-            <div class="field-desc">Username of the user</div>
+            <div class="field-desc"><?=USERNAMEDESCRIPTION?></div>
 
-            <label for="password">Password</label>
+            <label for="password"><?=PASSWORD?></label>
             <input type="text" name="password" id="password" required>
-            <div class="field-desc">Password given to the user (can only be changed by said user)</div>
+            <div class="field-desc"><?=PASSWORDDESCRIPTION?></div>
 
-            <label>Role:</label>
+            <label><?=ROLE?></label>
             <select name="group_id" required>
                 <?php foreach ($groups as $group): ?>
                     <option value="<?= $group->id ?>"><?= htmlspecialchars($group->name) ?></option>
                 <?php endforeach; ?>
             </select><br>
-            <div class="field-desc">Select the role of the user. (Depending on the role, they will have access to more or less features)</div>
+            <div class="field-desc"><?=ROLEDESCRIPTION?></div>
 
-            <button type="submit">Add User</button>
+            <button type="submit"><?=ADDUSER?></button>
         </form>
     <?php elseif ($source === 'shift' && $role === 'admin'): ?>
         <?php if (!empty($error)): ?>
@@ -172,41 +172,41 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             </div>
         <?php endif; ?>
         <form method="POST" action="<?= $dirname ?>/shift/add">
-            <label for="userId">Select User:</label>
+            <label for="userId"><?=SELECTUSER?></label>
             <select name="userId" id="userId" required>
                 <?php foreach ($users as $user): ?>
                     <option value="<?= $user->id ?>"><?= htmlspecialchars($user->username) ?></option>
                 <?php endforeach; ?>
             </select>
-            <div class="field-desc">Username of the user</div>
+            <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
-            <label for="day">Select Day:</label>
+            <label for="day"><?=SELECTDAY?></label>
             <select name="day" id="day" required>
                 <?php
-                $daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                $daysOfWeek = ['MONDAY', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
                 foreach ($daysOfWeek as $day): ?>
                     <option value="<?= $day ?>"><?= $day ?></option>
                 <?php endforeach; ?>
             </select>
-            <div class="field-desc">Day of the week</div>
+            <div class="field-desc"><?=DAYOFTHEWEEK?></div>
 
-            <label for="startTime">Start Time:</label>
+            <label for="startTime"><?=STARTTIME?></label>
             <select name="startTime" id="startTime" required>
                 <?php for ($hour = 9; $hour <= 22; $hour++): ?>
                     <option value="<?= sprintf('%02d:00:00', $hour) ?>"><?= sprintf('%02d:00', $hour) ?></option>
                 <?php endfor; ?>
             </select>
-            <div class="field-desc">Start time of the shift</div>
+            <div class="field-desc"><?=STARTTIMETOOLTIP?></div>
 
-            <label for="endTime">End Time:</label>
+            <label for="endTime"><?=ENDTIME?></label>
             <select name="endTime" id="endTime" required>
                 <?php for ($hour = 10; $hour <= 23; $hour++): ?>
                     <option value="<?= sprintf('%02d:00:00', $hour) ?>"><?= sprintf('%02d:00', $hour) ?></option>
                 <?php endfor; ?>
             </select>
-            <div class="field-desc">End time of the shift</div>
-            <div id="timeError" style="color: red; font-size: 12px; display: none;">End time must be after start time!</div>
-            <button type="submit">Add Shift</button>
+            <div class="field-desc"><?=ENDTIMETOOLTIP?></div>
+            <div id="timeError" style="color: red; font-size: 12px; display: none;"><?=ENDTIMEERROR?></div>
+            <button type="submit"><?=ADDSHIFT?></button>
 
 
             <script>
