@@ -109,12 +109,6 @@ class Product extends Model
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
             VALUES (?, ?, ?, ?, ?, ?, 1)";
 
-        // if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
-        //     throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
-        // }
-        // if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
-        //     throw new Exception("Category ID must be a whole number.");
-        // }
 
         $stmtCheck = $conn->prepare("SELECT 1 FROM categories WHERE categoryId = ? AND isActive = 1");
         $stmtCheck->bind_param("i", $data['categoryId']);
@@ -146,13 +140,6 @@ class Product extends Model
         $sql = "UPDATE products 
                 SET productName = ?, cost = ?, priceToSell = ?, categoryId = ?, threshold = ?, quantity = ? 
                 WHERE productId = ?";
-
-        if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
-            throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
-        }
-        if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
-            throw new Exception("Category ID must be a whole number.");
-        }
 
         $stmtCheck = $conn->prepare("SELECT 1 FROM categories WHERE categoryId = ? AND isActive = 1");
         $stmtCheck->bind_param("i", $data['categoryId']);

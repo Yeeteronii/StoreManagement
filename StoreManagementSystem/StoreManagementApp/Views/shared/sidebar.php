@@ -22,7 +22,11 @@ $dirname = dirname($path);
                 <li><a href="<?= dirname($path); ?>/user/list"><?=EMPLOYEES?></a></li>
                 <li><a href="<?= dirname($path); ?>/report/list"><?=REPORTS?></a></li>
                 <li><a href="<?= dirname($path); ?>/settings/list"><?=SETTINGS?></a></li>
-                <li><a href="<?=dirname($path);?>/Util/AdminGuide.pdf"><?=VIEWGUIDE?></a></li>
+                <li>
+                    <a href="<?= $dirname ?>/Util/<?=ADMINGUIDE?>.pdf">
+                        <?= VIEWGUIDE ?>
+                    </a>
+                </li>
             </ul>
         </div>
     <?php else : ?>
@@ -31,7 +35,11 @@ $dirname = dirname($path);
                 <li><a href="<?= dirname($path); ?>/product/list"><?=PRODUCT?></a></li>
                 <li><a href="<?= dirname($path); ?>/shift/list"><?=SHIFT?></a></li>
                 <li><a href="<?= dirname($path); ?>/settings/list"><?=SETTINGS?></a></li>
-                <li><a href="<?=dirname($path);?>/Util/EmployeeGuide.pdf"><?=VIEWGUIDE?></a></li>
+                <li>
+                    <a href="<?= $dirname ?>/Util/<?= EMPLOYEEGUIDE?>.pdf">
+                        <?= VIEWGUIDE ?>
+                    </a>
+                </li>
             </ul>
         </div>
     <?php endif; ?>

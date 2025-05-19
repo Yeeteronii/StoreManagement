@@ -31,6 +31,8 @@ define("EMPLOYEES", "Employees");
 define("REPORTS", "Reports");
 define("SETTINGS", "Settings");
 define("VIEWGUIDE", "View Guide");
+define("ADMINGUIDE", "AdminGuide");
+define("EMPLOYEEGUIDE", "EmployeeGuide");
 
 
 // Products
