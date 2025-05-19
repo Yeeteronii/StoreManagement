@@ -138,10 +138,10 @@ class ReportController extends Controller
             $pdf->SetXY($pdf->GetX() - $pdf->GetX() + 10, max($y + 10, $pdf->GetY()));
         }
 
-        $savePath = '../StoreManagementApp/pdf/reports.pdf';
+        $savePath = '../StoreManagementApp/Util/reports.pdf';
         $pdf->Output('F', $savePath);
 
-        header('Location: ../pdf/reports.pdf');
+        header('Location: ../Util/reports.pdf');
         exit;
     }
 }
