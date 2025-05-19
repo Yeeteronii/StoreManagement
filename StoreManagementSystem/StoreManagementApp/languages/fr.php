@@ -3,6 +3,7 @@
 define("LOGIN", "Se Connecter");
 define("USERNAME", "Nom d'utilisateur");
 define("PASSWORD", "Mot de passe");
+define("LOGINGUIDE", "GuideDeConnexion");
 
 // SetUp2FA
 define("SCAN", "Scannez ce code QR avec Google Authenticator");

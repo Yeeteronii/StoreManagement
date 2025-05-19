@@ -42,6 +42,11 @@ $dirname = dirname($path); ?>
             <input type="password" name="password" placeholder="<?=PASSWORD?>" required>
             <button type="submit" class="login-button"><?=LOGIN?></button>
         </form>
+        <br><br>
+        <button> <a href="<?= $dirname ?>/Util/<?=LOGINGUIDE?>.pdf">
+            <?= VIEWGUIDE ?>
+            </a>
+        </button>
 
     </div>
 
