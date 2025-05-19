@@ -99,15 +99,22 @@ class Product extends Model
     {
         $conn = Model::connect();
 
+        $productName   = $data['productName']   ?? '';
+        $cost          = $data['cost']          ?? 0;
+        $priceToSell   = $data['priceToSell']   ?? 0;
+        $categoryId    = $data['categoryId']    ?? 0;
+        $threshold     = $data['threshold']     ?? 0;
+        $quantity      = $data['quantity']      ?? 0;
+
         $sql = "INSERT INTO products (productName, cost, priceToSell, categoryId, threshold, quantity, isActive) 
             VALUES (?, ?, ?, ?, ?, ?, 1)";
 
-        if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
-            throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
-        }
-        if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
-            throw new Exception("Category ID must be a whole number.");
-        }
+        // if ($data['cost'] < 0 || $data['priceToSell'] < 0 || $data['threshold'] < 0 || $data['quantity'] < 0) {
+        //     throw new Exception("Cost, Sell Price, Threshold, and Quantity must be non-negative.");
+        // }
+        // if (!filter_var($data['categoryId'], FILTER_VALIDATE_INT)) {
+        //     throw new Exception("Category ID must be a whole number.");
+        // }
 
         $stmtCheck = $conn->prepare("SELECT 1 FROM categories WHERE categoryId = ? AND isActive = 1");
         $stmtCheck->bind_param("i", $data['categoryId']);
@@ -118,13 +125,14 @@ class Product extends Model
         }
         $stmtCheck->close();
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddiii",
-            $data['productName'],
-            $data['cost'],
-            $data['priceToSell'],
-            $data['categoryId'],
-            $data['threshold'],
-            $data['quantity']
+        $stmt->bind_param(
+            "sddiii",
+            $productName,
+            $cost,
+            $priceToSell,
+            $categoryId,
+            $threshold,
+            $quantity
         );
         $stmt->execute();
         $stmt->close();
@@ -156,8 +164,16 @@ class Product extends Model
         $stmtCheck->close();
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddiiii", $data['productName'], $data['cost'], $data['priceToSell'],
-            $data['categoryId'], $data['threshold'], $data['quantity'], $this->productId);
+        $stmt->bind_param(
+            "sddiiii",
+            $data['productName'],
+            $data['cost'],
+            $data['priceToSell'],
+            $data['categoryId'],
+            $data['threshold'],
+            $data['quantity'],
+            $this->productId
+        );
         $stmt->execute();
         $stmt->close();
     }

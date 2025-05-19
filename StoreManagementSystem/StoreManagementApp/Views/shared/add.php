@@ -4,7 +4,7 @@ if (!isset($_SESSION['token'])) {
     exit;
 }
 $role = $_SESSION['role'];
-$dirname = $_SESSION['dirname'];
+$dirname = dirname($_SERVER['SCRIPT_NAME']);
 $source = strtolower($_GET['controller'] ?? 'unknown');
 ?>
 
