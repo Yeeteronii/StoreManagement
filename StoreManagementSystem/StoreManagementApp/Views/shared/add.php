@@ -183,9 +183,17 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
             <label for="day"><?=SELECTDAY?></label>
             <select name="day" id="day" required>
                 <?php
-                $daysOfWeek = ['MONDAY', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                foreach ($daysOfWeek as $day): ?>
-                    <option value="<?= $day ?>"><?= $day ?></option>
+                $daysOfWeek = [
+                    'Monday' => 'Lundi',
+                    'Tuesday' => 'Mardi',
+                    'Wednesday' => 'Mercredi',
+                    'Thursday' => 'Jeudi',
+                    'Friday' => 'Vendredi',
+                    'Saturday' => 'Samedi',
+                    'Sunday' => 'Dimanche'
+                ];
+                foreach ($daysOfWeek as $value => $label): ?>
+                    <option value="<?= $value ?>"><?= $label ?></option>
                 <?php endforeach; ?>
             </select>
             <div class="field-desc"><?=DAYOFTHEWEEK?></div>
