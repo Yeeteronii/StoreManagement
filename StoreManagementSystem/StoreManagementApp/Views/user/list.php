@@ -38,7 +38,7 @@ $canDelete = $data['canDelete'] ?? false;
     </div>
     <div class="controls">
         <form method="GET" action="<?= dirname($path); ?>/user/list">
-            <input type="text" name="search" placeholder="<?=SEARCH?>"
+            <input type="text" name="search" placeholder="<?=SEARCHUSER?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search-light.png">

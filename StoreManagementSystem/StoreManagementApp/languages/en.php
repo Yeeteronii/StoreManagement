@@ -200,6 +200,8 @@ define("ADDSHIFT", "Add Shift");
 define("ADDERRORMESSAGE", "An error occurred. Please check the input.");
 define("INVALID", "Invalid Category");
 
+define("SEARCHUSER", "Search users... ");
+define("SEARCHSUPPLIER", "Search suppliers... ");
 
 
 

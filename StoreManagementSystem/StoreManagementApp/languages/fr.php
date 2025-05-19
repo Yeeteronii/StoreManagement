@@ -185,5 +185,8 @@ define("ADDSHIFT", "Ajouter un quart de travail");
 define("ADDERRORMESSAGE", "Une erreur est survenue. Veuillez vérifier les informations saisies.");
 define("INVALID", "Catégorie invalide");
 
+define("SEARCHUSER", "Rechercher... ");
+define("SEARCHSUPPLIER", "Rechercher... ");
+
 
 ?>

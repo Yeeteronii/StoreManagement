@@ -53,7 +53,7 @@ function formatPhoneNumber($number) {
     </div>
     <div class="controls">
         <form method="GET" action="<?= dirname($path); ?>/supplier/list">
-            <input type="text" name="search" placeholder="<?=SEARCH?>"
+            <input type="text" name="search" placeholder="<?=SEARCHSUPPLIER?>"
                    value="<?= htmlspecialchars($searchTerm) ?>">
             <button type="submit" class="icon-btn">
                 <img src="<?= $dirname ?>/images/search-light.png">
