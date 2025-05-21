@@ -231,28 +231,43 @@ class User extends Model
     public static function delete($ids)
     {
         if (empty($ids)) return;
-
         $conn = Model::connect();
-
-        $in = implode(',', array_fill(0, count($ids), '?'));
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
         $types = str_repeat('i', count($ids));
+        $sql = "SELECT u.id, g.name AS role 
+            FROM users u 
+            JOIN users_groups ug ON u.id = ug.user_id 
+            JOIN groups g ON ug.group_id = g.id 
+            WHERE u.id IN ($placeholders)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param($types, ...$ids);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        $stmt1 = $conn->prepare("DELETE FROM users_groups WHERE user_id IN ($in)");
-        if (!$stmt1) {
-            throw new Exception("Prepare failed for users_groups: " . $conn->error);
+        $nonAdminIds = [];
+        while ($row = $result->fetch_object()) {
+            if (strtolower($row->role) !== 'admin') {
+                $nonAdminIds[] = $row->id;
+            }
         }
-        $stmt1->bind_param($types, ...$ids);
-        $stmt1->execute();
-        $stmt1->close();
-
-        $stmt2 = $conn->prepare("DELETE FROM users WHERE id IN ($in)");
-        if (!$stmt2) {
-            throw new Exception("Prepare failed for users: " . $conn->error);
-        }
-        $stmt2->bind_param($types, ...$ids);
-        $stmt2->execute();
-        $stmt2->close();
+        $stmt->close();
+        if (empty($nonAdminIds)) return;
+        $in = implode(',', array_fill(0, count($nonAdminIds), '?'));
+        $types = str_repeat('i', count($nonAdminIds));
+        $stmtShift = $conn->prepare("DELETE FROM shifts WHERE userId IN ($in)");
+        $stmtShift->bind_param($types, ...$nonAdminIds);
+        $stmtShift->execute();
+        $stmtShift->close();
+        $stmtGroups = $conn->prepare("DELETE FROM users_groups WHERE user_id IN ($in)");
+        $stmtGroups->bind_param($types, ...$nonAdminIds);
+        $stmtGroups->execute();
+        $stmtGroups->close();
+        $stmtUsers = $conn->prepare("DELETE FROM users WHERE id IN ($in)");
+        $stmtUsers->bind_param($types, ...$nonAdminIds);
+        $stmtUsers->execute();
+        $stmtUsers->close();
     }
+
     public static function getAllGroups()
     {
         $conn = Model::connect();

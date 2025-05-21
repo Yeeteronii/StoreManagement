@@ -199,20 +199,23 @@ $source = strtolower($_GET['controller'] ?? 'unknown');
                 </select>
                 <div class="field-desc"><?=USERNAMETOOLTIP?></div>
 
+                <?php
+                $days = [
+                    'Monday' => MONDAY,
+                    'Tuesday' => TUESDAY,
+                    'Wednesday' => WEDNESDAY,
+                    'Thursday' => THURSDAY,
+                    'Friday' => FRIDAY,
+                    'Saturday' => SATURDAY,
+                    'Sunday' => SUNDAY
+                ];
+                ?>
                 <label for="day"><?=SELECTDAY?></label>
                 <select name="day" id="day" required>
-                    <?php
-                    $daysOfWeek = [
-                        'Monday' => 'Lundi',
-                        'Tuesday' => 'Mardi',
-                        'Wednesday' => 'Mercredi',
-                        'Thursday' => 'Jeudi',
-                        'Friday' => 'Vendredi',
-                        'Saturday' => 'Samedi',
-                        'Sunday' => 'Dimanche'
-                    ];
-                    foreach ($daysOfWeek as $value => $label): ?>
-                        <option value="<?= $value ?>"><?= $label ?></option>
+                    <?php foreach ($days as $value => $label): ?>
+                        <option value="<?= $value ?>" <?= (isset($shift) && $shift->day === $value) ? 'selected' : '' ?>>
+                            <?= $label ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
                 <div class="field-desc"><?=DAYOFTHEWEEK?></div>

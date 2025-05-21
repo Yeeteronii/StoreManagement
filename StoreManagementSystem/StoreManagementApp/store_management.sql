@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 10, 2025 at 03:54 AM
+-- Generation Time: May 21, 2025 at 03:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,17 +93,6 @@ CREATE TABLE `categories` (
   `categoryTax` double NOT NULL COMMENT 'Example: 0.5',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled)\r\n1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`categoryId`, `categoryName`, `categoryTax`, `isActive`) VALUES
-(1, 'Veggies', 1.2, 1),
-(2, 'Fruits', 0.36, 1),
-(3, 'Drinks', 6.52, 1),
-(4, 'Chocolate', 2.52, 1),
-(5, 'Candy', 0.45, 1);
 
 -- --------------------------------------------------------
 
@@ -208,15 +197,6 @@ CREATE TABLE `orders` (
   `quantity` int(11) NOT NULL COMMENT 'Example: 10'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`orderId`, `productId`, `orderDate`, `quantity`) VALUES
-(6, 13, '2025-05-08', 0),
-(7, 13, '2025-05-08', 0),
-(8, 13, '2025-05-08', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -234,15 +214,6 @@ CREATE TABLE `products` (
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`productId`, `productName`, `cost`, `priceToSell`, `categoryId`, `threshold`, `quantity`, `isActive`) VALUES
-(12, 'Skittles', 3.99, 5.99, 5, 20, 40, 1),
-(13, 'grapes', 21, 12, 2, 32, 87, 1),
-(14, 'Vodka', 21, 21, 3, 23, 322, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -257,14 +228,6 @@ CREATE TABLE `reports` (
   `description` varchar(128) NOT NULL COMMENT 'Example: Beer was not well, Candy was selling good, neutral on everything else',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `reports`
---
-
-INSERT INTO `reports` (`reportId`, `date`, `earnings`, `profits`, `description`, `isActive`) VALUES
-(1, '2025-05-09', 3199.11, 219.44, 'Up day due to a high sell of our most expensive items', 1),
-(2, '2025-05-09', 978.09, -234.97, 'Down day due to a miss in sales', 1);
 
 -- --------------------------------------------------------
 
@@ -285,7 +248,7 @@ CREATE TABLE `shifts` (
 --
 
 INSERT INTO `shifts` (`shiftId`, `userId`, `day`, `startTime`, `endTime`) VALUES
-(35, 7, 'Monday', '09:00:00', '20:00:00');
+(53, 6, 'Monday', '09:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -300,13 +263,6 @@ CREATE TABLE `suppliers` (
   `phoneNum` varchar(11) NOT NULL COMMENT 'Example: 222-111-8907',
   `isActive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Example: 0: (disabled) 1: (enabled)	'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`supplierId`, `supplierName`, `email`, `phoneNum`, `isActive`) VALUES
-(3, 'Long John Silvers', 'LJS@gmail.com', '7895215896', 1);
 
 -- --------------------------------------------------------
 
@@ -327,9 +283,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `twofa_secret`, `twofa_enabled`) VALUES
-(5, 'round', '$2y$10$3x1XpZlWTFaeBHjg5ndl7O/qYJ46sBwGaPTAPOMqj38tobGVTvCz6', 'CIYQ2E7ZHDDYODWSPEIHNIYLYRN2WG4E', 1),
-(6, 'parth', '$2y$10$m4Ci1qHB01eB98jdOaxgy.NaWPSN3VG7W8WQ7iqF1gtacCTw8myre', '3LAXNYPW3JMCVREUKL553WT3G6FPTHTG', 1),
-(7, 'employee', '$2y$10$p6.skUGztBj35a8QFaVb8uTpt8i9CB0JVcm7edo5Ruc2I5ktZ6PAS', NULL, 0);
+(6, 'admin', '$2y$10$9bYfhl.m6CFCSF2WYGGkauh/L8bPEj5YStFzTWB3j6d.lao/IKvM6', NULL, 0),
+(15, 'employee', '$2y$10$T12AFUu.dsXsfVoCxuZ.j.KByJxgoh1cmWoDYux9fexClAekdcLP.', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -348,9 +303,8 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(5, 5, 1),
 (6, 6, 1),
-(7, 7, 2);
+(15, 15, 2);
 
 --
 -- Indexes for dumped tables
@@ -461,13 +415,13 @@ ALTER TABLE `groups_actions`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=9;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=15;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `reports`
@@ -479,7 +433,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `shifts`
 --
 ALTER TABLE `shifts`
-  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=36;
+  MODIFY `shiftId` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -491,13 +445,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1', AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 1', AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Example: 11111111111', AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

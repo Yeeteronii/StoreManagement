@@ -91,7 +91,15 @@ $canDelete = $data['canDelete'] ?? false;
         <?php foreach ($users as $user): ?>
 
             <tr>
-                <td><input type="checkbox" class="delete-checkbox" value="<?= $user->id ?>"></td>
+                <td>
+                    <?php
+                    $isSelf = $user->id == $_SESSION['user_id'];
+                    $isSameRole = strtolower($user->role) === strtolower($_SESSION['role']);
+                    if (!($isSelf || ($isSameRole && !$isSelf))) {
+                        echo '<input type="checkbox" class="delete-checkbox" value="' . $user->id . '">';
+                    }
+                    ?>
+                </td>
                 <td><?= htmlspecialchars($user->username) ?></td>
                 <td><?= str_repeat('*', strlen($user->password)) ?></td>
                 <td><?= htmlspecialchars($user->role)?></td>
